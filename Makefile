@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: nivergne <nivergne@student.42.fr>          +#+  +:+       +#+         #
+#    By: nicolasv <nicolasv@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/18 19:23:29 by nivergne          #+#    #+#              #
-#    Updated: 2019/10/18 19:32:01 by nivergne         ###   ########.fr        #
+#    Updated: 2019/10/20 01:00:22 by nicolasv         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,13 +26,13 @@ DEPS = $(subst .o,.d,$(OBJ))
 
 all: $(ASM) $(VM)
 
-$(ASM): $(OBJ) | makelib
-	@echo "$(BOL)$(GRN)ASM			$(BLU)compile$(GRN)		[OK]$(END)"
-	@$(CC) $(INC_PATH) $(OBJ) -L libft -lft -o $(NAME)
+$(ASM): $(OBJ_ASM) | makelib
+	@echo "$(BOLD)$(CYAN)ASM		$(BLUE)$(patsubst obj/%, %, $(basename $@))	$(GREEN)[OK]$(END)"
+	@$(CC) $(INC_PATH) $(OBJ_ASM) -L libft -lft -o $(NAME)
 
-$(VM): $(OBJ) | makelib
-	@echo "$(BOL)$(GRN)VM			$(BLU)compile$(GRN)		[OK]$(END)"
-	@$(CC) $(INC_PATH) $(OBJ) -L libft -lft -o $(NAME)
+$(VM): $(OBJ_VM) | makelib
+	@echo "$(BOLD)$(CYAN)VM		$(BLUE)$(patsubst obj/%, %, $(basename $@))	$(GREEN)[OK]$(END)"
+	@$(CC) $(INC_PATH) $(OBJ_VM) -L libft -lft -o $(NAME)
 
 
 makelib:

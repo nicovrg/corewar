@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    clean.mk                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: nivergne <nivergne@student.42.fr>          +#+  +:+       +#+         #
+#    By: nicolasv <nicolasv@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/09/22 23:51:03 by nivergne          #+#    #+#              #
-#    Updated: 2019/10/18 19:24:13 by nivergne         ###   ########.fr        #
+#    Updated: 2019/10/20 00:42:26 by nicolasv         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,5 +16,5 @@ clean:
 
 fclean: clean
 	@make -C libft fclean
-	@echo "$(CYA)$(BOL)LEMIN			$(BLU)bin$(END)$(RED)		[delete]$(END)"
+	@echo "$(CYA)$(BOL)COREWAR			$(BLU)bin$(END)$(RED)		[delete]$(END)"
 	@/bin/rm -f $(NAME)
