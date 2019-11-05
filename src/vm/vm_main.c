@@ -1,22 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   corewar.h                                          :+:      :+:    :+:   */
+/*   vm_main.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: qgirard <qgirard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/10/20 00:07:02 by nicolasv          #+#    #+#             */
-/*   Updated: 2019/11/05 14:53:21 by qgirard          ###   ########.fr       */
+/*   Created: 2019/11/05 15:32:40 by qgirard           #+#    #+#             */
+/*   Updated: 2019/11/05 16:24:35 by qgirard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef COREWAR_H
-# define COREWAR_H
+#include "corewar.h"
+#include "libft.h"
 
-# define ERR_NB_PARAMETERS "asm takes only one file as parameter"
-# define ERR_FILE_TYPE "not a valid file, the file should be a .s"
-# define ERR_OPEN_FILE "file doesn't exist"
+int		main(int argc, char **argv)
+{
+	int		i;
 
-int		error_msg(char *error_msg, int i);
-
-#endif
+	i = 1;
+	if (argc > 5)
+	{
+		ft_putendl("Too many champions");
+	}
+	else
+	{
+		while (argv[i])
+		{
+			if (argv[i] && ft_strchr(argv[i], '.')
+			&& ft_strcmp(ft_strchr(argv[i], '.'), ".s"))
+				return (error_msg(ERR_FILE_TYPE, 1));
+		}
+	}
+	return (0);
+}

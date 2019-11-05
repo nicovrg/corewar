@@ -1,22 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   corewar.h                                          :+:      :+:    :+:   */
+/*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: qgirard <qgirard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/10/20 00:07:02 by nicolasv          #+#    #+#             */
-/*   Updated: 2019/11/05 14:53:21 by qgirard          ###   ########.fr       */
+/*   Created: 2019/11/05 14:21:47 by qgirard           #+#    #+#             */
+/*   Updated: 2019/11/05 14:52:11 by qgirard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef COREWAR_H
-# define COREWAR_H
+#include "corewar.h"
+#include "libft.h"
 
-# define ERR_NB_PARAMETERS "asm takes only one file as parameter"
-# define ERR_FILE_TYPE "not a valid file, the file should be a .s"
-# define ERR_OPEN_FILE "file doesn't exist"
+int		main(int argc, char **argv)
+{
+	int		fd;
 
-int		error_msg(char *error_msg, int i);
-
-#endif
+	if (argc != 2)
+		return (error_msg(ERR_NB_PARAMETERS, 1));
+	else
+	{
+		if (argv[1] && ft_strchr(argv[1], '.')
+		&& ft_strcmp(ft_strchr(argv[1], '.'), ".s"))
+			return (error_msg(ERR_FILE_TYPE, 1));
+		else if (argv[1] && (fd = open(argv[1], O_RDONLY)) == -1)
+			return (error_msg(ERR_OPEN_FILE, 1));
+	}
+	return (0);
+}
