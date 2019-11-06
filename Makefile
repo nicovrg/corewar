@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: qgirard <qgirard@student.42.fr>            +#+  +:+       +#+         #
+#    By: nicolasv <nicolasv@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/18 19:23:29 by nivergne          #+#    #+#              #
-#    Updated: 2019/11/05 17:00:22 by qgirard          ###   ########.fr        #
+#    Updated: 2019/11/06 02:33:42 by nicolasv         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,29 +27,32 @@ DEPS = $(subst .o,.d,$(OBJ))
 all: debug $(ASM) $(VM) 
 
 $(ASM): $(OBJ_ASM) | makelib
-	@echo "$(BOL)$(GRN)ASM			$(BLU)compile$(GRN)		[OK]$(END)"
+	@echo "$(BOLD)$(GREEN)ASM			$(BLUE)compile$(GREEN)		[OK]$(END)"
 	@$(CC) $(INC_PATH) $(OBJ_ASM) -L libft -lft -o $(ASM)
 
 $(VM): $(OBJ_VM) | makelib
-	@echo "$(BOL)$(GRN)VM			$(BLU)compile$(GRN)		[OK]$(END)"
+	@echo "$(BOLD)$(GREEN)VM			$(BLUE)compile$(GREEN)		[OK]$(END)"
 	@$(CC) $(INC_PATH) $(OBJ_VM) -L libft -lft -o $(VM)
 
 debug:
-	@echo "$(OBJ_ASM)"
-	@echo "$(OBJ_VM)"
-
+	@echo "OBJ_ASM:"
+	@echo "$(OBJ_ASM)\n"
+	@echo "OBJ_VM:"
+	@echo "$(OBJ_VM)\n"
+	@echo "$(OBJ_PATH).o"
+	
 makelib:
 	@$(MAKE) -C libft
 
-obj/%.o: src/%.c
+$(OBJ_PATH)%.o: $(SRC_PATH)%.c
 	@mkdir -p obj
 	@mkdir -p $(dir $@)
 	@echo "test"
 	@echo "$(patsubst obj/%, %, $(basename $@))"	
 	@echo "$(BOLD)$(CYAN)corewar		$(BLUE)$(patsubst obj/%, %, $(basename $@))	$(GREEN)[OK]$(END)"	
-	@printf "$(UP_LINE)"
+	# @printf "$(UP_LINE)"
 	@$(CC) $(CFLAGS) $(CPPFLAGS) $(INC_PATH) -o $@ -c $<
-	@printf "$(ERASE_LINE)"
+	# @printf "$(ERASE_LINE)"
 
 include mk/bitcoin.mk
 include mk/debug.mk
