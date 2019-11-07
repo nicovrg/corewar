@@ -1,30 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   corewar.h                                          :+:      :+:    :+:   */
+/*   vm_error.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: qgirard <qgirard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/10/20 00:07:02 by nicolasv          #+#    #+#             */
-/*   Updated: 2019/11/07 12:33:30 by qgirard          ###   ########.fr       */
+/*   Created: 2019/11/05 17:21:52 by qgirard           #+#    #+#             */
+/*   Updated: 2019/11/07 12:01:14 by qgirard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef COREWAR_H
-# define COREWAR_H
+#include "corewar.h"
+#include "libft.h"
 
-# define ERR_NB_PARAMETERS "asm takes only one file as parameter"
-# define ERR_FILE_TYPE "not a valid file, the file should be a .s"
-# define ERR_OPEN_FILE "file doesn't exist"
-
-int				error_msg(char *error_msg, int i);
-int				vm_usage(int i);
-
-typedef struct	s_champion
+int		vm_usage(int i)
 {
-	int		size;
-	int		player;
-	char	*champion;
-}				t_champion;
+	ft_putendl("Usage:  ./corewar [-dump nbr_cycles] [[-n number] champion1.cor]");
+	return (i);
+}
 
-#endif
+int		vm_error_champion(char *champion)
+{
+	ft_putstr("Error: File ");
+	ft_putstr(champion);
+	ft_putendl("is not a valid champion");
+	return (0);
+}
