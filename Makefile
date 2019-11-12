@@ -6,7 +6,7 @@
 #    By: nicolasv <nicolasv@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/18 19:23:29 by nivergne          #+#    #+#              #
-#    Updated: 2019/11/06 02:33:42 by nicolasv         ###   ########.fr        #
+#    Updated: 2019/11/12 01:32:48 by nicolasv         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,7 +24,7 @@ CPPFLAGS += -MMD -MP
 LIB = libft/libft.a
 DEPS = $(subst .o,.d,$(OBJ))
 
-all: debug $(ASM) $(VM) 
+all: $(ASM) $(VM) 
 
 $(ASM): $(OBJ_ASM) | makelib
 	@echo "$(BOLD)$(GREEN)ASM			$(BLUE)compile$(GREEN)		[OK]$(END)"
@@ -34,12 +34,6 @@ $(VM): $(OBJ_VM) | makelib
 	@echo "$(BOLD)$(GREEN)VM			$(BLUE)compile$(GREEN)		[OK]$(END)"
 	@$(CC) $(INC_PATH) $(OBJ_VM) -L libft -lft -o $(VM)
 
-debug:
-	@echo "OBJ_ASM:"
-	@echo "$(OBJ_ASM)\n"
-	@echo "OBJ_VM:"
-	@echo "$(OBJ_VM)\n"
-	@echo "$(OBJ_PATH).o"
 	
 makelib:
 	@$(MAKE) -C libft
@@ -47,12 +41,11 @@ makelib:
 $(OBJ_PATH)%.o: $(SRC_PATH)%.c
 	@mkdir -p obj
 	@mkdir -p $(dir $@)
-	@echo "test"
 	@echo "$(patsubst obj/%, %, $(basename $@))"	
 	@echo "$(BOLD)$(CYAN)corewar		$(BLUE)$(patsubst obj/%, %, $(basename $@))	$(GREEN)[OK]$(END)"	
-	# @printf "$(UP_LINE)"
+	@printf "$(UP_LINE)"
 	@$(CC) $(CFLAGS) $(CPPFLAGS) $(INC_PATH) -o $@ -c $<
-	# @printf "$(ERASE_LINE)"
+	@printf "$(ERASE_LINE)"
 
 include mk/bitcoin.mk
 include mk/debug.mk
