@@ -6,7 +6,7 @@
 #    By: nicolasv <nicolasv@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/09/22 23:50:50 by nivergne          #+#    #+#              #
-#    Updated: 2019/11/12 01:32:55 by nicolasv         ###   ########.fr        #
+#    Updated: 2019/11/27 03:40:34 by nicolasv         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,3 +27,8 @@ debug:
 	@echo "$(SRC_VM)\n"
 	@echo "$(GREEN)OBJ_VM:$(END)"
 	@echo "$(OBJ_VM)\n"
+	@echo "\n"
+	@echo "$(GREEN)SRC_ASM:$(END)"
+	@echo "$($(SRC_ASM))"
+	@echo "$(GREEN)OBJ_ASM_PATH:$(END)"
+	@echo "$(OBJ_ASM_PATH)"

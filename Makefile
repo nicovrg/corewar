@@ -6,7 +6,7 @@
 #    By: nicolasv <nicolasv@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/18 19:23:29 by nivergne          #+#    #+#              #
-#    Updated: 2019/11/12 01:32:48 by nicolasv         ###   ########.fr        #
+#    Updated: 2019/11/27 03:34:53 by nicolasv         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,7 +24,9 @@ CPPFLAGS += -MMD -MP
 LIB = libft/libft.a
 DEPS = $(subst .o,.d,$(OBJ))
 
-all: $(ASM) $(VM) 
+all: $(ASM) debug
+
+# all: $(ASM) $(VM) 
 
 $(ASM): $(OBJ_ASM) | makelib
 	@echo "$(BOLD)$(GREEN)ASM			$(BLUE)compile$(GREEN)		[OK]$(END)"
@@ -33,7 +35,6 @@ $(ASM): $(OBJ_ASM) | makelib
 $(VM): $(OBJ_VM) | makelib
 	@echo "$(BOLD)$(GREEN)VM			$(BLUE)compile$(GREEN)		[OK]$(END)"
 	@$(CC) $(INC_PATH) $(OBJ_VM) -L libft -lft -o $(VM)
-
 	
 makelib:
 	@$(MAKE) -C libft
