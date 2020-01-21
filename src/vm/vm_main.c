@@ -6,7 +6,7 @@
 /*   By: nivergne <nivergne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/05 15:32:40 by qgirard           #+#    #+#             */
-/*   Updated: 2020/01/21 01:28:43 by nivergne         ###   ########.fr       */
+/*   Updated: 2020/01/21 02:37:15 by nivergne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 int		parse_args(char *argv, t_champion **champs)
 {
+	(void)champs;
 	if (argv && (!ft_strchr(argv, '.')
 	|| (ft_strcmp(ft_strchr(argv, '.'), ".cor") && (argv[0] != '-'
 	&& !ft_isdigit(argv[0])))))
@@ -30,18 +31,18 @@ int		parse_args(char *argv, t_champion **champs)
 
 int		main(int argc, char **argv)
 {
-	// int			i;
-	// t_champion	*champs;
+	int			i;
+	t_champion	*champs;
 
-	// i = 1;
-	// champs = NULL;
-	// if (argc < 2)
-	// 	return (vm_usage(1));
-	// while (argv[i])
-	// {
-	// 	if (!parse_args(argv[i], &champs))
-	// 		return (1);	
-	// 	i++;
-	// }
+	i = 1;
+	champs = NULL;
+	if (argc < 2)
+		return (vm_usage(1));
+	while (argv[i])
+	{
+		if (!parse_args(argv[i], &champs))
+			return (1);	
+		i++;
+	}
 	return (0);
 }

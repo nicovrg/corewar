@@ -6,7 +6,7 @@
 #    By: nivergne <nivergne@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/09/22 23:46:29 by nivergne          #+#    #+#              #
-#    Updated: 2020/01/21 01:27:16 by nivergne         ###   ########.fr        #
+#    Updated: 2020/01/21 02:36:50 by nivergne         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,7 @@ SRC_ASM =			asm_main.c\
 SRC_VM =			vm_main.c\
 					vm_checks.c\
 					vm_error.c\
-					add_champions.c
+					vm_add_champions.c
 
 
 SRC_ASM := $(addprefix $(SRC_ASM_PATH), $(SRC_ASM))

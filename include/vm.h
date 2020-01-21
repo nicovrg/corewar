@@ -17,16 +17,25 @@
 # define ERR_FILE_TYPE "not a valid file, the file should be a .s"
 # define ERR_OPEN_FILE "file doesn't exist"
 
-/* vm_main.c */
-
-int				error_msg(char *error_msg, int i);
-int				vm_usage(int i);
-
 typedef struct	s_champion
 {
 	int		size;
 	int		player;
 	char	*champion;
 }				t_champion;
+
+/* vm_main.c */
+int				parse_args(char *argv, t_champion **champs);
+
+/* vm_error.c */
+int				vm_usage(int i);
+int				vm_error_champion(char *champion);
+
+/* vm_checks.c */
+int				check_nb_player(char *argv);
+int				check_flags(char *argv);
+
+/* vm_add_champions.c */
+int				add_champions(char *champion);
 
 #endif
