@@ -6,11 +6,11 @@
 /*   By: qgirard <qgirard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/05 15:32:40 by qgirard           #+#    #+#             */
-/*   Updated: 2019/11/13 13:34:51 by qgirard          ###   ########.fr       */
+/*   Updated: 2020/01/22 00:40:46 by qgirard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "corewar.h"
+#include "vm.h"
 #include "libft.h"
 
 int		parse_args(char *argv, t_corewar *stock)

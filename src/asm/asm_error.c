@@ -1,19 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   add_champions.c                                    :+:      :+:    :+:   */
+/*   asm_error.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: qgirard <qgirard@student.42.fr>            +#+  +:+       +#+        */
+/*   By: nivergne <nivergne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/11/05 17:46:26 by qgirard           #+#    #+#             */
-/*   Updated: 2019/11/07 12:26:11 by qgirard          ###   ########.fr       */
+/*   Created: 2019/10/07 15:32:54 by qgirard           #+#    #+#             */
+/*   Updated: 2020/01/21 02:55:58 by nivergne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "corewar.h"
+#include "asm.h"
 #include "libft.h"
 
-int		add_champions(char *champion)
+int		error_msg(char *error_msg, int error_code)
 {
-	return (1);
+	ft_putendl(error_msg);
+	return (error_code);
 }

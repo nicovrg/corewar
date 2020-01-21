@@ -6,11 +6,11 @@
 /*   By: qgirard <qgirard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 12:23:03 by qgirard           #+#    #+#             */
-/*   Updated: 2019/11/07 15:23:43 by qgirard          ###   ########.fr       */
+/*   Updated: 2020/01/22 00:41:29 by qgirard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "corewar.h"
+#include "vm.h"
 #include "libft.h"
 
 int		check_if_number(char *argv)
