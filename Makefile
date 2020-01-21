@@ -6,7 +6,7 @@
 #    By: nivergne <nivergne@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/18 19:23:29 by nivergne          #+#    #+#              #
-#    Updated: 2020/01/21 02:22:50 by nivergne         ###   ########.fr        #
+#    Updated: 2020/01/21 02:51:38 by nivergne         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,7 +24,7 @@ CPPFLAGS += -MMD -MP
 LIB = libft/libft.a
 DEPS = $(subst .o,.d,$(OBJ))
 
-all: $(ASM) $(VM) 
+all: makelib $(ASM) $(VM)
 
 $(ASM): $(OBJ_ASM) | makelib
 	@echo "$(BOLD)$(GREEN)ASM			$(BLUE)compile$(GREEN)		[OK]$(END)"
@@ -43,11 +43,14 @@ $(OBJ_PATH)%.o: $(SRC_PATH)%.c
 	@mkdir -p $(dir $@)
 	@if [[ "$(findstring asm,$(basename $@))" = "asm" ]]; then\
 		echo "$(BOLD)$(CYAN)asm		$(BLUE)$(patsubst obj/%, %, $(basename $@))		$(GREEN)[OK]$(END)";\
+		printf "$(UP_LINE)";\
+		printf "$(ERASE_LINE)";\
     fi;
 	@if [[ "$(findstring vm,$(basename $@))" = "vm" ]]; then\
 		echo "$(BOLD)$(CYAN)vm		$(BLUE)$(patsubst obj/%, %, $(basename $@))		$(GREEN)[OK]$(END)";\
+		printf "$(UP_LINE)";\
+		printf "$(ERASE_LINE)";\
     fi;
-
 	@echo "$(BOLD)$(CYAN)corewar		$(BLUE)$(patsubst obj/%, %, $(basename $@))	$(GREEN)[OK]$(END)"	
 	@printf "$(UP_LINE)"
 	@$(CC) $(CFLAGS) $(CPPFLAGS) $(INC_PATH) -o $@ -c $<
@@ -56,14 +59,6 @@ $(OBJ_PATH)%.o: $(SRC_PATH)%.c
 include mk/bitcoin.mk
 include mk/debug.mk
 include mk/clean.mk
-# @echo "|$(findstring asm,$(basename $@))|"
-# ifeq ((findstring asm,$(basename $@)), "asm")
-# 	# @echo aaaaaaaa
-# 	@echo "$(BOLD)$(CYAN)asm		$(BLUE)$(patsubst obj/%, %, $(basename $@))		$(GREEN)[OK]$(END)"	
-# else
-# 	# @echo Bbbbbbb
-# 	@echo "$(BOLD)$(CYAN)vm		$(BLUE)$(patsubst obj/%, %, $(basename $@))		$(GREEN)[OK]$(END)"	
-# endif
 
 re: fclean all
 
