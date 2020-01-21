@@ -1,26 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   corewar.h                                          :+:      :+:    :+:   */
+/*   asm_error.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nicolasv <nicolasv@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nivergne <nivergne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/10/20 00:07:02 by nicolasv          #+#    #+#             */
-/*   Updated: 2019/11/27 03:04:30 by nicolasv         ###   ########.fr       */
+/*   Created: 2019/10/07 15:32:54 by qgirard           #+#    #+#             */
+/*   Updated: 2020/01/21 02:55:58 by nivergne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef COREWAR_H
-# define COREWAR_H
+#include "asm.h"
+#include "libft.h"
 
-int				error_msg(char *error_msg, int error_code);
-int				vm_usage(int i);
-
-typedef struct	s_champion
+int		error_msg(char *error_msg, int error_code)
 {
-	int		size;
-	int		player;
-	char	*champion;
-}				t_champion;
-
-#endif
+	ft_putendl(error_msg);
+	return (error_code);
+}

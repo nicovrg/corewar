@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   vm_error.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: qgirard <qgirard@student.42.fr>            +#+  +:+       +#+        */
+/*   By: nivergne <nivergne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/05 17:21:52 by qgirard           #+#    #+#             */
-/*   Updated: 2019/11/07 12:01:14 by qgirard          ###   ########.fr       */
+/*   Updated: 2020/01/21 01:28:44 by nivergne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "corewar.h"
+#include "vm.h"
 #include "libft.h"
 
 int		vm_usage(int i)

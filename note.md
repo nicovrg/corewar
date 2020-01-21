@@ -13,4 +13,8 @@ Since this behavior is not described in the text of the task, in your own implem
 
 ## Part 5
 
+<<<<<<< HEAD
 ## Part 6
+=======
+## Part 6
+>>>>>>> ba1ac4f2fa4ad80d0674ee12323a2731e0143f92
