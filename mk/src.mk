@@ -6,7 +6,7 @@
 #    By: qgirard <qgirard@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/09/22 23:46:29 by nivergne          #+#    #+#              #
-#    Updated: 2020/01/22 00:42:24 by qgirard          ###   ########.fr        #
+#    Updated: 2020/01/22 00:44:15 by qgirard          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ SRC_PATH		:=	src/
 SRC_ASM_PATH	:=	asm/
 SRC_VM_PATH		:=	vm/
 
-SRC_ASM =			main.c\
+SRC_ASM =			asm_main.c\
 
 SRC_VM =			vm_checks.c\
 					vm_main.c\

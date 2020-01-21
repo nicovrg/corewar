@@ -6,14 +6,14 @@
 /*   By: qgirard <qgirard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/05 14:21:47 by qgirard           #+#    #+#             */
-/*   Updated: 2020/01/22 00:41:49 by qgirard          ###   ########.fr       */
+/*   Updated: 2020/01/22 00:45:12 by qgirard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
 #include "libft.h"
 
-int		main(int argc, char **argv)
+int		main(void)
 {
 	return (0);
 }

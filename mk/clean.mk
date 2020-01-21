@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    clean.mk                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: nicolasv <nicolasv@student.42.fr>          +#+  +:+       +#+         #
+#    By: qgirard <qgirard@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/09/22 23:51:03 by nivergne          #+#    #+#              #
-#    Updated: 2019/11/06 02:06:19 by nicolasv         ###   ########.fr        #
+#    Updated: 2020/01/22 00:50:16 by qgirard          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,4 +17,4 @@ clean:
 fclean: clean
 	@make -C libft fclean
 	@echo "$(CYAN)$(BOLD)COREWAR			$(BLUE)bin$(END)$(RED)		[delete]$(END)"
-	@/bin/rm -f $(NAME)
+	@/bin/rm -f $(ASM) $(VM)

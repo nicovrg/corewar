@@ -6,11 +6,11 @@
 /*   By: qgirard <qgirard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 16:19:15 by qgirard           #+#    #+#             */
-/*   Updated: 2019/11/13 14:52:28 by qgirard          ###   ########.fr       */
+/*   Updated: 2020/01/22 00:48:49 by qgirard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "corewar.h"
+#include "vm.h"
 #include "libft.h"
 
 int		read_champions(char *argv, t_corewar *stock)
