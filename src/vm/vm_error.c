@@ -6,23 +6,30 @@
 /*   By: qgirard <qgirard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/05 17:21:52 by qgirard           #+#    #+#             */
-/*   Updated: 2019/11/07 12:01:14 by qgirard          ###   ########.fr       */
+/*   Updated: 2019/11/13 13:06:31 by qgirard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 #include "libft.h"
 
-int		vm_usage(int i)
+int		error_msg(char *error_msg, int i)
 {
-	ft_putendl("Usage:  ./corewar [-dump nbr_cycles] [[-n number] champion1.cor]");
+	ft_putendl(error_msg);
 	return (i);
 }
 
-int		vm_error_champion(char *champion)
+int		vm_error_champion(char *champion, int var, int size)
 {
 	ft_putstr("Error: File ");
 	ft_putstr(champion);
-	ft_putendl("is not a valid champion");
+	if (var == 1)
+		ft_putendl(" is not a valid champion");
+	else if (var == 2)
+	{
+		ft_putstr(" has too large a code (");
+		ft_putnbr(size);
+		ft_putendl(" bytes > 682 bytes)");
+	}
 	return (0);
 }
