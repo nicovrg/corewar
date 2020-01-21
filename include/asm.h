@@ -1,19 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   add_champions.c                                    :+:      :+:    :+:   */
+/*   asm.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nivergne <nivergne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/11/05 17:46:26 by qgirard           #+#    #+#             */
-/*   Updated: 2020/01/21 01:28:24 by nivergne         ###   ########.fr       */
+/*   Created: 2020/01/21 01:21:58 by nivergne          #+#    #+#             */
+/*   Updated: 2020/01/21 01:27:53 by nivergne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "vm.h"
-#include "libft.h"
+#ifndef ASM_H
+# define ASM_H
 
-int		add_champions(char *champion)
+# define ERR_NB_PARAMETERS "asm takes only one file as parameter"
+# define ERR_FILE_TYPE "not a valid file, the file should be a .s"
+# define ERR_OPEN_FILE "file doesn't exist"
+
+/* vm_main.c */
+
+int				error_msg(char *error_msg, int i);
+int				vm_usage(int i);
+
+typedef struct	s_champion
 {
-	return (1);
-}
+	int		size;
+	int		player;
+	char	*champion;
+}				t_champion;
+
+#endif
