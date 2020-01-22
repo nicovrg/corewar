@@ -6,14 +6,14 @@
 /*   By: qgirard <qgirard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/05 15:32:40 by qgirard           #+#    #+#             */
-/*   Updated: 2020/01/22 00:40:46 by qgirard          ###   ########.fr       */
+/*   Updated: 2020/01/22 05:38:27 by qgirard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
 #include "libft.h"
 
-int		parse_args(char *argv, t_corewar *stock)
+int		parse_args(char *argv, t_corewar *stock, t_champion **champions)
 {
 	if (argv && argv[0] != '-' && !ft_isdigit(argv[0])
 	&& (!ft_strchr(argv, '.') || ft_strcmp(ft_strchr(argv, '.'), ".cor")))
@@ -29,8 +29,10 @@ int		parse_args(char *argv, t_corewar *stock)
 			return (0);
 	}
 	else
-		if (!(read_champions(argv, stock)))
+	{
+		if (!(add_champions(argv, stock, champions)))
 			return (0);
+	}
 	return (1);
 }
 
@@ -40,7 +42,7 @@ int		parse_args(char *argv, t_corewar *stock)
 ** pour le moment pour une meilleure visibilite
 */
 
-int		init_stock(t_corewar *stock)
+int		init_structs(t_corewar *stock)
 {
 	stock->first_player = 0;
 	stock->second_player = 0;
@@ -58,15 +60,17 @@ int		main(int argc, char **argv)
 {
 	int			i;
 	t_corewar	stock;
+	t_champion	*champions;
 
 	i = 1;
-	init_stock(&stock);
+	champions = NULL;
 	if (argc < 2)
 		return (error_msg(ERR_VM_USAGE, 1));
+	init_structs(&stock);
 	while (argv[i])
 	{
-		if (!parse_args(argv[i], &stock))
-			return (1);	
+		if (!parse_args(argv[i], &stock, &champions))
+			return (1);
 		i++;
 	}
 	return (0);

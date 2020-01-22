@@ -1,33 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   read_champions.c                                   :+:      :+:    :+:   */
+/*   vm_lists.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: qgirard <qgirard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/11/07 16:19:15 by qgirard           #+#    #+#             */
-/*   Updated: 2020/01/22 00:48:49 by qgirard          ###   ########.fr       */
+/*   Created: 2020/01/22 05:40:42 by qgirard           #+#    #+#             */
+/*   Updated: 2020/01/22 06:10:10 by qgirard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
 #include "libft.h"
 
-int		read_champions(char *argv, t_corewar *stock)
+t_champion		*champions_list(t_champion **champions)
 {
-	int			fd;
-	char		*line;
+	t_champion	*tmp;
+	t_champion	*new;
 
-	fd = 0;
-	if (argv && (fd = open(argv, O_RDONLY)) == -1)
-		return (error_msg(ERR_OPEN_FILE, 0));
-	while (get_next_line(fd, &line) == 1)
-	{
-		ft_putendl(line);
-		ft_strdel(&line);
-	}
-	close(fd);
-	stock->n_option = 0;
-	stock->nb_player = 0;
-	return (1);
+	tmp = (*champions);
+	while (tmp && tmp->next)
+		tmp = tmp->next;
+	if (!(new = (t_champion *)malloc(sizeof(t_champion))))
+		return (NULL);
+	new->next = NULL;
+	new->name = NULL;
+	new->size = 0;
+	new->player = 0;
+	if (*champions)
+		tmp->next = new;
+	else
+		*champions = new;
+	return (new);
 }
