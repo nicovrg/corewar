@@ -6,7 +6,7 @@
 /*   By: qgirard <qgirard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/20 00:07:02 by nicolasv          #+#    #+#             */
-/*   Updated: 2020/01/22 06:54:23 by qgirard          ###   ########.fr       */
+/*   Updated: 2020/01/23 03:15:41 by qgirard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 # define ERR_VM_USAGE "Usage:  ./corewar [-dump nbr_cycles] [[-n number] champion1.cor]"
 
 # define HEADER_SIZE 2192
-# define BYTE_AFTER_PADDING 135
+# define BYTE_AFTER_PADDING 136
 # define MAGIC_NUMBER_PT_1 0
 # define MAGIC_NUMBER_PT_2 4294967274
 # define MAGIC_NUMBER_PT_3 4294967171
@@ -33,7 +33,7 @@ enum header {magic_nb, name, padding1, instructions_size, comment, padding2};
 
 typedef struct		s_champion
 {
-	unsigned int		size;
+	unsigned long		size;
 	int					player;
 	char				*name;
 	struct s_champion	*next;

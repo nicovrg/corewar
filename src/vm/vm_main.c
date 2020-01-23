@@ -6,7 +6,7 @@
 /*   By: qgirard <qgirard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/05 15:32:40 by qgirard           #+#    #+#             */
-/*   Updated: 2020/01/22 05:38:27 by qgirard          ###   ########.fr       */
+/*   Updated: 2020/01/23 02:44:58 by qgirard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 int		parse_args(char *argv, t_corewar *stock, t_champion **champions)
 {
 	if (argv && argv[0] != '-' && !ft_isdigit(argv[0])
-	&& (!ft_strchr(argv, '.') || ft_strcmp(ft_strchr(argv, '.'), ".cor")))
+	&& (!ft_strrchr(argv, '.') || ft_strcmp(ft_strrchr(argv, '.'), ".cor")))
 		return (vm_error_champion(argv, 1, 0));
 	if (argv[0] == '-')
 	{

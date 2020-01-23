@@ -6,18 +6,91 @@
 /*   By: qgirard <qgirard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/22 03:15:38 by qgirard           #+#    #+#             */
-/*   Updated: 2020/01/22 06:56:45 by qgirard          ###   ########.fr       */
+/*   Updated: 2020/01/23 07:05:35 by qgirard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
+#include "op.h"
 #include "libft.h"
+#include "ft_printf.h"
 
-static int			check_instructions_size(char *line, enum header *state, int *i,
-t_champion **tmp)
+static int			reverse_bits(int kobe)
 {
+	int		i;
+	char	*buff;
+	char	*tmp;
+
+	i = 0;
+	tmp = NULL;
+	if (!(buff = ft_itoa_base(kobe, 2)))
+		return (0);
+	while (i < (int)(8 - ft_strlen(buff)))
+	{
+		if (!tmp)
+			tmp = ft_strdup("0");
+		else
+			tmp = ft_strjoinf(tmp, "0", 1);
+		i++;
+	}
+	tmp = ft_strjoinf(tmp, buff, 3);
+	i = 0;
+	while (tmp && tmp[i])
+	{
+		if (tmp[i] == '0')
+			tmp[i] = '1';
+		else
+			tmp[i] = '0';
+		i++;
+	}
+	i--;
+	while (i > 0)
+	{
+		if (tmp[i] == '0')
+		{
+			tmp[i] = '1';
+			i = 0;
+		}
+		else
+			tmp[i] = '0';
+		i--;
+	}
+	kobe = ft_atoi_base(tmp, 2);
+	ft_strdel(&tmp);
+	return (kobe);
+}
+
+static int			check_instructions_size(char *line, enum header *state,
+int *i, t_champion **tmp)
+{
+	int		kobe;
+	int		byte;
+	int		index;
+	char	*buff;
+
+	index = *i;
+	buff = NULL;
+	byte = 0;
+	while (!line[index] && index - *i < 4)
+		index++;
+	*i = *i + 3;
+	if (*i >= index && line[index])
+		buff = ft_strsub(line, index, *i - index + 1);
+	if (buff)
+	{
+		kobe = ft_strlen(buff) - 1;
+		while (kobe >= 0)
+		{
+			if ((int)buff[kobe] < 0)
+				(*tmp)->size = (*tmp)->size + ft_power(256, byte) * (unsigned int)reverse_bits(-(buff[kobe]));
+			else
+				(*tmp)->size = (*tmp)->size + ft_power(256, byte) * (unsigned int)buff[kobe];
+			kobe--;
+			byte++;
+		}
+	}
+	printf("%lu\n", (*tmp)->size);
 	*state = comment;
-	*i = *i + 4;
 	return (1);
 }
 
