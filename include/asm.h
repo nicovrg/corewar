@@ -6,16 +6,18 @@
 /*   By: nivergne <nivergne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/21 01:21:58 by nivergne          #+#    #+#             */
-/*   Updated: 2020/01/22 06:30:44 by nivergne         ###   ########.fr       */
+/*   Updated: 2020/01/23 00:14:08 by nivergne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef ASM_H
 # define ASM_H
 
-# define ERR_NB_PARAMETERS "asm takes only one file as parameter"
-# define ERR_FILE_TYPE "not a valid file, the file should be a .s"
-# define ERR_OPEN_FILE "file doesn't exist"
+# define ERR_MAIN_NB_PARAMETERS "error in main - asm takes only one file as parameter"
+# define ERR_MAIN_FILE_TYPE "error in main - not a valid file, the file should be a .s"
+# define ERR_MAIN_OPEN_FILE "error in main - file doesn't exist"
+
+# define ERR_LEXER_NODE_CREATE "error in lexer - could not create new node"
 
 typedef struct			s_token
 {
@@ -24,14 +26,14 @@ typedef struct			s_token
 	struct s_token		*next;
 }						t_token;
 
-typedef struct			s_line
+typedef struct			s_lexer
 {
 	int					nb_line;
 	char				*line;
 	char				*label;
 	struct s_token		*token;
 	struct s_line		*next;
-}						t_line;
+}						t_lexer;
 
 
 /* asm_main.c */
