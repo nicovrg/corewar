@@ -6,7 +6,7 @@
 /*   By: nivergne <nivergne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/21 01:21:58 by nivergne          #+#    #+#             */
-/*   Updated: 2020/01/23 00:14:08 by nivergne         ###   ########.fr       */
+/*   Updated: 2020/01/23 04:40:15 by nivergne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,12 +32,19 @@ typedef struct			s_lexer
 	char				*line;
 	char				*label;
 	struct s_token		*token;
-	struct s_line		*next;
+	struct s_lexer		*next;
 }						t_lexer;
 
 
 /* asm_main.c */
 
+/* asm_lexer.c */
+int						new_lexer_node(t_lexer **lex, int nb_line);
+int						lexer(int fd, t_lexer **lex);
+
+/* asm_token.c */
+int						new_token_node(t_token **token);
+int						create_tokens(char *line, t_token **token);
 
 int						error_msg(char *error_msg, int i);
 int						vm_usage(int i);

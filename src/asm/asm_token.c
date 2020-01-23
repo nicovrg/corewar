@@ -1,0 +1,51 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   asm_token.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: nivergne <nivergne@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/01/23 04:28:29 by nivergne          #+#    #+#             */
+/*   Updated: 2020/01/23 04:42:18 by nivergne         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "asm.h"
+#include "libft.h"
+
+/*
+** ==================== new_token_node ====================
+** if it s the first token, instanciate the list
+** else go at the end of the list and add a new node
+*/
+
+int		new_token_node(t_token **token)
+{
+	t_token		*new;
+	t_token		*tmp_token;
+
+	tmp_token = (*token);
+	while (tmp_token && tmp_token->next)
+		tmp_token = tmp_token->next;
+	if (!(new = (t_token *)ft_memalloc(sizeof(t_token))))
+		return (0);
+	if ((*token))
+		tmp_token->next = new;
+	else
+		(*token) = new;
+	return (1);
+}
+
+/*
+** ==================== create_tokens ====================
+** 
+*/
+
+int		create_tokens(char *line, t_token **token)
+{
+    
+    ft_putendl(line);
+    return (1);
+}
+
+
