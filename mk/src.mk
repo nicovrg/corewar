@@ -6,7 +6,7 @@
 #    By: qgirard <qgirard@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/09/22 23:46:29 by nivergne          #+#    #+#              #
-#    Updated: 2020/01/22 05:42:35 by qgirard          ###   ########.fr        #
+#    Updated: 2020/01/24 21:39:25 by qgirard          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,10 @@ SRC_VM =			vm_checks.c\
 					vm_error.c\
 					vm_add_champions.c\
 					vm_header_check.c\
-					vm_lists.c
+					vm_lists.c\
+					vm_free.c\
+					vm_init.c\
+					vm_nb_players.c
 
 
 SRC_ASM := $(addprefix $(SRC_ASM_PATH), $(SRC_ASM))

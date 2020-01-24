@@ -6,7 +6,7 @@
 /*   By: qgirard <qgirard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/22 03:15:38 by qgirard           #+#    #+#             */
-/*   Updated: 2020/01/23 07:05:35 by qgirard          ###   ########.fr       */
+/*   Updated: 2020/01/24 20:50:42 by qgirard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,15 +82,30 @@ int *i, t_champion **tmp)
 		while (kobe >= 0)
 		{
 			if ((int)buff[kobe] < 0)
-				(*tmp)->size = (*tmp)->size + ft_power(256, byte) * (unsigned int)reverse_bits(-(buff[kobe]));
+				(*tmp)->size = (*tmp)->size + ft_power(256, byte)
+				* (unsigned int)reverse_bits(-(buff[kobe]));
 			else
 				(*tmp)->size = (*tmp)->size + ft_power(256, byte) * (unsigned int)buff[kobe];
 			kobe--;
 			byte++;
 		}
 	}
-	printf("%lu\n", (*tmp)->size);
+	ft_strdel(&buff);
 	*state = comment;
+	return (1);
+}
+
+static int			check_comments(char *line, enum header *state, int *i, t_champion **tmp)
+{
+	int			index;
+
+	*i = *i + 1;
+	index = *i;
+	while (line[index])
+		index++;
+	if (!((*tmp)->comment = ft_strsub(line, *i, index - *i)))
+		return (0);
+	*state = padding;
 	return (1);
 }
 
@@ -108,7 +123,6 @@ t_champion **champions)
 	if (!(tmp->name = ft_strsub(line, *i, index - *i)))
 		return (NULL);
 	*state = instructions_size;
-	// *state = padding1;
 	*i = BYTE_AFTER_PADDING;
 	return (tmp);
 }
@@ -128,7 +142,7 @@ static int			magic_number(char *line, enum header *state, int *i)
 	return (1);
 }
 
-int					header_check(char *line, t_champion **champions)
+int					header_check(t_corewar *stock, char *line, t_champion **champions)
 {
 	int			i;
 	t_champion	*tmp;
@@ -147,7 +161,16 @@ int					header_check(char *line, t_champion **champions)
 		if (state == instructions_size)
 			if (!(check_instructions_size(line, &state, &i, &tmp)))
 				return (0);
+		if (state == comment)
+			if (!(check_comments(line, &state, &i, &tmp)))
+				return (error_msg(ERR_MALLOC, 0));				
 		i++;
 	}
+	add_nb_player(stock, &tmp);
 	return (1);
 }
+
+/*
+** ==================== instruction size ====================
+** faire la gestion d'erreur si size > max_champ_size
+*/

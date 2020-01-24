@@ -6,12 +6,27 @@
 /*   By: qgirard <qgirard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/05 15:32:40 by qgirard           #+#    #+#             */
-/*   Updated: 2020/01/23 02:44:58 by qgirard          ###   ########.fr       */
+/*   Updated: 2020/01/24 21:35:44 by qgirard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
 #include "libft.h"
+
+int		count_champions(t_champion **champions)
+{
+	int			i;
+	t_champion	*tmp;
+
+	i = 0;
+	tmp = (*champions);
+	while (tmp)
+	{
+		i++;
+		tmp = tmp->next;
+	}
+	return (i);
+}
 
 int		parse_args(char *argv, t_corewar *stock, t_champion **champions)
 {
@@ -23,15 +38,20 @@ int		parse_args(char *argv, t_corewar *stock, t_champion **champions)
 		if (!check_flags(argv, stock))
 			return (error_msg(ERR_VM_USAGE, 0));
 	}
-	else if (ft_isdigit(argv[0]))
+	else if (check_if_number(argv))
 	{
 		if (!check_player_or_cycles(argv, stock))
 			return (0);
 	}
 	else
 	{
-		if (!(add_champions(argv, stock, champions)))
-			return (0);
+		if (count_champions(champions) < 4)
+		{
+			if (!(add_champions(argv, stock, champions)))
+				return (0);
+		}
+		else
+			return (error_msg(ERR_CHAMPS_NB, 0));
 	}
 	return (1);
 }
@@ -47,7 +67,7 @@ int		init_structs(t_corewar *stock)
 	stock->first_player = 0;
 	stock->second_player = 0;
 	stock->third_player = 0;
-	stock->last_player = 0;
+	stock->fourth_player = 0;
 	stock->dump_option = 0;
 	stock->dump_cycles = 0;
 	stock->n_option = 0;
@@ -70,8 +90,10 @@ int		main(int argc, char **argv)
 	while (argv[i])
 	{
 		if (!parse_args(argv[i], &stock, &champions))
-			return (1);
+			return (vm_free(&champions));
 		i++;
 	}
+	introduce_champs(&champions);
+	vm_free(&champions);
 	return (0);
 }

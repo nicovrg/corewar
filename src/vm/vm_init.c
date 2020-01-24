@@ -1,41 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   vm_error.c                                         :+:      :+:    :+:   */
+/*   vm_init.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: qgirard <qgirard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/11/05 17:21:52 by qgirard           #+#    #+#             */
-/*   Updated: 2020/01/24 20:47:46 by qgirard          ###   ########.fr       */
+/*   Created: 2020/01/24 20:26:54 by qgirard           #+#    #+#             */
+/*   Updated: 2020/01/24 20:37:47 by qgirard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
 #include "libft.h"
+#include "ft_printf.h"
 
-int		error_header(int *fd)
+int		introduce_champs(t_champion **champions)
 {
-	close(*fd);
-	return (0);
-}
+	t_champion	*tmp;
 
-int		error_msg(char *error_msg, int i)
-{
-	ft_putendl(error_msg);
-	return (i);
-}
-
-int		vm_error_champion(char *champion, int var, int size)
-{
-	ft_putstr("Error: File ");
-	ft_putstr(champion);
-	if (var == 1)
-		ft_putendl(" is not a valid champion");
-	else if (var == 2)
+	tmp = (*champions);
+	ft_putendl("Introducing contestants...");
+	while (tmp)
 	{
-		ft_putstr(" has too large a code (");
-		ft_putnbr(size);
-		ft_putendl(" bytes > 682 bytes)");
+		ft_printf("* Player %d weighing %lu bytes, \"%s\" (\"%s\") !\n",
+		tmp->player, tmp->size, tmp->name, tmp->comment);
+		tmp = tmp->next;	
 	}
-	return (0);
+	return (1);
 }

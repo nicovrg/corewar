@@ -1,41 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   vm_error.c                                         :+:      :+:    :+:   */
+/*   vm_free.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: qgirard <qgirard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/11/05 17:21:52 by qgirard           #+#    #+#             */
-/*   Updated: 2020/01/24 20:47:46 by qgirard          ###   ########.fr       */
+/*   Created: 2020/01/24 20:03:56 by qgirard           #+#    #+#             */
+/*   Updated: 2020/01/24 20:08:44 by qgirard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
 #include "libft.h"
 
-int		error_header(int *fd)
+int		vm_free(t_champion **champions)
 {
-	close(*fd);
-	return (0);
-}
+	t_champion	*tmp;
 
-int		error_msg(char *error_msg, int i)
-{
-	ft_putendl(error_msg);
-	return (i);
-}
-
-int		vm_error_champion(char *champion, int var, int size)
-{
-	ft_putstr("Error: File ");
-	ft_putstr(champion);
-	if (var == 1)
-		ft_putendl(" is not a valid champion");
-	else if (var == 2)
+	while (*champions)
 	{
-		ft_putstr(" has too large a code (");
-		ft_putnbr(size);
-		ft_putendl(" bytes > 682 bytes)");
+		tmp = *champions;
+		ft_strdel(&(tmp->name));
+		ft_strdel(&(tmp->comment));
+		*champions = (*champions)->next;
+		free(tmp);
 	}
-	return (0);
+	return (1);
 }

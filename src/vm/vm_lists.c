@@ -6,7 +6,7 @@
 /*   By: qgirard <qgirard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/22 05:40:42 by qgirard           #+#    #+#             */
-/*   Updated: 2020/01/22 06:10:10 by qgirard          ###   ########.fr       */
+/*   Updated: 2020/01/24 20:08:23 by qgirard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ t_champion		*champions_list(t_champion **champions)
 		return (NULL);
 	new->next = NULL;
 	new->name = NULL;
+	new->comment = NULL;
 	new->size = 0;
 	new->player = 0;
 	if (*champions)

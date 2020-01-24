@@ -6,7 +6,7 @@
 /*   By: qgirard <qgirard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 12:23:03 by qgirard           #+#    #+#             */
-/*   Updated: 2020/01/22 05:36:41 by qgirard          ###   ########.fr       */
+/*   Updated: 2020/01/24 21:30:38 by qgirard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,6 @@ int		check_if_number(char *argv)
 
 int		check_player_or_cycles(char *argv, t_corewar *stock)
 {
-	if (!check_if_number(argv))
-		return (error_msg(ERR_VM_NUMBERS, 0));
 	if (stock->n_option == 1)
 	{
 		stock->nb_player = ft_atoi(argv);

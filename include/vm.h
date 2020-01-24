@@ -6,7 +6,7 @@
 /*   By: qgirard <qgirard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/20 00:07:02 by nicolasv          #+#    #+#             */
-/*   Updated: 2020/01/23 03:15:41 by qgirard          ###   ########.fr       */
+/*   Updated: 2020/01/24 21:35:36 by qgirard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include "op.h"
 
+# define ERR_CHAMPS_NB "Too many champions"
 # define ERR_FILE_HEADER "Header of the file is invalid"
 # define ERR_MALLOC "malloc error"
 # define ERR_OPEN_FILE "file doesn't exist"
@@ -29,13 +30,14 @@
 # define MAGIC_NUMBER_PT_3 4294967171
 # define MAGIC_NUMBER_PT_4 4294967283
 
-enum header {magic_nb, name, padding1, instructions_size, comment, padding2};
+enum header {magic_nb, name, instructions_size, comment, padding};
 
 typedef struct		s_champion
 {
 	unsigned long		size;
 	int					player;
 	char				*name;
+	char				*comment;
 	struct s_champion	*next;
 }					t_champion;
 
@@ -44,7 +46,7 @@ typedef struct			s_corewar
 	int					first_player;
 	int					second_player;
 	int					third_player;
-	int					last_player;
+	int					fourth_player;
 	int					n_option;
 	int					dump_option;
 	long				dump_cycles;
@@ -53,12 +55,17 @@ typedef struct			s_corewar
 }						t_corewar;
 
 int						add_champions(char *argv, t_corewar *stock, t_champion **champions);
+int						add_nb_player(t_corewar *stock, t_champion **tmp);
 t_champion				*champions_list(t_champion **champions);
 int						check_flags(char *argv, t_corewar *stock);
+int						check_if_number(char *argv);
 int						check_player_or_cycles(char *argv, t_corewar *stock);
+int						error_header(int *fd);
 int						error_msg(char *error_msg, int i);
-int						header_check(char *line, t_champion **champions);
+int						header_check(t_corewar *stock, char *line, t_champion **champions);
+int						introduce_champs(t_champion **champions);
 int						vm_error_champion(char *champion, int var, int size);
+int						vm_free(t_champion **champions);
 int						vm_usage(int i);
 
 #endif
