@@ -6,7 +6,7 @@
 /*   By: nicolasv <nicolasv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 23:44:32 by amamy             #+#    #+#             */
-/*   Updated: 2020/01/25 02:37:07 by nicolasv         ###   ########.fr       */
+/*   Updated: 2020/01/25 02:59:40 by nicolasv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,14 +23,15 @@ int		is_comment(char c)
 
 int		is_whitespace(char c)
 {
-	if (c => 10 && c =< 13 || c == ' ')
+	if ((c >= 10 && c <= 13) || c == ' ')
 		return (1);
 	return (0);
 }
 
-int		is_dirty()
+int		is_dirty(char *str)
 {
-	
+	(void)str;
+	return (0);
 }
 
 int		get_string(t_data **data, char *str)
@@ -43,22 +44,23 @@ int		get_string(t_data **data, char *str)
 	j = 0;
 	while (str[i])
 	{
-		while (line[i] && is_whitespace(line[i]))
+		while (str[i] && is_whitespace(str[i]))
 			i++;
 		if (str[i] && str[i] == '\"')
 		{
 			while (str[i] && str[i] != '\"')
 				j++;
-			if (is_dirty(str[i + j]))
+			if (is_dirty(&str[i + j]))
 				return (0);
 			else
 			{
-				(*data)->name_line = ft_strndup(str[i], j);
+				(*data)->name = ft_strdup(&str[i]); //need strndup and give it , j
 				return (1);
 			}
 		}
 		i++;
 	}
+	return (0);
 }
 
 
@@ -72,11 +74,14 @@ int		get_string(t_data **data, char *str)
 
 int		header(int fd, t_data **data)
 {
+	int i;
 	char	*line;
 
+	i = 0;
+	line = NULL;
 	if (!(ft_memalloc(sizeof(t_data))))
 		return (0);
-	while ((!((*data)->name_line)) && (!((*data)->comment_line)) && (get_next_line(fd, line) > 0))
+	while ((!((*data)->name_line)) && (!((*data)->comment_line)) && (get_next_line(fd, &line) > 0))
 	{
 		if (!is_comment(line[0]))
 		{
@@ -86,7 +91,7 @@ int		header(int fd, t_data **data)
 					i++;
 				if ((ft_strncmp(".name", line + i, 5) == 0) || (ft_strncmp(".comment", line + i, 8) == 0))
 					if (!get_string(data, line + i + 5))
-						return (error_msg("invalid syntax", 0);
+						return (error_msg("invalid syntax", 0));
 			}
 		}
 		(*data)->index_line++;

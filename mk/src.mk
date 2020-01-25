@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    src.mk                                             :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: nivergne <nivergne@student.42.fr>          +#+  +:+       +#+         #
+#    By: nicolasv <nicolasv@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/09/22 23:46:29 by nivergne          #+#    #+#              #
-#    Updated: 2020/01/23 04:42:46 by nivergne         ###   ########.fr        #
+#    Updated: 2020/01/25 02:50:30 by nicolasv         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,6 +15,7 @@ SRC_ASM_PATH	:=	asm/
 SRC_VM_PATH		:=	vm/
 
 SRC_ASM =			asm_main.c\
+					asm_header.c\
 					asm_lexer.c\
 					asm_token.c\
 					asm_splitter.c\

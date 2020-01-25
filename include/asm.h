@@ -6,7 +6,7 @@
 /*   By: nicolasv <nicolasv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/21 01:21:58 by nivergne          #+#    #+#             */
-/*   Updated: 2020/01/25 01:34:48 by nicolasv         ###   ########.fr       */
+/*   Updated: 2020/01/25 02:50:54 by nicolasv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,5 +59,10 @@ int						create_tokens(char *line, t_token **token);
 
 int						error_msg(char *error_msg, int i);
 int						vm_usage(int i);
+
+/* asm_header.c */
+int						header(int fd, t_data **data);
+
+
 
 #endif
