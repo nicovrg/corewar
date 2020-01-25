@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   asm.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amamy <amamy@student.42.fr>                +#+  +:+       +#+        */
+/*   By: nicolasv <nicolasv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/21 01:21:58 by nivergne          #+#    #+#             */
-/*   Updated: 2020/01/24 06:08:45 by amamy            ###   ########.fr       */
+/*   Updated: 2020/01/25 01:34:48 by nicolasv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,17 @@
 # define ERR_MAIN_OPEN_FILE "error in main - file doesn't exist"
 
 # define ERR_LEXER_NODE_CREATE "error in lexer - could not create new node"
+
+# define COMMENT_CHAR '#'
+
+typedef	 struct			s_data
+{
+	char				*name;
+	char				*comment;
+	int					index_line;
+	int					name_line;
+	int					comment_line;
+}						t_data;
 
 typedef struct			s_token
 {
@@ -31,7 +42,6 @@ typedef struct			s_lexer
 	int					nb_line;
 	char				*line;
 	char				*label;
-	char 				*words;
 	struct s_token		*token;
 	struct s_lexer		*next;
 }						t_lexer;
