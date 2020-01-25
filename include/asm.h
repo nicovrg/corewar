@@ -6,7 +6,7 @@
 /*   By: nivergne <nivergne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/21 01:21:58 by nivergne          #+#    #+#             */
-/*   Updated: 2020/01/25 22:48:11 by nivergne         ###   ########.fr       */
+/*   Updated: 2020/01/25 23:05:26 by nivergne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ int						create_tokens(char *line, t_token **token);
 int						error_msg(char *error_msg, int i);
 int						asm_usage(int i);
 int						print_data(t_data **data);
+int						error_while_gnl(char **line, char *error_msg);
 
 /* asm_header_one.c */
 int						is_comment(char c);

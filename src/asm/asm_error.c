@@ -6,7 +6,7 @@
 /*   By: nivergne <nivergne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/07 15:32:54 by qgirard           #+#    #+#             */
-/*   Updated: 2020/01/25 21:37:01 by nivergne         ###   ########.fr       */
+/*   Updated: 2020/01/25 23:03:48 by nivergne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,14 @@ int		error_msg(char *error_msg, int error_code)
 {
 	ft_putendl(error_msg);
 	return (error_code);
+}
+
+
+int		error_while_gnl(char **line, char *error_msg)
+{
+	ft_putendl(error_msg);
+	ft_strdel(line);
+	return (0);
 }
 
 int		asm_usage(int i)

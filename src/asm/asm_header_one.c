@@ -6,7 +6,7 @@
 /*   By: nivergne <nivergne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 23:44:32 by amamy             #+#    #+#             */
-/*   Updated: 2020/01/25 22:47:25 by nivergne         ###   ########.fr       */
+/*   Updated: 2020/01/25 23:02:20 by nivergne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,6 +113,6 @@ int		header(int fd, t_data **data)
 				return(error_msg("Fail in heder", 0));
 		(*data)->index_line++;
 	}
-		print_data(data);
+	print_data(data);
 	return (1);
 }

@@ -6,3 +6,4 @@ entree:	live	%42		# entree
 	ld	%0,r5
 	ld	%0,r5
 	zjmp	%:lebocal_lesgrosgamins
+
