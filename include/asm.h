@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   asm.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nicolasv <nicolasv@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nivergne <nivergne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/21 01:21:58 by nivergne          #+#    #+#             */
-/*   Updated: 2020/01/25 04:12:46 by nicolasv         ###   ########.fr       */
+/*   Updated: 2020/01/25 22:48:11 by nivergne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,11 @@
 
 typedef	 struct			s_data
 {
+	int					name_line;
+	int					comment_line;
 	char				*name;
 	char				*comment;
 	int					index_line;
-	int					name_line;
-	int					comment_line;
 }						t_data;
 
 typedef struct			s_token
@@ -67,7 +67,17 @@ int						error_msg(char *error_msg, int i);
 int						asm_usage(int i);
 int						print_data(t_data **data);
 
-/* asm_header.c */
+/* asm_header_one.c */
+int						is_comment(char c);
+int						is_whitespace(char c);
+int						is_dirty(char *str);
+int						get_string_child(t_data **data, char *str, int mode, int i);
+int						get_string(t_data **data, char *str, int mode);
+
+/* asm_header_two.c */
+int						get_name(int i, char *line, t_data **data);
+int						get_comment(int i, char *line, t_data **data);
+int						little_parsing(char *line, t_data **data);
 int						header(int fd, t_data **data);
 
 /* asm_lib.c */
