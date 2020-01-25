@@ -6,12 +6,17 @@
 /*   By: nicolasv <nicolasv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/21 01:21:58 by nivergne          #+#    #+#             */
-/*   Updated: 2020/01/25 02:50:54 by nicolasv         ###   ########.fr       */
+/*   Updated: 2020/01/25 04:12:46 by nicolasv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef ASM_H
 # define ASM_H
+
+# include <stdlib.h>
+# include <string.h>
+// # include <unistd.h>
+// # include "libft.h"
 
 # define ERR_MAIN_NB_PARAMETERS "error in main - asm takes only one file as parameter"
 # define ERR_MAIN_FILE_TYPE "error in main - not a valid file, the file should be a .s"
@@ -57,11 +62,18 @@ int						lexer(int fd, t_lexer **lex);
 int						new_token_node(t_token **token);
 int						create_tokens(char *line, t_token **token);
 
+/* asm_error.c */
 int						error_msg(char *error_msg, int i);
-int						vm_usage(int i);
+int						asm_usage(int i);
+int						print_data(t_data **data);
 
 /* asm_header.c */
 int						header(int fd, t_data **data);
+
+/* asm_lib.c */
+char					*ft_strndup(const char *s1, ssize_t len);
+
+/* asm_splitter.c */
 
 
 

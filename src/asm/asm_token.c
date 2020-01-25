@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   asm_token.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amamy <amamy@student.42.fr>                +#+  +:+       +#+        */
+/*   By: nicolasv <nicolasv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/23 04:28:29 by nivergne          #+#    #+#             */
-/*   Updated: 2020/01/24 02:35:29 by amamy            ###   ########.fr       */
+/*   Updated: 2020/01/25 03:16:35 by nicolasv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,8 @@ int		new_token_node(t_token **token)
 int		create_tokens(char *line, t_token **token)
 {
     (void)token;
-    ft_putendl(line);
-    ft_putendl("^line:");
+    (void)line;
+    // ft_putendl(line);
     return (1);
 }
 

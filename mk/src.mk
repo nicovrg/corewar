@@ -6,7 +6,7 @@
 #    By: nicolasv <nicolasv@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/09/22 23:46:29 by nivergne          #+#    #+#              #
-#    Updated: 2020/01/25 02:50:30 by nicolasv         ###   ########.fr        #
+#    Updated: 2020/01/25 04:04:14 by nicolasv         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,6 +19,7 @@ SRC_ASM =			asm_main.c\
 					asm_lexer.c\
 					asm_token.c\
 					asm_splitter.c\
+					asm_lib.c\
 					asm_error.c
 
 SRC_VM =			vm_main.c\
