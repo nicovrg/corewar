@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   asm_header.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nicolasv <nicolasv@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amamy <amamy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 23:44:32 by amamy             #+#    #+#             */
-/*   Updated: 2020/01/25 04:51:02 by nicolasv         ###   ########.fr       */
+/*   Updated: 2020/01/25 06:24:21 by amamy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,20 +34,17 @@ int		is_dirty(char *str)
 	int i;
 
 	i = 0;
-	ft_printf("is dirtystr = %s\n", str);
+	// ft_printf("is dirtystr = %s\n", str);
 	if (!str)
 		return (1);
 	while (str[i] && str[i] != '#')
 		i++;
 	if (str[i] != '\0')
-	{
-		ft_printf("ca return de la merde la\n");
 		return (0);
-	}
 	return (1);
 }
 
-int		get_string(t_data **data, char *str)
+int		get_string(t_data **data, char *str, int mode)
 {
 	int i;
 	int j;
@@ -69,7 +66,11 @@ int		get_string(t_data **data, char *str)
 				return (0);
 			else
 			{
-				(*data)->name = ft_strndup(&str[i], j);
+				if (mode == 1)
+					(*data)->name = ft_strndup(&str[i], j);
+				else if (mode == 2)
+					(*data)->comment = ft_strndup(&str[i], j);
+				ft_printf("%s\n", "get_string ok");
 				return (1);
 			}
 		}
@@ -88,11 +89,24 @@ int		little_parsing(char *line, t_data **data)
 		while (is_whitespace(line[i]))
 			i++;
 		if (ft_strncmp(".name", line + i, 5) == 0)
-			if (!get_string(data, line + i + 5))
+		{
+			if (!get_string(data, line + i + 5, 1))
 				return (error_msg("invalid syntax for name", 0));
-		if ((ft_strncmp(".comment", line + i, 8) == 0))
-			if (!get_string(data, line + i + 8))
+			(*data)->name_line = (*data)->index_line;
+			return (1);
+		}
+		else if ((ft_strncmp(".comment", line + i, 8) == 0))
+		{
+			if (!get_string(data, line + i + 8, 2))
 				return (error_msg("invalid syntax for comment", 0));
+			(*data)->comment_line = (*data)->index_line;
+			return (1);
+		}
+		else if (line[i] != '.')
+		{
+			ft_printf("Invalid line : |%s|\n", line);
+			return(error_msg("Unknown token in header", 0));
+		}
 		i++;
 	}
 	return (1);
@@ -115,8 +129,10 @@ int		header(int fd, t_data **data)
 		return (0);
 	while ((*data) && ((!((*data)->name_line)) || (!((*data)->comment_line))) && (get_next_line(fd, &line) > 0))
 	{
-		if (line && !is_comment(line[0]))
-			little_parsing(line, data);
+		ft_printf("%s\n", "LA");
+		if (line && (!is_comment(line[0]) || !ft_strcmp(line, "")))
+			if (!little_parsing(line, data))
+				return(error_msg("Fail in heder", 0));
 		(*data)->index_line++;
 	}
 	print_data(data);

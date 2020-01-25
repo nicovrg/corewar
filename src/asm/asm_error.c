@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   asm_error.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nicolasv <nicolasv@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amamy <amamy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/07 15:32:54 by qgirard           #+#    #+#             */
-/*   Updated: 2020/01/25 04:15:16 by nicolasv         ###   ########.fr       */
+/*   Updated: 2020/01/25 05:26:52 by amamy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int		print_data(t_data **data)
 	if (!data || !(*data))
 		return(error_msg("data is not initialized", 0));
 	ft_printf(" / ============ START DATA STRUCTURE ============ \\\n");
-	ft_printf("\t.name =\t\t|%s|\n", (*data)->name);
+	ft_printf("\t.name =\t\t\t|%s|\n", (*data)->name);
 	ft_printf("\t.comment =\t\t|%s|\n", (*data)->comment);
 	ft_printf("\tindex_line =\t\t|%d|\n", (*data)->index_line);
 	ft_printf("\tindex_name =\t\t|%d|\n", (*data)->name_line);
