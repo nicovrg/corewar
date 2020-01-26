@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   asm_debug.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nivergne <nivergne@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nicolasv <nicolasv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/07 15:32:54 by qgirard           #+#    #+#             */
-/*   Updated: 2020/01/26 04:01:02 by nivergne         ###   ########.fr       */
+/*   Updated: 2020/01/26 19:26:31 by nicolasv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int		print_lexer(t_lexer **lexer)
 	ft_putendl("\n\n");
 	while (tmp_lexer)
 	{
-		ft_printf("\t\x1b[1m\x1b[36m/ ======================== START LEXER NODE ======================== \\\x1b[0m\n");
+		ft_printf("\t\x1b[1m\x1b[36m/ ======================= START LEXER NODE ======================= \\\x1b[0m\n");
 		ft_putendl("");
 		ft_printf("\t\tline number =\t\t\t\t|%d|\n", tmp_lexer->nb_line);
 		ft_printf("\t\tline string =\t\t\t\t|\x1b[32m%s\x1b[0m|\n", tmp_lexer->line);
@@ -52,7 +52,7 @@ int		print_lexer(t_lexer **lexer)
 		ft_printf("\t\taddress to current node =\t\t|%p|\n", tmp_lexer);
 		ft_printf("\t\taddress to following node =\t\t|%p|\n", tmp_lexer->next);
 		ft_putendl("");
-		ft_printf("\t\x1b[1m\x1b[36m\\ ======================== END LEXER NODE ======================== /\t\t\x1b[0m\n");
+		ft_printf("\t\x1b[1m\x1b[36m\\ ======================== END LEXER NODE ======================== /\t\t\x1b[0m\n\n");
 		tmp_lexer = tmp_lexer->next;
 	}
 	ft_putendl("");

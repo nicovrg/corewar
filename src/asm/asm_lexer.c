@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   asm_lexer.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amamy <amamy@student.42.fr>                +#+  +:+       +#+        */
+/*   By: nicolasv <nicolasv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/23 04:24:28 by nivergne          #+#    #+#             */
-/*   Updated: 2020/01/26 06:41:24 by amamy            ###   ########.fr       */
+/*   Updated: 2020/01/26 19:28:00 by nicolasv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,6 @@ int		lexer(int fd, t_data **data, t_lexer **lex)
 			continue ;
 		if (!(tmp_lex = new_lexer_node(lex)))
 			return (error_msg(ERR_LEXER_NODE_CREATE, 0));
-		ft_printf("line = %s\n", line);
 		(*tmp_lex)->nb_line = index;
 		(*tmp_lex)->line = ft_strdup(line);
      
@@ -74,7 +73,5 @@ int		lexer(int fd, t_data **data, t_lexer **lex)
 		ft_strdel(&line);
 		index++;
 	}
-	if (!new_lexer_node(lex, index_line))
-		return (error_msg(ERR_LEXER_NODE_CREATE, 0));
 	return (1);
 }
