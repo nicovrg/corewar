@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   asm_lexer.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nicolasv <nicolasv@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amamy <amamy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/23 04:24:28 by nivergne          #+#    #+#             */
-/*   Updated: 2020/01/26 19:28:00 by nicolasv         ###   ########.fr       */
+/*   Updated: 2020/01/26 19:45:39 by amamy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,3 +75,5 @@ int		lexer(int fd, t_data **data, t_lexer **lex)
 	}
 	return (1);
 }
+
+//test ush
