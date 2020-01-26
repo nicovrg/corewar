@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   asm_token.c                                        :+:      :+:    :+:   */
+/*   asm_tokeniser.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nicolasv <nicolasv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -19,22 +19,29 @@
 ** else go at the end of the list and add a new node
 */
 
-int		new_token_node(t_token **token)
-{
-	t_token		*new;
-	t_token		*tmp_token;
+// int		new_token_node(t_token **token)
+// {
+// 	t_token		*new;
+// 	t_token		*tmp_token;
 
-	tmp_token = (*token);
-	while (tmp_token && tmp_token->next)
-		tmp_token = tmp_token->next;
-	if (!(new = (t_token *)ft_memalloc(sizeof(t_token))))
-		return (0);
-	if ((*token))
-		tmp_token->next = new;
-	else
-		(*token) = new;
-	return (1);
-}
+// 	tmp_token = (*token);
+// 	while (tmp_token && tmp_token->next)
+// 		tmp_token = tmp_token->next;
+// 	if (!(new = (t_token *)ft_memalloc(sizeof(t_token))))
+// 		return (0);
+// 	if ((*token))
+// 		tmp_token->next = new;
+// 	else
+// 		(*token) = new;
+// 	return (1);
+// }
+
+
+
+
+
+
+
 
 /*
 ** ==================== create_tokens ====================
@@ -45,7 +52,7 @@ int		create_tokens(char *line, t_token **token)
 {
     (void)token;
     (void)line;
-    // ft_putendl(line);
+    ft_putendl(line);
     return (1);
 }
 

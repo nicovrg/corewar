@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   asm_main.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nicolasv <nicolasv@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nivergne <nivergne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/05 14:21:47 by qgirard           #+#    #+#             */
-/*   Updated: 2020/01/25 03:13:58 by nicolasv         ###   ########.fr       */
+/*   Updated: 2020/01/26 01:44:01 by nivergne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,12 +44,12 @@ int		main(int argc, char **argv)
 	else if (argv[1] && (fd = open(argv[1], O_RDONLY)) == -1)
 		return (error_msg(ERR_MAIN_OPEN_FILE, 1));
 	if (!header(fd, &data))
-		return 0; //free		
+		return (error_msg("err", 1)); //free		
 	if (!lexer(fd, &lex))
-		return 0; //free		
+		return (error_msg("err", 1)); //free		
 	if (!parser())
-		return 0; //free
+		return (error_msg("err", 1)); //free
 	if (!translator())
-		return 0; //free
+		return (error_msg("err", 1)); //free
 	return (0);
 }

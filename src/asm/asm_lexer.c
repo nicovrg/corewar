@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   asm_lexer.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nicolasv <nicolasv@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nivergne <nivergne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/23 04:24:28 by nivergne          #+#    #+#             */
-/*   Updated: 2020/01/25 03:16:14 by nicolasv         ###   ########.fr       */
+/*   Updated: 2020/01/26 01:50:34 by nivergne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,18 +47,14 @@ int		lexer(int fd, t_lexer **lex)
 	int		index_line;
 
 	index_line = 0;
-	if (!new_lexer_node(lex, index_line))
-		return (0);
 	while (get_next_line(fd, &((*lex)->line)) > 0)
 	{
-		// ft_putendl(*(&(*lex)->line));
-		(*lex)->nb_line = index_line;
-        //label
-        if (!create_tokens((*lex)->line, &((*lex)->token)))
-            return (0);
-        //token    
 		if (!new_lexer_node(lex, index_line))
 			return (error_msg(ERR_LEXER_NODE_CREATE, 0));
+		(*lex)->nb_line = index_line;
+		// ft_putendl(*(&(*lex)->line));
+        if (!create_tokens((*lex)->line, &((*lex)->token)))
+            return (0);
 		index_line++;
 	}
 	return (1);

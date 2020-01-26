@@ -6,7 +6,7 @@
 /*   By: nivergne <nivergne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/21 01:21:58 by nivergne          #+#    #+#             */
-/*   Updated: 2020/01/25 23:05:26 by nivergne         ###   ########.fr       */
+/*   Updated: 2020/01/26 00:57:28 by nivergne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ typedef	 struct			s_data
 	int					comment_line;
 	char				*name;
 	char				*comment;
+	struct s_token		**token_line;
 	int					index_line;
 }						t_data;
 
@@ -58,7 +59,7 @@ typedef struct			s_lexer
 int						new_lexer_node(t_lexer **lex, int nb_line);
 int						lexer(int fd, t_lexer **lex);
 
-/* asm_token.c */
+/* asm_tokeniser.c */
 int						new_token_node(t_token **token);
 int						create_tokens(char *line, t_token **token);
 

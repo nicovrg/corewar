@@ -1,7 +1,26 @@
 .name           "42"
 .comment        "Just a basic Winner Program"
 
+token {
+1	<instr> : lst (16)
+	<label> : <string>:
+	<direct_label> : %:[LABEL-CHARS]
+	<,> : ,
+	<arg> : have to analyse arg
+	<register> : r[1-16]
+	<DIrect> : %[number]
+	<indirect> : number
+	<comments> : start with # or ;
+	<line feed> : \n
+}
+
 entree:	live	%42		# entree
+0 : entree:
+1 : live
+2 : %42
+3 : 
+4 : 
+5 : 
 	ld	%0,r5
 	ld	%0,r5
 	zjmp	%:bite
@@ -10,8 +29,8 @@ tir:	sti	r1,%:tirb,%1
 	ld	%2304,r10
 	ld	%1,r5
 	ld	%0,r11
-
 	ld	%4,r3
+
 tirf:	live	%42
 	fork	%:tirop
 	live	%742
@@ -20,7 +39,7 @@ tirf:	live	%42
 	ld	%0,r11
 	fork	%:tirvd
 	live	%42
-	sti	r10,%-510,%0
+	<sti>	<r10> <,> <%-510> <,> <%0>
 	sti	r10,%-404,%0
 	sti	r10,%-303,%0
 	sti	r10,%-202,%0
