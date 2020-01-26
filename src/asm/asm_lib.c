@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   asm_lib.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nicolasv <nicolasv@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amamy <amamy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/25 03:50:53 by nicolasv          #+#    #+#             */
-/*   Updated: 2020/01/25 04:02:14 by nicolasv         ###   ########.fr       */
+/*   Updated: 2020/01/26 02:36:46 by amamy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,4 +32,26 @@ char	*ft_strndup(const char *s1, ssize_t len)
 	}
 	sdest[counter] = '\0';
 	return (sdest);
+}
+
+int ft_isnumber(char *num)
+{
+	int	i;
+
+	i = 0;
+	while (ft_isdigit(num[i]))
+		i++;
+	if (num[i])
+		return (0);
+	else
+		return (1);
+
+}
+
+
+int		ft_lowercase(int c)
+{
+	if (c >= 'a' && c <= 'z')
+		return (1);
+	return (0);
 }

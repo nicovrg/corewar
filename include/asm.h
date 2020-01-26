@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   asm.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nivergne <nivergne@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amamy <amamy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/21 01:21:58 by nivergne          #+#    #+#             */
-/*   Updated: 2020/01/26 00:57:28 by nivergne         ###   ########.fr       */
+/*   Updated: 2020/01/26 06:31:02 by amamy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
 
 # define ERR_LEXER_NODE_CREATE "error in lexer - could not create new node"
 
-# define COMMENT_CHAR '#'
+# define LEX_STATES_NB	9
 
 typedef	 struct			s_data
 {
@@ -48,10 +48,22 @@ typedef struct			s_lexer
 	int					nb_line;
 	char				*line;
 	char				*label;
-	struct s_token		*token;
+	struct s_token		**token;
 	struct s_lexer		*next;
 }						t_lexer;
 
+enum					token
+{
+	label,
+	instruction,
+	direct,
+	registr,
+	indirect,
+	label_call,
+	separator,
+	unknown,
+	eol
+};
 
 /* asm_main.c */
 
@@ -61,8 +73,18 @@ int						lexer(int fd, t_lexer **lex);
 
 /* asm_tokeniser.c */
 int						new_token_node(t_token **token);
-int						create_tokens(char *line, t_token **token);
+int						tokenizer(t_lexer *lexer);
 
+/* asm_tokeniser_states-functions.c */
+int						is_label(t_lexer*lex);
+int						is_instructions(t_lexer *lex);
+int						is_direct(t_lexer *lex);
+int						is_registr(t_lexer *lex);
+int						is_indirect(t_lexer *lex);
+int						is_label_call(t_lexer *lex);
+int						is_separator(t_lexer *lex);
+int						is_unknown(t_lexer *lex);
+int						is_eol(t_lexer *lex);
 /* asm_error.c */
 int						error_msg(char *error_msg, int i);
 int						asm_usage(int i);

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    src.mk                                             :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: nivergne <nivergne@student.42.fr>          +#+  +:+       +#+         #
+#    By: amamy <amamy@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/09/22 23:46:29 by nivergne          #+#    #+#              #
-#    Updated: 2020/01/26 00:33:06 by nivergne         ###   ########.fr        #
+#    Updated: 2020/01/26 06:32:57 by amamy            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,6 +19,8 @@ SRC_ASM =			asm_main.c\
 					asm_header_two.c\
 					asm_lexer.c\
 					asm_tokeniser.c\
+					asm_tokeniser_states-function_one.c\
+					asm_tokeniser_states-function_two.c\
 					asm_splitter.c\
 					asm_lib.c\
 					asm_error.c

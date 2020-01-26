@@ -3,15 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   asm_lexer.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nivergne <nivergne@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amamy <amamy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/23 04:24:28 by nivergne          #+#    #+#             */
-/*   Updated: 2020/01/26 01:50:34 by nivergne         ###   ########.fr       */
+/*   Updated: 2020/01/26 06:26:04 by amamy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
 #include "libft.h"
+#include "ft_printf.h"
 
 /*
 ** ==================== new_lexer_node ====================
@@ -47,15 +48,20 @@ int		lexer(int fd, t_lexer **lex)
 	int		index_line;
 
 	index_line = 0;
-	while (get_next_line(fd, &((*lex)->line)) > 0)
+	if (!new_lexer_node(lex, index_line))
+		return (error_msg(ERR_LEXER_NODE_CREATE, 0));
+	ft_printf("%s\n", ";a");
+	while (get_next_line(fd, &((*lex)->line)))
 	{
-		if (!new_lexer_node(lex, index_line))
-			return (error_msg(ERR_LEXER_NODE_CREATE, 0));
 		(*lex)->nb_line = index_line;
 		// ft_putendl(*(&(*lex)->line));
-        if (!create_tokens((*lex)->line, &((*lex)->token)))
-            return (0);
+        // if (!splitter(&lex))
+        //     return (0);
+		// if (!tokenizer(*lex))
+        //     return (0);
 		index_line++;
 	}
+	if (!new_lexer_node(lex, index_line))
+		return (error_msg(ERR_LEXER_NODE_CREATE, 0));
 	return (1);
 }
