@@ -6,7 +6,7 @@
 /*   By: amamy <amamy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 23:44:32 by amamy             #+#    #+#             */
-/*   Updated: 2020/01/26 02:00:40 by amamy            ###   ########.fr       */
+/*   Updated: 2020/01/26 06:41:09 by amamy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 
 int		get_name(int i, char *line, t_data **data)
 {
+
 	if (ft_strncmp(".name", line + i, 5) == 0)
 	{
 		i = i + 5;
@@ -104,15 +105,15 @@ int		header(int fd, t_data **data)
 	if (!(*data = ft_memalloc(sizeof(t_data))))
 		return (0);
 	(*data)->index_line = 1;
-	while (((!((*data)->name)) || (!((*data)->comment))) && (get_next_line(fd, &line) > 0)) // (*data) && 
+	while (((!((*data)->name)) || (!((*data)->comment))) && (get_next_line(fd, &line) > 0))
 	{
 		while (is_whitespace(line[i]))
 			i++;
 		if (line && (!is_comment(line[i]) || !ft_strcmp(line, "")))
 			if (!little_parsing(line, data))
-				return(error_msg("Fail in heder", 0));
+				return(error_msg("Fail in header", 0));
 		(*data)->index_line++;
+		ft_strdel(&line);
 	}
-	print_data(data);
 	return (1);
 }

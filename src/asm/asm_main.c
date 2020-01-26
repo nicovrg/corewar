@@ -6,7 +6,7 @@
 /*   By: amamy <amamy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/05 14:21:47 by qgirard           #+#    #+#             */
-/*   Updated: 2020/01/26 02:22:29 by amamy            ###   ########.fr       */
+/*   Updated: 2020/01/26 06:41:34 by amamy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,10 @@ int		main(int argc, char **argv)
 		return (error_msg(ERR_MAIN_OPEN_FILE, 1));
 	if (!header(fd, &data))
 		return (error_msg("err", 1)); //free		
-	if (!lexer(fd, &lex))
-		return (error_msg("err", 1)); //free		
+	print_data(&data);
+	if (!lexer(fd, &data, &lex))
+		return (error_msg("err", 1)); //free
+	print_lexer(&lex);
 	if (!parser())
 		return (error_msg("err", 1)); //free
 	if (!translator())

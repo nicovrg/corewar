@@ -6,7 +6,7 @@
 #    By: amamy <amamy@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/09/22 23:46:29 by nivergne          #+#    #+#              #
-#    Updated: 2020/01/26 06:32:57 by amamy            ###   ########.fr        #
+#    Updated: 2020/01/26 06:42:40 by amamy            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,6 +23,7 @@ SRC_ASM =			asm_main.c\
 					asm_tokeniser_states-function_two.c\
 					asm_splitter.c\
 					asm_lib.c\
+					asm_debug.c\
 					asm_error.c
 
 SRC_VM =			vm_main.c\

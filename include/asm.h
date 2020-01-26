@@ -6,7 +6,7 @@
 /*   By: amamy <amamy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/21 01:21:58 by nivergne          #+#    #+#             */
-/*   Updated: 2020/01/26 06:31:02 by amamy            ###   ########.fr       */
+/*   Updated: 2020/01/26 06:42:27 by amamy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,12 +28,11 @@
 
 typedef	 struct			s_data
 {
+	int					index_line;
 	int					name_line;
 	int					comment_line;
 	char				*name;
 	char				*comment;
-	struct s_token		**token_line;
-	int					index_line;
 }						t_data;
 
 typedef struct			s_token
@@ -68,8 +67,8 @@ enum					token
 /* asm_main.c */
 
 /* asm_lexer.c */
-int						new_lexer_node(t_lexer **lex, int nb_line);
-int						lexer(int fd, t_lexer **lex);
+t_lexer					**new_lexer_node(t_lexer **lex);
+int						lexer(int fd, t_data **data, t_lexer **lex);
 
 /* asm_tokeniser.c */
 int						new_token_node(t_token **token);
@@ -88,8 +87,12 @@ int						is_eol(t_lexer *lex);
 /* asm_error.c */
 int						error_msg(char *error_msg, int i);
 int						asm_usage(int i);
-int						print_data(t_data **data);
 int						error_while_gnl(char **line, char *error_msg);
+
+/* asm_debug.c */
+int						print_data(t_data **data);
+int						print_lexer(t_lexer **lexer);
+int						print_token(t_token **token);
 
 /* asm_header_one.c */
 int						is_comment(char c);
