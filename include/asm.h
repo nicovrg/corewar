@@ -6,7 +6,7 @@
 /*   By: nivergne <nivergne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/21 01:21:58 by nivergne          #+#    #+#             */
-/*   Updated: 2020/01/26 00:57:28 by nivergne         ###   ########.fr       */
+/*   Updated: 2020/01/26 03:30:06 by nivergne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,12 +28,11 @@
 
 typedef	 struct			s_data
 {
+	int					index_line;
 	int					name_line;
 	int					comment_line;
 	char				*name;
 	char				*comment;
-	struct s_token		**token_line;
-	int					index_line;
 }						t_data;
 
 typedef struct			s_token
@@ -48,7 +47,7 @@ typedef struct			s_lexer
 	int					nb_line;
 	char				*line;
 	char				*label;
-	struct s_token		*token;
+	struct s_token		**token;
 	struct s_lexer		*next;
 }						t_lexer;
 
@@ -56,8 +55,8 @@ typedef struct			s_lexer
 /* asm_main.c */
 
 /* asm_lexer.c */
-int						new_lexer_node(t_lexer **lex, int nb_line);
-int						lexer(int fd, t_lexer **lex);
+t_lexer					**new_lexer_node(t_lexer **lex);
+int						lexer(int fd, t_data **data, t_lexer **lex);
 
 /* asm_tokeniser.c */
 int						new_token_node(t_token **token);
@@ -66,8 +65,12 @@ int						create_tokens(char *line, t_token **token);
 /* asm_error.c */
 int						error_msg(char *error_msg, int i);
 int						asm_usage(int i);
-int						print_data(t_data **data);
 int						error_while_gnl(char **line, char *error_msg);
+
+/* asm_debug.c */
+int						print_data(t_data **data);
+int						print_lexer(t_lexer **lexer);
+int						print_token(t_token **token);
 
 /* asm_header_one.c */
 int						is_comment(char c);

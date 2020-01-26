@@ -1,6 +1,17 @@
 .name           "42"
 .comment        "Just a basic Winner Program"
 
+
+
+
+
+
+
+
+
+
+
+
 token {
 1	<instr> : lst (16)
 	<label> : <string>:

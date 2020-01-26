@@ -6,7 +6,7 @@
 #    By: nivergne <nivergne@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/09/22 23:46:29 by nivergne          #+#    #+#              #
-#    Updated: 2020/01/26 00:33:06 by nivergne         ###   ########.fr        #
+#    Updated: 2020/01/26 02:49:10 by nivergne         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,6 +21,7 @@ SRC_ASM =			asm_main.c\
 					asm_tokeniser.c\
 					asm_splitter.c\
 					asm_lib.c\
+					asm_debug.c\
 					asm_error.c
 
 SRC_VM =			vm_main.c\
