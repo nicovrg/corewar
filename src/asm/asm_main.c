@@ -6,7 +6,7 @@
 /*   By: nicolasv <nicolasv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/05 14:21:47 by qgirard           #+#    #+#             */
-/*   Updated: 2020/01/26 19:29:13 by nicolasv         ###   ########.fr       */
+/*   Updated: 2020/01/27 03:20:26 by nicolasv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ int		main(int argc, char **argv)
 	print_lexer(&lex);
 	if (!parser())
 		return (error_msg("error in parser", 1)); //free
+	// print_token(&lex);
 	if (!translator())
 		return (error_msg("error in translator", 1)); //free
 	return (0);

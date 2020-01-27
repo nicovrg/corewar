@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   asm_header_two.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amamy <amamy@student.42.fr>                +#+  +:+       +#+        */
+/*   By: nicolasv <nicolasv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 23:44:32 by amamy             #+#    #+#             */
-/*   Updated: 2020/01/26 06:42:52 by amamy            ###   ########.fr       */
+/*   Updated: 2020/01/27 01:44:43 by nicolasv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,13 +24,6 @@
 int		is_comment(char c)
 {
 	if (c == COMMENT_CHAR)
-		return (1);
-	return (0);
-}
-
-int		is_whitespace(char c)
-{
-	if ((c >= 9 && c <= 13) || c == ' ')
 		return (1);
 	return (0);
 }

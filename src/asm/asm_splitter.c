@@ -3,93 +3,128 @@
 /*                                                        :::      ::::::::   */
 /*   asm_splitter.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nivergne <nivergne@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nicolasv <nicolasv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/23 04:42:59 by nivergne          #+#    #+#             */
-/*   Updated: 2020/01/23 04:43:57 by nivergne         ###   ########.fr       */
+/*   Updated: 2020/01/27 03:01:19 by nicolasv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
 #include "libft.h"
+#include "ft_printf.h"
 
-static int		check_space(const char c, char separator)
-{
-	if (c == separator)
-		return (1);
-	return (0);
-}
+/*
+** ==================== count_tokens ====================
+** This function count the number of token in one line
+*/
 
-static int		num(const char *str, char separator)
+static int			count_tokens(char *line)
 {
 	int i;
-	int word_number;
+	int j;
+	int ret;
 
 	i = 0;
-	word_number = 0;
-	while (str[i] != '\0')
+	ret = 0;
+	while (line[i])
 	{
-		if (check_space(str[i], separator) == 1)
+		j = 0;
+		while (line[i] && is_whitespace(line[i]))
 			i++;
-		else
+		while (!is_whitespace(line[i + j]) && line[i + j] != ',')
 		{
-			word_number++;
-			while (check_space(str[i], separator) == 0 && str[i] != '\0')
-				i++;
+			if (line[i + j] == '#')
+				return (ret);
+			j++;
 		}
+		if (line[i + j] == ',')
+			j++;
+		ret++;
+		(j == 0) ? (i++) : (i = i + j);
 	}
-	return (word_number);
+	return (ret);
 }
 
-static int		word_size(char *str, char c)
-{
-	size_t		word_size;
+/*
+** ==================== allocate_token ====================
+** This function count the number of token, then allocate a table
+** of pointers on structure s_token, then allocate each cell
+** of this table.
+*/
 
-	word_size = 0;
-	while (str[word_size] && check_space(str[word_size], c) == 0)
-		word_size++;
-	return (word_size);
+static int			allocate_token(t_lexer **tmp_lex, char *line)
+{
+    int	i;
+	int nb_token;
+
+    i = 0;
+	nb_token = count_tokens(line);
+	if (!((*tmp_lex)->token = ft_memalloc((sizeof(t_token) * nb_token) + 1)))
+        return (0);
+    while (i < nb_token)
+    {
+        if (!((*tmp_lex)->token[i] = ft_memalloc(sizeof(t_token))))
+            return (0);
+        i++;
+    }
+	(*tmp_lex)->nb_token = nb_token;
+    return (1);
 }
 
-static char		*ft_copy(char **dst, char *src, char c)
-{
-	size_t		i;
+/*
+** ==================== add_token ====================
+** This function set the lexme value of a token
+*/
 
-	i = 0;
-	while (src[i] && check_space(src[i], c) == 0)
-	{
-		dst[0][i] = src[i];
-		i++;
-	}
-	dst[0][i] = '\0';
-	return (*dst);
+int					add_token(t_lexer **tmp_lex, char *line, int i, int j)
+{
+	// ft_printf("sssssss = %c\n", line[i + j - 1]);
+	if (line[i + j - 1] == ',')
+		j--;
+	if (!((*tmp_lex)->token[1]->lexme = ft_strndup(line + i, j)))
+		return (error_msg("fail alloc token->lexme with strndup", 0));
+	// ft_printf("nb token = %d\ntoken = |%s|\nline = %s\ni = %d\nj = %d\n", (*tmp_lex)->nb_token, (*tmp_lex)->token[1]->lexme, line, i, j);
+	return (1);
 }
 
-char			**ft_strsplit(char const *s, char c)
+/*
+** ==================== splitter ====================
+** This function takes a lexer node and a line, split the line
+** around spaces and commas, then return a table of all the
+** tokens lexme
+*/
+
+int					splitter(t_lexer **tmp_lex, char *line)
 {
-	size_t		i;
-	size_t		j;
-	char		*y;
-	char		**tab;
+	int i;
+	int j;
 
 	i = 0;
 	j = 0;
-	y = (char *)s;
-	if (s == NULL || !(tab = (char **)malloc(sizeof(char *) * (num(y, c) + 1))))
-		return (NULL);
-	while (s[i])
+	if (!allocate_token(tmp_lex, line))
+		return (0);
+	while (line[i])
 	{
-		if (s[i] && check_space(s[i], c) == 0)
+		j = 0;
+		while (line[i] && is_whitespace(line[i]))
+			i++;
+		while (!is_whitespace(line[i + j]) && line[i + j] != ',')
 		{
-			if (!(tab[j] = (char *)malloc(sizeof(char) * word_size(y + i, c))))
-				return (NULL);
-			tab[j] = ft_copy(&tab[j], &y[i], c);
-			i = i + word_size(y + i, c);
+			if (line[i + j] == '#')
+				return (1);
 			j++;
 		}
-		else
-			i++;
+		if (line[i + j] == ',')
+			j++;
+		if (!add_token(tmp_lex, line, i, j))
+			return (0);
+		(j == 0) ? (i++) : (i = i + j);
 	}
-	tab[j] = 0;
-	return (tab);
+	return (1);
 }
+
+// entree:	live	%42		# entree
+// 	ld	%0,r5
+// 	ld	%0,r5
+// 	zjmp	%:lebocal_lesgrosgamins

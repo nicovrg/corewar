@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   asm.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amamy <amamy@student.42.fr>                +#+  +:+       +#+        */
+/*   By: nicolasv <nicolasv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/21 01:21:58 by nivergne          #+#    #+#             */
-/*   Updated: 2020/01/26 06:42:27 by amamy            ###   ########.fr       */
+/*   Updated: 2020/01/27 03:19:34 by nicolasv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,12 +39,12 @@ typedef struct			s_token
 {
 	int					value;
 	char				*lexme;
-	struct s_token		*next;
 }						t_token;
 
 typedef struct			s_lexer
 {
 	int					nb_line;
+	int					nb_token;
 	char				*line;
 	char				*label;
 	struct s_token		**token;
@@ -67,7 +67,8 @@ enum					token
 /* asm_main.c */
 
 /* asm_lexer.c */
-t_lexer					**new_lexer_node(t_lexer **lex);
+// static int				is_empty(char *str);
+// static t_lexer			**new_lexer_node(t_lexer **lex);
 int						lexer(int fd, t_data **data, t_lexer **lex);
 
 /* asm_tokeniser.c */
@@ -84,6 +85,7 @@ int						is_label_call(t_lexer *lex);
 int						is_separator(t_lexer *lex);
 int						is_unknown(t_lexer *lex);
 int						is_eol(t_lexer *lex);
+
 /* asm_error.c */
 int						error_msg(char *error_msg, int i);
 int						asm_usage(int i);
@@ -92,7 +94,7 @@ int						error_while_gnl(char **line, char *error_msg);
 /* asm_debug.c */
 int						print_data(t_data **data);
 int						print_lexer(t_lexer **lexer);
-int						print_token(t_token **token);
+int						print_token(t_lexer **lexer);
 
 /* asm_header_one.c */
 int						is_comment(char c);
@@ -108,10 +110,13 @@ int						little_parsing(char *line, t_data **data);
 int						header(int fd, t_data **data);
 
 /* asm_lib.c */
+int						is_whitespace(char c);
 char					*ft_strndup(const char *s1, ssize_t len);
 
 /* asm_splitter.c */
-
+// static int				count_tokens(char *line);
+// static int				allocate_token(t_lexer **tmp_lex, char *line);
+int						splitter(t_lexer **tmp_lex, char *line);
 
 
 #endif

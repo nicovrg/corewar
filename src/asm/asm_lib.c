@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   asm_lib.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amamy <amamy@student.42.fr>                +#+  +:+       +#+        */
+/*   By: nicolasv <nicolasv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/25 03:50:53 by nicolasv          #+#    #+#             */
-/*   Updated: 2020/01/26 02:36:46 by amamy            ###   ########.fr       */
+/*   Updated: 2020/01/27 01:46:06 by nicolasv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,10 +48,16 @@ int ft_isnumber(char *num)
 
 }
 
-
 int		ft_lowercase(int c)
 {
 	if (c >= 'a' && c <= 'z')
+		return (1);
+	return (0);
+}
+
+int		is_whitespace(char c)
+{
+	if ((c >= 9 && c <= 13) || c == ' ')
 		return (1);
 	return (0);
 }
