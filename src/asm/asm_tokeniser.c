@@ -48,35 +48,63 @@ int			create_tokens(char *line, t_token **token)
 	return (1);
 }
 
-int		execute(int (*state)()) 
-{ 
-	return (state());
-} 
+/*
+** ==================== token_finder ====================
+** Token_finder uses the input function to try to recognize
+** a token.
+*/
 
-// static void	fill_states_fonctions(int *(*states_functions)())
-// {
-// // 	states_functions[0] = label;
-// // 	states_functions[1] = instruction;
-// // 	states_functions[2] = direct;
-// // 	states_functions[3] = registr;
-// // 	states_functions[4] = indirect;
-// // 	states_functions[5] = label_call;
-// // 	states_functions[6] = separator;
-// // 	states_functions[7] = unknown;
-// // 	states_functions[8] = eol;
-// (void)states_functions;
-// }
+static int	(*token_finder[LEX_STATES_NB])(t_lexer *, t_data *data, int);
 
-int		tokenizer(t_lexer *lex)
+/*
+** ==================== fill_token_finder ====================
+** This function fills the *func() with all the functions to
+** recognize tokens.
+*/
+
+static void	fill_token_finder()
 {
-	// enum token token_state;
-	// void (*states_functions[LEX_STATES_NB])(t_lexer *);
-	
-	// token_state = label;
-	// fill_states_fonctions(states_functions);
-	// while (token_state < eol)
-	// 	if (execute(states_functions[token_state++](lex)));
-	(void)lex;
-			return (1);
+	token_finder[0] = is_label;
+	token_finder[1] = is_instructions;
+	token_finder[2] = is_direct;
+	token_finder[3] = is_registr;
+	token_finder[4] = is_indirect;
+	token_finder[5] = is_label_call;
+	token_finder[6] = is_separator;
+	token_finder[7] = is_unknown;
+}
 
+	/*
+	** ==================== tokenizer ====================
+	** Uses the t_token ** in t_lexer, takes lexeme(strings)
+	** and identifies it as token_type from redcode grammar
+	** or unknown.
+	** If unknown, raises a lexical error (in data->error).
+	** Returns (0) in case somethin unexpected happened.
+	*/
+
+int		tokenizer(t_lexer *lex, t_data *data)
+{
+	int		current_token;
+	int		lexical_error;
+	int		is_token_found;
+	enum	token search_token;
+	
+	lexical_error = 0;;
+	current_token = 0;
+	is_token_found = 0;
+	search_token = label;
+	fill_token_finder();
+	while (current_token < lex->token_nb)
+	{
+		while (search_token <= unknown && !is_token_found)
+			is_token_found = token_finder[search_token++] (lex, data, current_token);
+		search_token = label;
+		is_token_found = 0;
+		current_token++;
+	}
+	// if (!check_integrity)
+	// 	return (0);
+	return (1);	 //	maybe we can think qbout returning 0 if unknown token detected, 
+				//	and if unknow token returned once, error_mode activated
 }

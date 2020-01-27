@@ -6,7 +6,7 @@
 /*   By: amamy <amamy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/26 05:57:28 by amamy             #+#    #+#             */
-/*   Updated: 2020/01/26 06:36:22 by amamy            ###   ########.fr       */
+/*   Updated: 2020/01/27 05:02:05 by amamy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,37 +14,48 @@
 #include "libft.h"
 #include "ft_printf.h"
 
-int						is_label(t_lexer *lex)
+int						is_label(t_lexer *lex, t_data *data, int current_token)
 {
 	(void)lex;
-	ft_printf("%s\n", "label");
+	(void)data;
+	(void)current_token;
+	// ft_printf("%s\n", "label");
+	// ft_printf("\nlexme : %s\n\n", lex->token[current_token]->lexeme);
 	return (0);
 }
 
-int						is_instructions(t_lexer *lex)
+int						is_instructions(t_lexer *lex, t_data *data, int current_token)
 {
 	(void)lex;
-	ft_printf("%s\n", "instructions");
+	(void)data;
+	(void)current_token;
+	// ft_printf("%s\n", "instructions");
 	return (0);
 }
 
-int						is_direct(t_lexer *lex)
+int						is_direct(t_lexer *lex, t_data *data, int current_token)
 {
 	(void)lex;
-	ft_printf("%s\n", "direct");
+	(void)data;
+	(void)current_token;
+	// ft_printf("%s\n", "direct");
 	return (0);
 }
 
-int						is_registr(t_lexer *lex)
+int						is_registr(t_lexer *lex, t_data *data, int current_token)
 {
 	(void)lex;
-	ft_printf("%s\n", "register");
+	(void)data;
+	(void)current_token;
+	// ft_printf("%s\n", "register");
 	return (0);
 }
 
-int						is_indirect(t_lexer *lex)
+int						is_indirect(t_lexer *lex, t_data *data, int current_token)
 {
 	(void)lex;
-	ft_printf("%s\n", "indirect");
+	(void)data;
+	(void)current_token;
+	// ft_printf("%s\n", "indirect");
 	return (0);
 }

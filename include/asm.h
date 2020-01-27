@@ -6,7 +6,7 @@
 /*   By: amamy <amamy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/21 01:21:58 by nivergne          #+#    #+#             */
-/*   Updated: 2020/01/26 06:42:27 by amamy            ###   ########.fr       */
+/*   Updated: 2020/01/27 04:54:06 by amamy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,9 @@
 
 typedef	 struct			s_data
 {
-	int					index_line;
+	int					errors;
 	int					name_line;
+	int					index_line;
 	int					comment_line;
 	char				*name;
 	char				*comment;
@@ -38,15 +39,16 @@ typedef	 struct			s_data
 typedef struct			s_token
 {
 	int					value;
-	char				*lexme;
-	struct s_token		*next;
+	char				*lexeme;
+	struct s_lexer		*parent; // unsure
 }						t_token;
 
 typedef struct			s_lexer
 {
 	int					nb_line;
+	int					token_nb;
 	char				*line;
-	char				*label;
+	char				*label; //  token * ?
 	struct s_token		**token;
 	struct s_lexer		*next;
 }						t_lexer;
@@ -72,18 +74,18 @@ int						lexer(int fd, t_data **data, t_lexer **lex);
 
 /* asm_tokeniser.c */
 int						new_token_node(t_token **token);
-int						tokenizer(t_lexer *lexer);
+int						tokenizer(t_lexer *lex, t_data *data);
 
 /* asm_tokeniser_states-functions.c */
-int						is_label(t_lexer*lex);
-int						is_instructions(t_lexer *lex);
-int						is_direct(t_lexer *lex);
-int						is_registr(t_lexer *lex);
-int						is_indirect(t_lexer *lex);
-int						is_label_call(t_lexer *lex);
-int						is_separator(t_lexer *lex);
-int						is_unknown(t_lexer *lex);
-int						is_eol(t_lexer *lex);
+int						is_label(t_lexer*lex, t_data *data, int current_token);
+int						is_instructions(t_lexer *lex, t_data *data, int current_token);
+int						is_direct(t_lexer *lex, t_data *data, int current_token);
+int						is_registr(t_lexer *lex, t_data *data, int current_token);
+int						is_indirect(t_lexer *lex, t_data *data, int current_token);
+int						is_label_call(t_lexer *lex, t_data *data, int current_token);
+int						is_separator(t_lexer *lex, t_data *data, int current_token);
+int						is_unknown(t_lexer *lex, t_data *data, int current_token);
+int						is_eol(t_lexer *lex, t_data *data, int current_token);
 /* asm_error.c */
 int						error_msg(char *error_msg, int i);
 int						asm_usage(int i);
