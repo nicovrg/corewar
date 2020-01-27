@@ -6,7 +6,7 @@
 /*   By: nicolasv <nicolasv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/05 14:21:47 by qgirard           #+#    #+#             */
-/*   Updated: 2020/01/27 03:20:26 by nicolasv         ###   ########.fr       */
+/*   Updated: 2020/01/27 03:41:42 by nicolasv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,14 +45,12 @@ int		main(int argc, char **argv)
 		return (error_msg(ERR_MAIN_OPEN_FILE, 1));
 	if (!header(fd, &data))
 		return (error_msg("error in header", 1)); //free		
-	print_data(&data);
 	if (!lexer(fd, &data, &lex))
 		return (error_msg("error in lexer", 1)); //free
-	print_lexer(&lex);
 	if (!parser())
 		return (error_msg("error in parser", 1)); //free
-	// print_token(&lex);
 	if (!translator())
 		return (error_msg("error in translator", 1)); //free
+	print_lexer(&data, &lex);
 	return (0);
 }

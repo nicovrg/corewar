@@ -6,7 +6,7 @@
 /*   By: nicolasv <nicolasv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/23 04:42:59 by nivergne          #+#    #+#             */
-/*   Updated: 2020/01/27 03:01:19 by nicolasv         ###   ########.fr       */
+/*   Updated: 2020/01/27 03:53:15 by nicolasv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,11 @@ static int			count_tokens(char *line)
 				return (ret);
 			j++;
 		}
-		if (line[i + j] == ',')
+		if (line[i + j] == ',') //ret++;
+		{
 			j++;
+			ret++;
+		}
 		ret++;
 		(j == 0) ? (i++) : (i = i + j);
 	}
@@ -80,11 +83,14 @@ static int			allocate_token(t_lexer **tmp_lex, char *line)
 int					add_token(t_lexer **tmp_lex, char *line, int i, int j)
 {
 	// ft_printf("sssssss = %c\n", line[i + j - 1]);
-	if (line[i + j - 1] == ',')
-		j--;
+	ft_printf("sssssss = %s\n", line);
 	if (!((*tmp_lex)->token[1]->lexme = ft_strndup(line + i, j)))
 		return (error_msg("fail alloc token->lexme with strndup", 0));
-	// ft_printf("nb token = %d\ntoken = |%s|\nline = %s\ni = %d\nj = %d\n", (*tmp_lex)->nb_token, (*tmp_lex)->token[1]->lexme, line, i, j);
+	if (!(line[i + j - 1] == ','))
+	{
+		if (!((*tmp_lex)->token[1]->lexme = ft_strndup(",", 1)))
+			return (error_msg("fail alloc token->lexme with strndup", 0));
+	}
 	return (1);
 }
 
@@ -124,6 +130,7 @@ int					splitter(t_lexer **tmp_lex, char *line)
 	return (1);
 }
 
+// entree:	live	%42,%42  %42    ,    %42 # entree
 // entree:	live	%42		# entree
 // 	ld	%0,r5
 // 	ld	%0,r5

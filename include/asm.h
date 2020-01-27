@@ -6,7 +6,7 @@
 /*   By: nicolasv <nicolasv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/21 01:21:58 by nivergne          #+#    #+#             */
-/*   Updated: 2020/01/27 03:19:34 by nicolasv         ###   ########.fr       */
+/*   Updated: 2020/01/27 03:35:44 by nicolasv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ int						error_while_gnl(char **line, char *error_msg);
 
 /* asm_debug.c */
 int						print_data(t_data **data);
-int						print_lexer(t_lexer **lexer);
+int						print_lexer(t_data **data, t_lexer **lexer);
 int						print_token(t_lexer **lexer);
 
 /* asm_header_one.c */
