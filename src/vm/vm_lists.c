@@ -6,12 +6,17 @@
 /*   By: qgirard <qgirard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/22 05:40:42 by qgirard           #+#    #+#             */
-/*   Updated: 2020/01/24 20:08:23 by qgirard          ###   ########.fr       */
+/*   Updated: 2020/01/28 17:18:20 by qgirard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
 #include "libft.h"
+
+/*
+** ==================== champions_list ====================
+** initialize and update the list of the champions
+*/
 
 t_champion		*champions_list(t_champion **champions)
 {

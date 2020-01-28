@@ -6,12 +6,17 @@
 /*   By: qgirard <qgirard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/05 17:21:52 by qgirard           #+#    #+#             */
-/*   Updated: 2020/01/24 20:47:46 by qgirard          ###   ########.fr       */
+/*   Updated: 2020/01/28 19:35:09 by qgirard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
 #include "libft.h"
+
+/*
+** ==================== error_header ====================
+** close the file director when an error occures when reading the file
+*/
 
 int		error_header(int *fd)
 {
@@ -19,11 +24,22 @@ int		error_header(int *fd)
 	return (0);
 }
 
+/*
+** ==================== error_msg ====================
+** print an error message
+*/
+
 int		error_msg(char *error_msg, int i)
 {
 	ft_putendl(error_msg);
 	return (i);
 }
+
+/*
+** ==================== vm_error_champion ====================
+** error function that appears if the size of the champion is too big or
+** if the file is not a valid champion
+*/
 
 int		vm_error_champion(char *champion, int var, int size)
 {

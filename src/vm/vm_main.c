@@ -6,12 +6,18 @@
 /*   By: qgirard <qgirard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/05 15:32:40 by qgirard           #+#    #+#             */
-/*   Updated: 2020/01/24 21:35:44 by qgirard          ###   ########.fr       */
+/*   Updated: 2020/01/28 19:16:31 by qgirard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
 #include "libft.h"
+
+/*
+** ==================== count_champions ====================
+** count the number of champions
+** it allows to check if we can add more champions
+*/
 
 int		count_champions(t_champion **champions)
 {
@@ -27,6 +33,12 @@ int		count_champions(t_champion **champions)
 	}
 	return (i);
 }
+
+/*
+** ==================== parse_args ====================
+** parse args to know which kind of arguments we have
+** and also allows to check errors
+*/
 
 int		parse_args(char *argv, t_corewar *stock, t_champion **champions)
 {
@@ -57,7 +69,7 @@ int		parse_args(char *argv, t_corewar *stock, t_champion **champions)
 }
 
 /*
-** ==================== init_stock ====================
+** ==================== init_structs ====================
 ** a remplacer par un ft_bzero de la structure mais a garder
 ** pour le moment pour une meilleure visibilite
 */
@@ -91,8 +103,12 @@ int		main(int argc, char **argv)
 	{
 		if (!parse_args(argv[i], &stock, &champions))
 			return (vm_free(&champions));
+		if (!check_champion_size(argv[i], &champions))
+			return (vm_free(&champions));
 		i++;
 	}
+	if (!(find_nb_player(&stock, &champions)))
+		return (vm_free(&champions));
 	introduce_champs(&champions);
 	vm_free(&champions);
 	return (0);

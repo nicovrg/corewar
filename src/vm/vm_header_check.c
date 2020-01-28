@@ -6,7 +6,7 @@
 /*   By: qgirard <qgirard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/22 03:15:38 by qgirard           #+#    #+#             */
-/*   Updated: 2020/01/24 20:50:42 by qgirard          ###   ########.fr       */
+/*   Updated: 2020/01/28 18:40:07 by qgirard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,87 +15,24 @@
 #include "libft.h"
 #include "ft_printf.h"
 
-static int			reverse_bits(int kobe)
+static int			check_paddings(char *line, int *i, int size)
 {
-	int		i;
-	char	*buff;
-	char	*tmp;
-
-	i = 0;
-	tmp = NULL;
-	if (!(buff = ft_itoa_base(kobe, 2)))
-		return (0);
-	while (i < (int)(8 - ft_strlen(buff)))
+	while (*i < size)
 	{
-		if (!tmp)
-			tmp = ft_strdup("0");
-		else
-			tmp = ft_strjoinf(tmp, "0", 1);
-		i++;
+		if ((int)(line[*i]) != 0)
+			return (0);
+		*i = *i + 1;
 	}
-	tmp = ft_strjoinf(tmp, buff, 3);
-	i = 0;
-	while (tmp && tmp[i])
-	{
-		if (tmp[i] == '0')
-			tmp[i] = '1';
-		else
-			tmp[i] = '0';
-		i++;
-	}
-	i--;
-	while (i > 0)
-	{
-		if (tmp[i] == '0')
-		{
-			tmp[i] = '1';
-			i = 0;
-		}
-		else
-			tmp[i] = '0';
-		i--;
-	}
-	kobe = ft_atoi_base(tmp, 2);
-	ft_strdel(&tmp);
-	return (kobe);
-}
-
-static int			check_instructions_size(char *line, enum header *state,
-int *i, t_champion **tmp)
-{
-	int		kobe;
-	int		byte;
-	int		index;
-	char	*buff;
-
-	index = *i;
-	buff = NULL;
-	byte = 0;
-	while (!line[index] && index - *i < 4)
-		index++;
-	*i = *i + 3;
-	if (*i >= index && line[index])
-		buff = ft_strsub(line, index, *i - index + 1);
-	if (buff)
-	{
-		kobe = ft_strlen(buff) - 1;
-		while (kobe >= 0)
-		{
-			if ((int)buff[kobe] < 0)
-				(*tmp)->size = (*tmp)->size + ft_power(256, byte)
-				* (unsigned int)reverse_bits(-(buff[kobe]));
-			else
-				(*tmp)->size = (*tmp)->size + ft_power(256, byte) * (unsigned int)buff[kobe];
-			kobe--;
-			byte++;
-		}
-	}
-	ft_strdel(&buff);
-	*state = comment;
 	return (1);
 }
 
-static int			check_comments(char *line, enum header *state, int *i, t_champion **tmp)
+/*
+** ==================== check_comments ====================
+** check and stock the comment of the champion
+*/
+
+static int			check_comments(char *line, enum header *state, int *i,
+t_champion **tmp)
 {
 	int			index;
 
@@ -104,10 +41,18 @@ static int			check_comments(char *line, enum header *state, int *i, t_champion *
 	while (line[index])
 		index++;
 	if (!((*tmp)->comment = ft_strsub(line, *i, index - *i)))
-		return (0);
+		return (error_msg(ERR_MALLOC, 0));
 	*state = padding;
+	*i = index;
+	if (!check_paddings(line, i, HEADER_SIZE))
+		return (error_msg(ERR_FILE_HEADER, 0));
 	return (1);
 }
+
+/*
+** ==================== check_name ====================
+** check and stock the name of the champion
+*/
 
 static t_champion	*check_name(char *line, enum header *state, int *i,
 t_champion **champions)
@@ -117,15 +62,32 @@ t_champion **champions)
 
 	index = *i;
 	if (!(tmp = champions_list(champions)))
+	{
+		error_msg(ERR_MALLOC, 0);
 		return (NULL);
+	}
 	while (line[index])
 		index++;
 	if (!(tmp->name = ft_strsub(line, *i, index - *i)))
+	{
+		error_msg(ERR_MALLOC, 0);
 		return (NULL);
+	}
 	*state = instructions_size;
-	*i = BYTE_AFTER_PADDING;
+	*i = index;
+	if (!check_paddings(line, i, BYTE_AFTER_PADDING))
+	{
+		error_msg(ERR_FILE_HEADER, 0);
+		return (NULL);
+	}
 	return (tmp);
 }
+
+/*
+** ==================== magic_number ====================
+** check the magic number of the champion file if this one is incorrect
+** return an error
+*/
 
 static int			magic_number(char *line, enum header *state, int *i)
 {
@@ -142,7 +104,14 @@ static int			magic_number(char *line, enum header *state, int *i)
 	return (1);
 }
 
-int					header_check(t_corewar *stock, char *line, t_champion **champions)
+/*
+** ==================== header_check ====================
+** check the state that inform us in which part of the header we are
+** and then display to specified checking functions
+*/
+
+int					header_check(t_corewar *stock, char *line,
+t_champion **champions)
 {
 	int			i;
 	t_champion	*tmp;
@@ -157,20 +126,16 @@ int					header_check(t_corewar *stock, char *line, t_champion **champions)
 				return (error_msg(ERR_FILE_HEADER, 0));
 		if (state == name)
 			if (!(tmp = check_name(line, &state, &i, champions)))
-				return (error_msg(ERR_MALLOC, 0));
+				return (0);
 		if (state == instructions_size)
 			if (!(check_instructions_size(line, &state, &i, &tmp)))
 				return (0);
 		if (state == comment)
 			if (!(check_comments(line, &state, &i, &tmp)))
-				return (error_msg(ERR_MALLOC, 0));				
+				return (0);
 		i++;
 	}
-	add_nb_player(stock, &tmp);
+	if (stock->nb_player)
+		add_nb_player(stock, champions, &tmp);
 	return (1);
 }
-
-/*
-** ==================== instruction size ====================
-** faire la gestion d'erreur si size > max_champ_size
-*/

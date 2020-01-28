@@ -6,7 +6,7 @@
 /*   By: qgirard <qgirard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/20 00:07:02 by nicolasv          #+#    #+#             */
-/*   Updated: 2020/01/24 21:35:36 by qgirard          ###   ########.fr       */
+/*   Updated: 2020/01/28 18:54:42 by qgirard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 # define ERR_VM_NB_PLAYERS "Corewar takes a number between 1 and 4 after flag -n"
 # define ERR_VM_NUMBERS "Corewar takes a number in argument after flags -dump and -n"
 # define ERR_VM_USAGE "Usage:  ./corewar [-dump nbr_cycles] [[-n number] champion1.cor]"
+# define ERR_VM_NB_PLAYERS_EXCEED "-n number exceed the total number of champions"
 
 # define HEADER_SIZE 2192
 # define BYTE_AFTER_PADDING 136
@@ -55,13 +56,18 @@ typedef struct			s_corewar
 }						t_corewar;
 
 int						add_champions(char *argv, t_corewar *stock, t_champion **champions);
-int						add_nb_player(t_corewar *stock, t_champion **tmp);
+int						add_nb_player(t_corewar *stock, t_champion **champions, t_champion **tmp);
 t_champion				*champions_list(t_champion **champions);
+int						check_champion_size(char *argv, t_champion **champions);
 int						check_flags(char *argv, t_corewar *stock);
 int						check_if_number(char *argv);
+int						check_instructions_size(char *line, enum header *state,
+						int *i, t_champion **tmp);
 int						check_player_or_cycles(char *argv, t_corewar *stock);
+int						count_champions(t_champion **champions);
 int						error_header(int *fd);
 int						error_msg(char *error_msg, int i);
+int						find_nb_player(t_corewar *stock, t_champion **champions);
 int						header_check(t_corewar *stock, char *line, t_champion **champions);
 int						introduce_champs(t_champion **champions);
 int						vm_error_champion(char *champion, int var, int size);

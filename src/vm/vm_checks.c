@@ -6,12 +6,36 @@
 /*   By: qgirard <qgirard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 12:23:03 by qgirard           #+#    #+#             */
-/*   Updated: 2020/01/24 21:30:38 by qgirard          ###   ########.fr       */
+/*   Updated: 2020/01/28 19:32:43 by qgirard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
+#include "op.h"
 #include "libft.h"
+
+/*
+** ==================== check_champion_size ====================
+** check if the size of the champion is over CHAMP_MAX_SIZE
+** if it's the case return an error
+*/
+
+int		check_champion_size(char *argv, t_champion **champions)
+{
+	t_champion	*tmp;
+
+	tmp = (*champions);
+	while (tmp && tmp->next)
+		tmp = tmp->next;
+	if (tmp->size > CHAMP_MAX_SIZE)
+		return (vm_error_champion(argv, 2, tmp->size));
+	return (1);
+}
+
+/*
+** ==================== check_if_number ====================
+** check if argument is a number
+*/
 
 int		check_if_number(char *argv)
 {
@@ -27,6 +51,13 @@ int		check_if_number(char *argv)
 	return (1);
 }
 
+/*
+** ==================== check_player_or_cycles ====================
+** if flag -n is present check the validity of the player number and stock it
+** else if flag -dump is present stock the cycles we have to pass before dump
+** memory
+*/
+
 int		check_player_or_cycles(char *argv, t_corewar *stock)
 {
 	if (stock->n_option == 1)
@@ -39,6 +70,11 @@ int		check_player_or_cycles(char *argv, t_corewar *stock)
 		stock->dump_cycles = ft_atol(argv);
 	return (1);
 }
+
+/*
+** ==================== check_flags ====================
+** check if arguments are existed flags
+*/
 
 int		check_flags(char *argv, t_corewar *stock)
 {
