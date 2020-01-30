@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   asm.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amamy <amamy@student.42.fr>                +#+  +:+       +#+        */
+/*   By: nicolasv <nicolasv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/21 01:21:58 by nivergne          #+#    #+#             */
-/*   Updated: 2020/01/27 05:28:38 by amamy            ###   ########.fr       */
+/*   Updated: 2020/01/30 03:52:35 by nicolasv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,6 @@ int						print_lexer(t_data **data, t_lexer **lexer);
 int						print_token(t_lexer **lexer);
 
 /* asm_header_one.c */
-int						is_comment(char c);
 int						is_whitespace(char c);
 int						is_dirty(char *str);
 int						get_string_child(t_data **data, char *str, int mode, int i);
@@ -111,6 +110,8 @@ int						little_parsing(char *line, t_data **data);
 int						header(int fd, t_data **data);
 
 /* asm_lib.c */
+int						is_comma(char c);
+int						is_comment(char c);
 int						is_whitespace(char c);
 char					*ft_strndup(const char *s1, ssize_t len);
 

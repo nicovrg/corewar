@@ -6,7 +6,7 @@
 /*   By: nicolasv <nicolasv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/25 03:50:53 by nicolasv          #+#    #+#             */
-/*   Updated: 2020/01/27 01:46:06 by nicolasv         ###   ########.fr       */
+/*   Updated: 2020/01/30 03:52:56 by nicolasv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,9 +55,41 @@ int		ft_lowercase(int c)
 	return (0);
 }
 
+/*
+** ==================== is_whitespace ====================
+** say if the char is a whitespace character
+** whitespaces char are in ascii decimal (9, 10, 11, 12, 13 and 32)
+*/
+
 int		is_whitespace(char c)
 {
 	if ((c >= 9 && c <= 13) || c == ' ')
+		return (1);
+	return (0);
+}
+
+/*
+** ==================== is_comment ====================
+** This function check if the character passed in argument is a #.
+** If yes, return an false, else return true
+*/
+
+int		is_comment(char c)
+{
+	if (c == '#')
+		return (1);
+	return (0);
+}
+
+/*
+** ==================== is_comma ====================
+** This function check if the character passed in argument is a ,.
+** If yes, return an false, else return true
+*/
+
+int		is_comma(char c)
+{
+	if (c == ',')
 		return (1);
 	return (0);
 }

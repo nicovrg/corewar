@@ -6,7 +6,7 @@
 /*   By: nicolasv <nicolasv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/23 04:42:59 by nivergne          #+#    #+#             */
-/*   Updated: 2020/01/27 19:23:18 by nicolasv         ###   ########.fr       */
+/*   Updated: 2020/01/30 04:06:11 by nicolasv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 /*
 ** ==================== count_tokens ====================
 ** This function count the number of token in one line
+** If there are multiples commas following each others, return an error
 */
 
 static int			count_tokens(char *line)
@@ -27,24 +28,23 @@ static int			count_tokens(char *line)
 
 	i = 0;
 	ret = 0;
+	if (ft_strnstr(line, ",,", ft_strlen(line)))
+		return (error_msg("invalid line, multiples commas in a row", 0));
 	while (line[i])
 	{
 		j = 0;
 		while (line[i] && is_whitespace(line[i]))
 			i++;
-		while (line[i + j] && !is_whitespace(line[i + j]) && line[i + j] != ',')
+		while (line[i + j] && (!is_whitespace(line[i + j]) && !is_comma(line[i + j])))
 		{
-			if (line[i + j] == '#')
+			if (is_comment(line[i + j]))
 				return (ret);
 			j++;
 		}
-		if (line[i + j] == ',') //ret++;
-		{
-			j++;
-			ret++;
-		}
-		ret++;
+		(line[i + j - 1] > 0 && is_comma(line[i + j - 1])) ? (j++) : (0);
+		(line[i + j - 1] > 0 && is_comma(line[i + j - 1])) ? (ret++) : (0);
 		(j == 0) ? (i++) : (i = i + j);
+		ret++;
 	}
 	return (ret);
 }
@@ -56,24 +56,24 @@ static int			count_tokens(char *line)
 ** of this table.
 */
 
-static int			allocate_token(t_lexer **tmp_lex, char *line)
-{
-    int	i;
-	int token_nb;
+// static int			allocate_token(t_lexer **tmp_lex, char *line)
+// {
+//     int	i;
+// 	int token_nb;
 
-    i = 0;
-	token_nb = count_tokens(line);
-	if (!((*tmp_lex)->token = ft_memalloc((sizeof(t_token) * token_nb) + 1)))
-        return (0);
-    while (i < token_nb)
-    {
-        if (!((*tmp_lex)->token[i] = ft_memalloc(sizeof(t_token))))
-            return (0);
-        i++;
-    }
-	(*tmp_lex)->token_nb = token_nb;
-    return (1);
-}
+//     i = 0;
+// 	token_nb = count_tokens(line);
+// 	if (!((*tmp_lex)->token = ft_memalloc((sizeof(t_token) * token_nb) + 1)))
+//         return (0);
+//     while (i < token_nb)
+//     {
+//         if (!((*tmp_lex)->token[i] = ft_memalloc(sizeof(t_token))))
+//             return (0);
+//         i++;
+//     }
+// 	(*tmp_lex)->token_nb = token_nb;
+//     return (1);
+// }
 
 /*
 ** ==================== add_token ====================
@@ -94,11 +94,35 @@ int					add_token(t_lexer **tmp_lex, char *line, int i, int j)
 	return (1);
 }
 
+// check if line is not empty or invalid
+// skip all whitespaces
+// if whitespace convert white separtor
+// if coma convert coma separtor
+// repeat
+
+/*
+** ==================== is_empty ====================
+** check if the line is empty or if it contain a token
+** even if this token is invalid
+** at this point, anything could be considered a token
+*/
+
+static int			is_empty(char *line)
+{
+	int i;
+
+	i = 0;
+	while (is_whitespace(line[i]))
+		i++;
+	if (!line[i])
+		return (1);
+	return (0);
+}
+
 /*
 ** ==================== splitter ====================
 ** This function takes a lexer node and a line, split the line
-** around spaces and commas, then return a table of all the
-** tokens lexeme
+** around spaces and commas, and the following instructions are under modification
 */
 
 int					splitter(t_lexer **tmp_lex, char *line)
@@ -108,29 +132,64 @@ int					splitter(t_lexer **tmp_lex, char *line)
 
 	i = 0;
 	j = 0;
-	if (!allocate_token(tmp_lex, line))
-		return (0);
+	(void)tmp_lex;
+	if (is_empty(line))
+		return (error_msg("line is empty", 0));
+	ft_printf("line = %s\ncount_token = %d\n", line, count_tokens(line));
 	while (line[i])
 	{
 		j = 0;
 		while (line[i] && is_whitespace(line[i]))
 			i++;
-		while (!is_whitespace(line[i + j]) && line[i + j] != ',')
-		{
-			if (line[i + j] == '#')
-				return (1);
+		// if (line[i] == ',')
+			// if (!allocate_token(tmp_lex, line))
+				// return (0);
+		// }
+			//add separator coma
+		// while (!is_whitespace(line[i + j]) && line[i + j] != ',')
+		// {
+			// if (line[i + j] == '#')
+				// return (1);
 			// if (line[i + j] == ',')
 				// do something
-			j++;
-		}
-		if (line[i + j] == ',')
-			j++;
-		if (!add_token(tmp_lex, line, i, j))
-			return (0);
-		(j == 0) ? (i++) : (i = i + j);
+			// j++;
+		// }
+		i++;
 	}
 	return (1);
 }
+
+
+// int					splitter(t_lexer **tmp_lex, char *line)
+// {
+// 	int i;
+// 	int j;
+
+// 	i = 0;
+// 	j = 0;
+// 	if (!allocate_token(tmp_lex, line))
+// 		return (0);
+// 	while (line[i])
+// 	{
+// 		j = 0;
+// 		while (line[i] && is_whitespace(line[i]))
+// 			i++;
+// 		while (!is_whitespace(line[i + j]) && line[i + j] != ',')
+// 		{
+// 			if (line[i + j] == '#')
+// 				return (1);
+// 			// if (line[i + j] == ',')
+// 				// do something
+// 			j++;
+// 		}
+// 		if (line[i + j] == ',')
+// 			j++;
+// 		if (!add_token(tmp_lex, line, i, j))
+// 			return (0);
+// 		(j == 0) ? (i++) : (i = i + j);
+// 	}
+// 	return (1);
+// }
 
 // entree:	live	%42,%42  %42    ,    %42 # entree
 // entree:	live	%42		# entree

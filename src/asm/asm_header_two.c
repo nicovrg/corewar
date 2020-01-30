@@ -6,7 +6,7 @@
 /*   By: nicolasv <nicolasv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 23:44:32 by amamy             #+#    #+#             */
-/*   Updated: 2020/01/27 01:44:43 by nicolasv         ###   ########.fr       */
+/*   Updated: 2020/01/30 03:47:47 by nicolasv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,19 +14,6 @@
 #include "asm.h"
 #include "libft.h"
 #include "ft_printf.h"
-
-/*
-** ==================== is_comment ====================
-** This function check if the character passed in argument is a #.
-** If yes, return an false, else return true
-*/
-
-int		is_comment(char c)
-{
-	if (c == COMMENT_CHAR)
-		return (1);
-	return (0);
-}
 
 /*
 ** ==================== is_dirty ====================

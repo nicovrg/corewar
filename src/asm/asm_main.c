@@ -6,7 +6,7 @@
 /*   By: nicolasv <nicolasv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/05 14:21:47 by qgirard           #+#    #+#             */
-/*   Updated: 2020/01/27 18:52:02 by nicolasv         ###   ########.fr       */
+/*   Updated: 2020/01/30 03:36:23 by nicolasv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,6 @@ int		main(int argc, char **argv)
 		return (error_mode(&data, &lex));
 	if (!translator(&data, &lex))
 		return (error_msg("error in translator", 1)); //free
-	print_lexer(&data, &lex);
+	// print_lexer(&data, &lex);
 	return (0);
 }
