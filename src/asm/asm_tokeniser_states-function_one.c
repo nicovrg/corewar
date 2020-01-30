@@ -6,7 +6,7 @@
 /*   By: amamy <amamy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/26 05:57:28 by amamy             #+#    #+#             */
-/*   Updated: 2020/01/27 05:27:25 by amamy            ###   ########.fr       */
+/*   Updated: 2020/01/30 23:56:41 by amamy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,48 +14,42 @@
 #include "libft.h"
 #include "ft_printf.h"
 
-int						is_label(t_lexer *lex, t_data *data, int current_token)
+int						is_label(t_lexer *lex, char *src)
 {
+	(void)src;
 	(void)lex;
-	(void)data;
-	(void)current_token;
-	// ft_printf("%s\n", "label");
-	// ft_printf("\nlexeme : %s\n\n", lex->token[current_token]->lexeme);
+	ft_printf("%s\n", "label");
 	return (0);
 }
 
-int						is_instructions(t_lexer *lex, t_data *data, int current_token)
+int						is_instructions(t_lexer *lex, char *src)
 {
+	(void)src;
 	(void)lex;
-	(void)data;
-	(void)current_token;
-	// ft_printf("%s\n", "instructions");
+	ft_printf("%s\n", "instructions");
 	return (0);
 }
 
-int						is_direct(t_lexer *lex, t_data *data, int current_token)
+int						is_direct(t_lexer *lex, char *src)
 {
+	(void)src;
 	(void)lex;
-	(void)data;
-	(void)current_token;
-	// ft_printf("%s\n", "direct");
+	ft_printf("%s\n", "direct");
 	return (0);
 }
 
-int						is_registr(t_lexer *lex, t_data *data, int current_token)
+int						is_registr(t_lexer *lex, char *src)
 {
+	(void)src;
 	(void)lex;
-	(void)data;
-	(void)current_token;
-	// ft_printf("%s\n", "register");
+	ft_printf("%s\n", "register");
 	return (0);
 }
 
-int						is_indirect(t_lexer *lex, t_data *data, int current_token)
+int						is_indirect(t_lexer *lex, char *src)
 {
+	(void)src;
 	(void)lex;
-	(void)data;
-	(void)current_token;
-	// ft_printf("%s\n", "indirect");
+	ft_printf("%s\n", "indirect");
 	return (0);
 }
