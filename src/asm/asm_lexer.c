@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   asm_lexer.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amamy <amamy@student.42.fr>                +#+  +:+       +#+        */
+/*   By: nicolasv <nicolasv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/23 04:24:28 by nivergne          #+#    #+#             */
-/*   Updated: 2020/01/27 05:29:50 by amamy            ###   ########.fr       */
+/*   Updated: 2020/01/27 19:17:25 by nicolasv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,6 @@ static t_lexer		**new_lexer_node(t_lexer **lex)
 	return (NULL);
 }
 
-
 // onyle here because neede in tokenizer sriting. should not remain.
 int		token_allocation(t_lexer *lex)
 {
@@ -105,7 +104,19 @@ int					lexer(int fd, t_data **data, t_lexer **lex)
 		(*tmp_lex)->nb_line = index;
 		(*tmp_lex)->line = ft_strdup(line);
 
-// ================= DO NOT DELETE ==============================================
+
+	 	if (!splitter(tmp_lex, line))
+            return (0);
+ 		// if (!tokenizer(*lex, *data))
+            // return (0);
+		ft_strdel(&line);
+		index++;
+	}
+	return (1);
+}
+
+
+// ================= DO NOT DELETE ( before if(!splitter) ) ==============================================
 
 		// for tokenizer dev - DO NOT DELETE
 			// (*lex)->token_nb = 3;
@@ -117,13 +128,3 @@ int					lexer(int fd, t_data **data, t_lexer **lex)
 		/// end tokenizer dev
 		
 // ========================= END ==============================================
-
-	 	if (!splitter(tmp_lex, line))
-            return (0);
- 		// if (!tokenizer(*lex, *data))
-            // return (0);
-		ft_strdel(&line);
-		index++;
-	}
-	return (1);
-}

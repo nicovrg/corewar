@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   asm_debug.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amamy <amamy@student.42.fr>                +#+  +:+       +#+        */
+/*   By: nicolasv <nicolasv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/07 15:32:54 by qgirard           #+#    #+#             */
-/*   Updated: 2020/01/27 05:28:11 by amamy            ###   ########.fr       */
+/*   Updated: 2020/01/27 19:11:43 by nicolasv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,10 @@ int		print_data(t_data **data)
 
 int		print_lexer(t_data **data, t_lexer **lexer)
 {
+	int			i;
 	t_lexer		*tmp_lexer;
 
+	i = 1;
 	tmp_lexer = (*lexer);
 	if (!lexer || !(*lexer))
 		return (error_msg("lexer is not initialized", 0));
@@ -43,13 +45,13 @@ int		print_lexer(t_data **data, t_lexer **lexer)
 	ft_putendl("\n\n");
 	while (tmp_lexer)
 	{
-		ft_printf("\t\x1b[1m\x1b[36m/ ======================= START LEXER NODE ======================= \\\x1b[0m\n");
+		ft_printf("\t\x1b[1m\x1b[36m/ ======================= START LEXER NODE %d ======================= \\\x1b[0m\n", i);
 		ft_putendl("");
 		ft_printf("\t\tline number =\t\t\t\t%d\n", tmp_lexer->nb_line);
 		ft_printf("\t\tline string =\t\t\t\t|\x1b[32m%s\x1b[0m|\n", tmp_lexer->line);
 		ft_printf("\t\tline label =\t\t\t\t|%s|\n", tmp_lexer->label);
 		ft_putendl("");
-		ft_printf("\t\t\x1b[1m\x1b[34m/ ======================= START TOKEN TABLE ======================= \\\x1b[0m\n");
+		ft_printf("\t\t\x1b[1m\x1b[34m/ ======================= START TOKEN TABLE (%d) ======================= \\\x1b[0m\n", i);
 		ft_printf("\t\t\ttoken number =\t\t%d\n", (*lexer)->token_nb);
 		print_token(lexer);
 		ft_printf("\t\t\x1b[1m\x1b[34m\\ ======================== END TOKEN TABLE ======================== /\t\t\x1b[0m\n\n");
@@ -58,6 +60,7 @@ int		print_lexer(t_data **data, t_lexer **lexer)
 		ft_putendl("");
 		ft_printf("\t\x1b[1m\x1b[36m\\ ======================= END LEXER NODE ======================= /\x1b[0m\n");
 		tmp_lexer = tmp_lexer->next;
+		i++;
 	}
 	ft_putendl("");
 	ft_printf("\x1b[1m\x1b[32m\\ ======================== END LEXER LIST ======================== /\t\t\x1b[0m\n");

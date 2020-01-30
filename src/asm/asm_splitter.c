@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   asm_splitter.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amamy <amamy@student.42.fr>                +#+  +:+       +#+        */
+/*   By: nicolasv <nicolasv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/23 04:42:59 by nivergne          #+#    #+#             */
-/*   Updated: 2020/01/27 05:28:11 by amamy            ###   ########.fr       */
+/*   Updated: 2020/01/27 19:23:18 by nicolasv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static int			count_tokens(char *line)
 		j = 0;
 		while (line[i] && is_whitespace(line[i]))
 			i++;
-		while (!is_whitespace(line[i + j]) && line[i + j] != ',')
+		while (line[i + j] && !is_whitespace(line[i + j]) && line[i + j] != ',')
 		{
 			if (line[i + j] == '#')
 				return (ret);
@@ -83,7 +83,7 @@ static int			allocate_token(t_lexer **tmp_lex, char *line)
 int					add_token(t_lexer **tmp_lex, char *line, int i, int j)
 {
 	// ft_printf("sssssss = %c\n", line[i + j - 1]);
-	ft_printf("sssssss = %s\n", line);
+	// ft_printf("sssssss = %s\n", line);
 	if (!((*tmp_lex)->token[1]->lexeme = ft_strndup(line + i, j)))
 		return (error_msg("fail alloc token->lexeme with strndup", 0));
 	if (!(line[i + j - 1] == ','))
@@ -119,6 +119,8 @@ int					splitter(t_lexer **tmp_lex, char *line)
 		{
 			if (line[i + j] == '#')
 				return (1);
+			// if (line[i + j] == ',')
+				// do something
 			j++;
 		}
 		if (line[i + j] == ',')
@@ -135,3 +137,32 @@ int					splitter(t_lexer **tmp_lex, char *line)
 // 	ld	%0,r5
 // 	ld	%0,r5
 // 	zjmp	%:lebocal_lesgrosgamins
+
+// int					splitter(t_lexer **tmp_lex, char *line)
+// {
+// 	int i;
+// 	int j;
+
+// 	i = 0;
+// 	j = 0;
+// 	if (!allocate_token(tmp_lex, line))
+// 		return (0);
+// 	while (line[i])
+// 	{
+// 		j = 0;
+// 		while (line[i] && is_whitespace(line[i]))
+// 			i++;
+// 		while (!is_whitespace(line[i + j]) && line[i + j] != ',')
+// 		{
+// 			if (line[i + j] == '#')
+// 				return (1);
+// 			j++;
+// 		}
+// 		if (line[i + j] == ',')
+// 			j++;
+// 		if (!add_token(tmp_lex, line, i, j))
+// 			return (0);
+// 		(j == 0) ? (i++) : (i = i + j);
+// 	}
+// 	return (1);
+// }
