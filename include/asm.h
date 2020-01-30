@@ -6,7 +6,7 @@
 /*   By: nicolasv <nicolasv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/21 01:21:58 by nivergne          #+#    #+#             */
-/*   Updated: 2020/01/30 04:09:08 by nicolasv         ###   ########.fr       */
+/*   Updated: 2020/01/31 00:48:41 by nicolasv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,15 +55,14 @@ typedef struct			s_lexer
 
 enum					token
 {
+	separator,
 	label,
 	instruction,
 	direct,
 	registr,
 	indirect,
 	label_call,
-	separator,
 	unknown,
-	eol
 };
 
 /* asm_main.c */

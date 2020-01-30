@@ -3,7 +3,7 @@
 
 
 
-entree:	live	%42%42  %42        %42   # entree,
+entree:	live	%42%42  %42        %42,
 entree:	live	%42,%42  %42    ,    %42,   ,   # entree,
 entree:	live	%42,%42  %42,%42 # entree
 	ld	%0,r5

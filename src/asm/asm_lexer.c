@@ -6,7 +6,7 @@
 /*   By: nicolasv <nicolasv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/23 04:24:28 by nivergne          #+#    #+#             */
-/*   Updated: 2020/01/30 04:13:38 by nicolasv         ###   ########.fr       */
+/*   Updated: 2020/01/31 00:31:36 by nicolasv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,9 +92,9 @@ int					lexer(int fd, t_data **data, t_lexer **lex)
 	char	*line;
 	t_lexer **tmp_lex;
 
-	index = (*data)->index_line;
 	line = NULL;
 	tmp_lex = NULL;
+	index = (*data)->index_line;
 	while (get_next_line(fd, &line) > 0)
 	{
 		if (line && !line[0] && is_empty(line) && index++)

@@ -83,26 +83,18 @@ static void	fill_token_finder()
 	** Returns (0) in case somethin unexpected happened.
 	*/
 
-int		tokenizer(t_lexer *lex, t_data *data)
+int		tokenizer(t_lexer *lex, char *lexme, int position)
 {
 	int		current_token;
 	int		lexical_error;
 	int		is_token_found;
 	enum	token search_token;
 	
-	lexical_error = 0;;
-	current_token = 0;
 	is_token_found = 0;
 	search_token = label;
 	fill_token_finder();
-	while (current_token < lex->nb_token)
-	{
 		while (search_token <= unknown && !is_token_found)
 			is_token_found = token_finder[search_token++] (lex, data, current_token);
-		search_token = label;
-		is_token_found = 0;
-		current_token++;
-	}
 	// if (!check_integrity)
 	// 	return (0);
 	return (1);	 //	maybe we can think qbout returning 0 if unknown token detected, 
