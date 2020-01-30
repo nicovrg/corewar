@@ -6,7 +6,7 @@
 /*   By: nicolasv <nicolasv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/21 01:21:58 by nivergne          #+#    #+#             */
-/*   Updated: 2020/01/30 03:52:35 by nicolasv         ###   ########.fr       */
+/*   Updated: 2020/01/30 04:09:08 by nicolasv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ typedef struct			s_token
 typedef struct			s_lexer
 {
 	int					nb_line;
-	int					token_nb;
+	int					nb_token;
 	char				*line;
 	char				*label; //  token * ?
 	struct s_token		**token;

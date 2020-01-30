@@ -6,7 +6,7 @@
 /*   By: nicolasv <nicolasv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/07 15:32:54 by qgirard           #+#    #+#             */
-/*   Updated: 2020/01/27 19:11:43 by nicolasv         ###   ########.fr       */
+/*   Updated: 2020/01/30 04:09:08 by nicolasv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ int		print_lexer(t_data **data, t_lexer **lexer)
 		ft_printf("\t\tline label =\t\t\t\t|%s|\n", tmp_lexer->label);
 		ft_putendl("");
 		ft_printf("\t\t\x1b[1m\x1b[34m/ ======================= START TOKEN TABLE (%d) ======================= \\\x1b[0m\n", i);
-		ft_printf("\t\t\ttoken number =\t\t%d\n", (*lexer)->token_nb);
+		ft_printf("\t\t\ttoken number =\t\t%d\n", (*lexer)->nb_token);
 		print_token(lexer);
 		ft_printf("\t\t\x1b[1m\x1b[34m\\ ======================== END TOKEN TABLE ======================== /\t\t\x1b[0m\n\n");
 		ft_printf("\t\taddress to current node =\t\t|%p|\n", tmp_lexer);
@@ -74,7 +74,7 @@ int		print_token(t_lexer **lexer)
 	i = 0;
 	if (!lexer || !(*lexer) || !(*lexer)->token)
 		return (error_msg("lexer is not initialized", 0));
-	while (i < (*lexer)->token_nb)
+	while (i < (*lexer)->nb_token)
 	{
 		ft_printf("\t\t\tlexeme =\t\t\t|%s|\n", (*lexer)->token[i]->lexeme);
 		i++;

@@ -6,7 +6,7 @@
 /*   By: nicolasv <nicolasv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/23 04:24:28 by nivergne          #+#    #+#             */
-/*   Updated: 2020/01/27 19:17:25 by nicolasv         ###   ########.fr       */
+/*   Updated: 2020/01/30 04:13:38 by nicolasv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,9 +70,9 @@ int		token_allocation(t_lexer *lex)
 
 	i = 0;
 	
-	if (!(lex->token = ft_memalloc(sizeof(t_token*) * lex->token_nb)))
+	if (!(lex->token = ft_memalloc(sizeof(t_token*) * lex->nb_token)))
 		return (0);
-	while (i < lex->token_nb)
+	while (i < lex->nb_token)
 	{
 		if (!(lex->token[i] = ft_memalloc(sizeof(t_token))))
 			return (0);
@@ -103,10 +103,8 @@ int					lexer(int fd, t_data **data, t_lexer **lex)
 			return (error_msg(ERR_LEXER_NODE_CREATE, 0));
 		(*tmp_lex)->nb_line = index;
 		(*tmp_lex)->line = ft_strdup(line);
-
-
 	 	if (!splitter(tmp_lex, line))
-            return (0);
+            return (error_msg("error in splitter", 0));
  		// if (!tokenizer(*lex, *data))
             // return (0);
 		ft_strdel(&line);
@@ -119,7 +117,7 @@ int					lexer(int fd, t_data **data, t_lexer **lex)
 // ================= DO NOT DELETE ( before if(!splitter) ) ==============================================
 
 		// for tokenizer dev - DO NOT DELETE
-			// (*lex)->token_nb = 3;
+			// (*lex)->nb_token = 3;
 			// if (!token_allocation(*lex))
 			// 	return (0);
 			// (*lex)->token[0]->lexeme = ft_strdup("entree:");

@@ -95,7 +95,7 @@ int		tokenizer(t_lexer *lex, t_data *data)
 	is_token_found = 0;
 	search_token = label;
 	fill_token_finder();
-	while (current_token < lex->token_nb)
+	while (current_token < lex->nb_token)
 	{
 		while (search_token <= unknown && !is_token_found)
 			is_token_found = token_finder[search_token++] (lex, data, current_token);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   asm_splitter copy.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amamy <amamy@student.42.fr>                +#+  +:+       +#+        */
+/*   By: nicolasv <nicolasv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/23 04:42:59 by nivergne          #+#    #+#             */
-/*   Updated: 2020/01/27 05:28:11 by amamy            ###   ########.fr       */
+/*   Updated: 2020/01/30 04:09:08 by nicolasv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,19 +56,19 @@ static int			count_tokens(char *line)
 static int			allocate_token(t_lexer **tmp_lex, char *line)
 {
     int	i;
-	int token_nb;
+	int nb_token;
 
     i = 0;
-	token_nb = count_tokens(line);
-	if (!((*tmp_lex)->token = ft_memalloc((sizeof(t_token) * token_nb) + 1)))
+	nb_token = count_tokens(line);
+	if (!((*tmp_lex)->token = ft_memalloc((sizeof(t_token) * nb_token) + 1)))
         return (0);
-    while (i < token_nb)
+    while (i < nb_token)
     {
         if (!((*tmp_lex)->token[i] = ft_memalloc(sizeof(t_token))))
             return (0);
         i++;
     }
-	(*tmp_lex)->token_nb = token_nb;
+	(*tmp_lex)->nb_token = nb_token;
     return (1);
 }
 
@@ -84,7 +84,7 @@ int					add_token(t_lexer **tmp_lex, char *line, int i, int j)
 		// j--;
 	if (!((*tmp_lex)->token[1]->lexeme = ft_strndup(line + i, j)))
 		return (error_msg("fail alloc token->lexeme with strndup", 0));
-	// ft_printf("nb token = %d\ntoken = |%s|\nline = %s\ni = %d\nj = %d\n", (*tmp_lex)->token_nb, (*tmp_lex)->token[1]->lexeme, line, i, j);
+	// ft_printf("nb token = %d\ntoken = |%s|\nline = %s\ni = %d\nj = %d\n", (*tmp_lex)->nb_token, (*tmp_lex)->token[1]->lexeme, line, i, j);
 	return (1);
 }
 
@@ -265,19 +265,19 @@ static int			count_tokens(char *line)
 static int			allocate_token(t_lexer **tmp_lex, char *line)
 {
     int	i;
-	int token_nb;
+	int nb_token;
 
     i = 0;
-	token_nb = count_tokens(line);
-	if (!((*tmp_lex)->token = ft_memalloc((sizeof(t_token) * token_nb) + 1)))
+	nb_token = count_tokens(line);
+	if (!((*tmp_lex)->token = ft_memalloc((sizeof(t_token) * nb_token) + 1)))
         return (0);
-    while (i < token_nb)
+    while (i < nb_token)
     {
         if (!((*tmp_lex)->token[i] = ft_memalloc(sizeof(t_token))))
             return (0);
         i++;
     }
-	(*tmp_lex)->token_nb = token_nb;
+	(*tmp_lex)->nb_token = nb_token;
     return (1);
 }
 

@@ -6,7 +6,7 @@
 /*   By: nicolasv <nicolasv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/23 04:42:59 by nivergne          #+#    #+#             */
-/*   Updated: 2020/01/30 04:06:11 by nicolasv         ###   ########.fr       */
+/*   Updated: 2020/01/30 04:15:48 by nicolasv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static int			count_tokens(char *line)
 	i = 0;
 	ret = 0;
 	if (ft_strnstr(line, ",,", ft_strlen(line)))
-		return (error_msg("invalid line, multiples commas in a row", 0));
+		return (error_msg("invalid line, multiples commas in a row", -1));
 	while (line[i])
 	{
 		j = 0;
@@ -59,19 +59,19 @@ static int			count_tokens(char *line)
 // static int			allocate_token(t_lexer **tmp_lex, char *line)
 // {
 //     int	i;
-// 	int token_nb;
+// 	int nb_token;
 
 //     i = 0;
-// 	token_nb = count_tokens(line);
-// 	if (!((*tmp_lex)->token = ft_memalloc((sizeof(t_token) * token_nb) + 1)))
+// 	nb_token = count_tokens(line);
+// 	if (!((*tmp_lex)->token = ft_memalloc((sizeof(t_token) * nb_token) + 1)))
 //         return (0);
-//     while (i < token_nb)
+//     while (i < nb_token)
 //     {
 //         if (!((*tmp_lex)->token[i] = ft_memalloc(sizeof(t_token))))
 //             return (0);
 //         i++;
 //     }
-// 	(*tmp_lex)->token_nb = token_nb;
+// 	(*tmp_lex)->nb_token = nb_token;
 //     return (1);
 // }
 
@@ -129,13 +129,16 @@ int					splitter(t_lexer **tmp_lex, char *line)
 {
 	int i;
 	int j;
+	int nb_token;
 
 	i = 0;
 	j = 0;
-	(void)tmp_lex;
+	if ((nb_token = count_tokens(line)) == -1)
+		return (error_msg("error in count_tokens", 0));
 	if (is_empty(line))
-		return (error_msg("line is empty", 0));
-	ft_printf("line = %s\ncount_token = %d\n", line, count_tokens(line));
+		return (error_msg("error in is empty", 0));
+	(void)tmp_lex;
+	ft_printf("line = %s\ncount_token = %d\n", line, nb_token);
 	while (line[i])
 	{
 		j = 0;
