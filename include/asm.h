@@ -6,7 +6,7 @@
 /*   By: nicolasv <nicolasv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/21 01:21:58 by nivergne          #+#    #+#             */
-/*   Updated: 2020/01/31 00:48:41 by nicolasv         ###   ########.fr       */
+/*   Updated: 2020/01/31 00:56:52 by nicolasv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@
 
 typedef	 struct			s_data
 {
-	int					errors;
+	int					errors; // is a flag in case there is a lexical or syntaxic error, might be other ways.
 	int					name_line;
 	int					index_line;
 	int					comment_line;
@@ -38,9 +38,12 @@ typedef	 struct			s_data
 
 typedef struct			s_token
 {
-	int					value;
-	char				*lexeme;
-	struct s_lexer		*parent; // unsure
+	char				*lexeme; // (to be removed) should not be usefull (exept for label) because the lexeme string will be send to tokenizer
+	int					position; // token's position in the code line
+	int					type;	//type of token (enum token refered)
+	struct u_token		*token; // pointe rtoward the match structure
+	struct s_token		*next; // pointing the next token
+	struct s_lexer		*parent; // pointing to the line it is contained by
 }						t_token;
 
 typedef struct			s_lexer
@@ -49,8 +52,8 @@ typedef struct			s_lexer
 	int					nb_token;
 	char				*line;
 	char				*label; //  token * ?
-	struct s_token		**token;
-	struct s_lexer		*next;
+	struct s_token		*token; // we  now point to the first element of a list of tokens
+	struct s_lexer		*next; // point to the next code line
 }						t_lexer;
 
 enum					token
@@ -74,17 +77,17 @@ int						lexer(int fd, t_data **data, t_lexer **lex);
 
 /* asm_tokeniser.c */
 int						new_token_node(t_token **token);
-int						tokenizer(t_lexer *lex, t_data *data);
+int						tokenizer(t_lexer *lex, char *src); // t_data *data <- has been removed, it was only used for errors flags, may come back
 
 /* asm_tokeniser_states-functions.c */
-int						is_label(t_lexer*lex, t_data *data, int current_token);
-int						is_instructions(t_lexer *lex, t_data *data, int current_token);
-int						is_direct(t_lexer *lex, t_data *data, int current_token);
-int						is_registr(t_lexer *lex, t_data *data, int current_token);
-int						is_indirect(t_lexer *lex, t_data *data, int current_token);
-int						is_label_call(t_lexer *lex, t_data *data, int current_token);
-int						is_separator(t_lexer *lex, t_data *data, int current_token);
-int						is_unknown(t_lexer *lex, t_data *data, int current_token);
+int						is_separator(t_lexer *lex, char *src);
+int						is_label(t_lexer*lex, char *src);
+int						is_instructions(t_lexer *lex, char *src);
+int						is_direct(t_lexer *lex, char *src);
+int						is_registr(t_lexer *lex, char *src);
+int						is_indirect(t_lexer *lex, char *src);
+int						is_label_call(t_lexer *lex, char *src);
+int						is_unknown(t_lexer *lex, char *src);
 
 /* asm_error.c */
 int						error_msg(char *error_msg, int i);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   asm_debug.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nicolasv <nicolasv@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amamy <amamy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/07 15:32:54 by qgirard           #+#    #+#             */
-/*   Updated: 2020/01/30 04:09:08 by nicolasv         ###   ########.fr       */
+/*   Updated: 2020/01/30 23:59:01 by amamy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,8 @@ int		print_token(t_lexer **lexer)
 		return (error_msg("lexer is not initialized", 0));
 	while (i < (*lexer)->nb_token)
 	{
-		ft_printf("\t\t\tlexeme =\t\t\t|%s|\n", (*lexer)->token[i]->lexeme);
+		// ligne com parce aue ça use une var qu'on utilise plus
+		//  ft_printf("\t\t\tlexeme =\t\t\t|%s|\n", (*lexer)->token[i]->lexeme);
 		i++;
 	}
 	return (1);

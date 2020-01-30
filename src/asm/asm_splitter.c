@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   asm_splitter.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nicolasv <nicolasv@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amamy <amamy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/23 04:42:59 by nivergne          #+#    #+#             */
-/*   Updated: 2020/01/30 04:15:48 by nicolasv         ###   ########.fr       */
+/*   Updated: 2020/01/30 23:58:09 by amamy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,19 +80,19 @@ static int			count_tokens(char *line)
 ** This function set the lexeme value of a token
 */
 
-int					add_token(t_lexer **tmp_lex, char *line, int i, int j)
-{
-	// ft_printf("sssssss = %c\n", line[i + j - 1]);
-	// ft_printf("sssssss = %s\n", line);
-	if (!((*tmp_lex)->token[1]->lexeme = ft_strndup(line + i, j)))
-		return (error_msg("fail alloc token->lexeme with strndup", 0));
-	if (!(line[i + j - 1] == ','))
-	{
-		if (!((*tmp_lex)->token[1]->lexeme = ft_strndup(",", 1)))
-			return (error_msg("fail alloc token->lexeme with strndup", 0));
-	}
-	return (1);
-}
+// int					add_token(t_lexer **tmp_lex, char *line, int i, int j)
+// {
+// 	// ft_printf("sssssss = %c\n", line[i + j - 1]);
+// 	// ft_printf("sssssss = %s\n", line);
+// 	if (!((*tmp_lex)->token[1]->lexeme = ft_strndup(line + i, j)))
+// 		return (error_msg("fail alloc token->lexeme with strndup", 0));
+// 	if (!(line[i + j - 1] == ','))
+// 	{
+// 		if (!((*tmp_lex)->token[1]->lexeme = ft_strndup(",", 1)))
+// 			return (error_msg("fail alloc token->lexeme with strndup", 0));
+// 	}
+// 	return (1);
+// }
 
 // check if line is not empty or invalid
 // skip all whitespaces
