@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   asm_lib.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nicolasv <nicolasv@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amamy <amamy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/25 03:50:53 by nicolasv          #+#    #+#             */
-/*   Updated: 2020/01/30 03:52:56 by nicolasv         ###   ########.fr       */
+/*   Updated: 2020/01/31 18:12:57 by amamy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,8 @@ int		is_whitespace(char c)
 ** If yes, return an false, else return true
 */
 
+
+//SHould be renamed "is_separator_char"
 int		is_comment(char c)
 {
 	if (c == '#')

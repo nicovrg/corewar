@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   asm_splitter copy.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nicolasv <nicolasv@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amamy <amamy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/23 04:42:59 by nivergne          #+#    #+#             */
-/*   Updated: 2020/01/30 04:09:08 by nicolasv         ###   ########.fr       */
+/*   Updated: 2020/01/31 15:51:33 by amamy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ static int			count_tokens(char *line)
 ** of this table.
 */
 
-static int			allocate_token(t_lexer **tmp_lex, char *line)
+static int			allocate_token(t_code_line **tmp_lex, char *line)
 {
     int	i;
 	int nb_token;
@@ -77,7 +77,7 @@ static int			allocate_token(t_lexer **tmp_lex, char *line)
 ** This function set the lexeme value of a token
 */
 
-int					add_token(t_lexer **tmp_lex, char *line, int i, int j)
+int					add_token(t_code_line **tmp_lex, char *line, int i, int j)
 {
 	ft_printf("sssssss = %c\n", line[i + j - 1]);
 	// if (line[i + j - 1] == ',')
@@ -95,7 +95,7 @@ int					add_token(t_lexer **tmp_lex, char *line, int i, int j)
 ** tokens lexeme
 */
 
-int					splitter(t_lexer **tmp_lex, char *line)
+int					splitter(t_code_line **tmp_lex, char *line)
 {
 	int i;
 	int j;
@@ -262,7 +262,7 @@ static int			count_tokens(char *line)
 ** of this table.
 */
 
-static int			allocate_token(t_lexer **tmp_lex, char *line)
+static int			allocate_token(t_code_line **tmp_lex, char *line)
 {
     int	i;
 	int nb_token;
@@ -286,7 +286,7 @@ static int			allocate_token(t_lexer **tmp_lex, char *line)
 ** This function set the lexeme value of a token
 */
 
-int					add_token(t_lexer **tmp_lex, char *line, int i, int j)
+int					add_token(t_code_line **tmp_lex, char *line, int i, int j)
 {
 	// ft_printf("sssssss = %c\n", line[i + j - 1]);
 	if (!(line[i + j - 1] == ','))
@@ -309,7 +309,7 @@ int					add_token(t_lexer **tmp_lex, char *line, int i, int j)
 ** tokens lexeme
 */
 
-int					splitter(t_lexer **tmp_lex, char *line)
+int					splitter(t_code_line **tmp_lex, char *line)
 {
 	int i;
 	int j;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   asm.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nicolasv <nicolasv@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amamy <amamy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/21 01:21:58 by nivergne          #+#    #+#             */
-/*   Updated: 2020/01/31 00:56:52 by nicolasv         ###   ########.fr       */
+/*   Updated: 2020/01/31 21:38:30 by amamy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,23 +38,22 @@ typedef	 struct			s_data
 
 typedef struct			s_token
 {
-	char				*lexeme; // (to be removed) should not be usefull (exept for label) because the lexeme string will be send to tokenizer
 	int					position; // token's position in the code line
 	int					type;	//type of token (enum token refered)
 	struct u_token		*token; // pointe rtoward the match structure
 	struct s_token		*next; // pointing the next token
-	struct s_lexer		*parent; // pointing to the line it is contained by
+	struct s_code_line	*parent; // pointing to the line it is contained by
 }						t_token;
 
-typedef struct			s_lexer
+typedef struct			s_code_line
 {
 	int					nb_line;
 	int					nb_token;
 	char				*line;
 	char				*label; //  token * ?
 	struct s_token		*token; // we  now point to the first element of a list of tokens
-	struct s_lexer		*next; // point to the next code line
-}						t_lexer;
+	struct s_code_line	*next; // point to the next code line
+}						t_code_line;
 
 enum					token
 {
@@ -72,22 +71,23 @@ enum					token
 
 /* asm_lexer.c */
 // static int				is_empty(char *str);
-// static t_lexer			**new_lexer_node(t_lexer **lex);
-int						lexer(int fd, t_data **data, t_lexer **lex);
+// static t_code_line			**new_lexer_node(t_code_line **lex);
+int						lexer(int fd, t_data **data, t_code_line *code_line);
 
 /* asm_tokeniser.c */
-int						new_token_node(t_token **token);
-int						tokenizer(t_lexer *lex, char *src); // t_data *data <- has been removed, it was only used for errors flags, may come back
+int						tokenizer(t_code_line *c_line, char *line);
+int						token_machine_gun(t_code_line *c_line, char *line);
+void					stuff_token_guns();
 
 /* asm_tokeniser_states-functions.c */
-int						is_separator(t_lexer *lex, char *src);
-int						is_label(t_lexer*lex, char *src);
-int						is_instructions(t_lexer *lex, char *src);
-int						is_direct(t_lexer *lex, char *src);
-int						is_registr(t_lexer *lex, char *src);
-int						is_indirect(t_lexer *lex, char *src);
-int						is_label_call(t_lexer *lex, char *src);
-int						is_unknown(t_lexer *lex, char *src);
+int						is_separator(t_code_line *lex, char *src);
+int						is_label(t_code_line*lex, char *src);
+int						is_instructions(t_code_line *lex, char *src);
+int						is_direct(t_code_line *lex, char *src);
+int						is_registr(t_code_line *lex, char *src);
+int						is_indirect(t_code_line *lex, char *src);
+int						is_label_call(t_code_line *lex, char *src);
+int						is_unknown(t_code_line *lex, char *src);
 
 /* asm_error.c */
 int						error_msg(char *error_msg, int i);
@@ -96,8 +96,8 @@ int						error_while_gnl(char **line, char *error_msg);
 
 /* asm_debug.c */
 int						print_data(t_data **data);
-int						print_lexer(t_data **data, t_lexer **lexer);
-int						print_token(t_lexer **lexer);
+int						print_lexer(t_data **data, t_code_line **lexer);
+int						print_token(t_code_line **lexer);
 
 /* asm_header_one.c */
 int						is_whitespace(char c);
@@ -119,8 +119,7 @@ char					*ft_strndup(const char *s1, ssize_t len);
 
 /* asm_splitter.c */
 // static int				count_tokens(char *line);
-// static int				allocate_token(t_lexer **tmp_lex, char *line);
-int						splitter(t_lexer **tmp_lex, char *line);
+// static int				allocate_token(t_code_line **tmp_lex, char *line);
 
 
 #endif

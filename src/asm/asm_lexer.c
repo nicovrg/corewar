@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   asm_lexer.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nicolasv <nicolasv@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amamy <amamy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/23 04:24:28 by nivergne          #+#    #+#             */
-/*   Updated: 2020/01/31 00:57:19 by nicolasv         ###   ########.fr       */
+/*   Updated: 2020/01/31 21:42:58 by amamy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,89 +43,48 @@ static int			is_not_useful(char *str)
 ** else go at the end of the list and add a new node
 */
 
-static t_lexer		**new_lexer_node(t_lexer **lex)
+static int			new_line_node(t_code_line **c_line)
 {
-	t_lexer		*new;
-	t_lexer		*tmp_lex;
-
-	tmp_lex = (*lex);
-	while (tmp_lex && tmp_lex->next)
-		tmp_lex = tmp_lex->next;
-	if (!(new = (t_lexer *)ft_memalloc(sizeof(t_lexer))))
+	t_code_line		*new;
+	
+	while ((*c_line) && (*c_line)->next)
+		(*c_line) = (*c_line)->next;
+	if (!(new = (t_code_line *)ft_memalloc(sizeof(t_code_line))))
 		return (0);
-	if ((*lex))
+	if ((*c_line))
 	{
-		tmp_lex->next = new;
-		return (&(tmp_lex->next));
+		(*c_line)->next = new;
+		(*c_line) = (*c_line)->next;
 	}	
 	else
-	{
-		(*lex) = new;
-		return (lex);
-	}
-	return (NULL);
+		(*c_line) = new;
+	return (1);
 }
-
-// onyle here because neede in tokenizer sriting. should not remain.
-// int		token_allocation(t_lexer *lex)
-// {
-// 	int		i;
-
-// 	i = 0;
-	
-// 	if (!(lex->token = ft_memalloc(sizeof(t_token*) * lex->nb_token)))
-// 		return (0);
-// 	while (i < lex->nb_token)
-// 	{
-// 		if (!(lex->token[i] = ft_memalloc(sizeof(t_token))))
-// 			return (0);
-// 		i++;
-// 	}
-// 	return (1);
-// }
 
 /*
 ** ==================== lexer ====================
 ** 
 */
 
-int					lexer(int fd, t_data **data, t_lexer **lex) 
+int					lexer(int fd, t_data **data, t_code_line *c_line) 
 {
 	int		index;
 	char	*line;
-	t_lexer **tmp_lex;
 
 	line = NULL;
-	tmp_lex = NULL;
 	index = (*data)->index_line;
+	stuff_token_guns();
 	while (get_next_line(fd, &line) > 0)
 	{
-		if (line && !line[0] && is_not_useful(line) && index++)
+		if (line && (!line[0] || is_not_useful(line)) && index++)
 			continue ;
-		if (!(tmp_lex = new_lexer_node(lex)))
+		if (!new_line_node(&c_line))
 			return (error_msg(ERR_LEXER_NODE_CREATE, 0));
-		(*tmp_lex)->nb_line = index;
-		(*tmp_lex)->line = ft_strdup(line);
-	 	if (!splitter(tmp_lex, line))
-            return (error_msg("error in splitter", 0));
- 		// if (!tokenizer(*lex, *data))
-            // return (0);
+		c_line->nb_line = index;
+	 	if (!tokenizer(c_line, line))
+            return (0);
 		ft_strdel(&line);
 		index++;
 	}
 	return (1);
 }
-
-
-// ================= DO NOT DELETE ( before if(!splitter) ) ==============================================
-
-		// for tokenizer dev - DO NOT DELETE
-			// (*lex)->nb_token = 3;
-			// if (!token_allocation(*lex))
-			// 	return (0);
-			// (*lex)->token[0]->lexeme = ft_strdup("entree:");
-			// (*lex)->token[1]->lexeme = ft_strdup("live");
-			// (*lex)->token[2]->lexeme = ft_strdup("%42");
-		/// end tokenizer dev
-		
-// ========================= END ==============================================

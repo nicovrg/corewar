@@ -3,30 +3,30 @@
 /*                                                        :::      ::::::::   */
 /*   asm_main.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nicolasv <nicolasv@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amamy <amamy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/05 14:21:47 by qgirard           #+#    #+#             */
-/*   Updated: 2020/01/30 03:36:23 by nicolasv         ###   ########.fr       */
+/*   Updated: 2020/01/31 17:15:12 by amamy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
 #include "libft.h"
 
-int	parser(t_data **data, t_lexer **lex)
+int	parser(t_data **data, t_code_line **lex)
 {
 	(void)data;
 	(void)lex;
 	return (1);
 }
 
-int	error_mode(t_data **data, t_lexer **lex)
+int	error_mode(t_data **data, t_code_line **lex)
 {
 	(void)data;
 	(void)lex;
 	return (1);
 }
-int	translator(t_data **data, t_lexer **lex)
+int	translator(t_data **data, t_code_line **lex)
 {
 	(void)data;
 	(void)lex;
@@ -48,7 +48,7 @@ int	translator(t_data **data, t_lexer **lex)
 int		main(int argc, char **argv)
 {
 	int		fd;
-	t_lexer	*lex;
+	t_code_line	*lex;
 	t_data	*data;
 
 	fd = 0;
@@ -62,7 +62,7 @@ int		main(int argc, char **argv)
 		return (error_msg(ERR_MAIN_OPEN_FILE, 1));
 	if (!header(fd, &data))
 		return (error_msg("error in header", 1)); //free		
-	if (!lexer(fd, &data, &lex))
+	if (!lexer(fd, &data, lex))
 		return (error_msg("error in lexer", 1)); //free
 	if (!parser(&data, &lex))
 		return (error_msg("error in parser", 1)); //free

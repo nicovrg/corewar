@@ -6,7 +6,7 @@
 /*   By: amamy <amamy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/07 15:32:54 by qgirard           #+#    #+#             */
-/*   Updated: 2020/01/30 23:59:01 by amamy            ###   ########.fr       */
+/*   Updated: 2020/01/31 15:51:33 by amamy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,10 @@ int		print_data(t_data **data)
 	return (1);
 }
 
-int		print_lexer(t_data **data, t_lexer **lexer)
+int		print_lexer(t_data **data, t_code_line **lexer)
 {
 	int			i;
-	t_lexer		*tmp_lexer;
+	t_code_line		*tmp_lexer;
 
 	i = 1;
 	tmp_lexer = (*lexer);
@@ -67,7 +67,7 @@ int		print_lexer(t_data **data, t_lexer **lexer)
 	return (1);
 }
 
-int		print_token(t_lexer **lexer)
+int		print_token(t_code_line **lexer)
 {
 	int i;
 	
