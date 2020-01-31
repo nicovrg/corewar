@@ -6,7 +6,7 @@
 /*   By: amamy <amamy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/23 04:24:28 by nivergne          #+#    #+#             */
-/*   Updated: 2020/01/31 21:42:58 by amamy            ###   ########.fr       */
+/*   Updated: 2020/01/31 22:54:02 by amamy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,13 @@
 #include "ft_printf.h"
 
 /*
-** ==================== is_not_useful ====================
+** ==================== is_useless ====================
 ** This function return 1 if the string is full of whitespaces
 ** or if it is a comment.
 ** and 0 otherwise. 
 */
 
-static int			is_not_useful(char *str)
+static int			is_useless(char *str)
 {
 	int i;
 
@@ -76,7 +76,7 @@ int					lexer(int fd, t_data **data, t_code_line *c_line)
 	stuff_token_guns();
 	while (get_next_line(fd, &line) > 0)
 	{
-		if (line && (!line[0] || is_not_useful(line)) && index++)
+		if (line && !line[0] && is_useless(line) && index++)
 			continue ;
 		if (!new_line_node(&c_line))
 			return (error_msg(ERR_LEXER_NODE_CREATE, 0));
