@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   asm_splitter.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amamy <amamy@student.42.fr>                +#+  +:+       +#+        */
+/*   By: nicolasv <nicolasv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/23 04:42:59 by nivergne          #+#    #+#             */
-/*   Updated: 2020/01/30 23:58:09 by amamy            ###   ########.fr       */
+/*   Updated: 2020/01/31 01:34:50 by nicolasv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,19 +80,19 @@ static int			count_tokens(char *line)
 ** This function set the lexeme value of a token
 */
 
-// int					add_token(t_lexer **tmp_lex, char *line, int i, int j)
-// {
-// 	// ft_printf("sssssss = %c\n", line[i + j - 1]);
-// 	// ft_printf("sssssss = %s\n", line);
-// 	if (!((*tmp_lex)->token[1]->lexeme = ft_strndup(line + i, j)))
-// 		return (error_msg("fail alloc token->lexeme with strndup", 0));
-// 	if (!(line[i + j - 1] == ','))
-// 	{
-// 		if (!((*tmp_lex)->token[1]->lexeme = ft_strndup(",", 1)))
-// 			return (error_msg("fail alloc token->lexeme with strndup", 0));
-// 	}
-// 	return (1);
-// }
+int					add_token(t_lexer **tmp_lex, char *line, int i, int j)
+{
+	// ft_printf("sssssss = %c\n", line[i + j - 1]);
+	// ft_printf("sssssss = %s\n", line);
+	if (!((*tmp_lex)->token[1]->lexeme = ft_strndup(line + i, j)))
+		return (error_msg("fail alloc token->lexeme with strndup", 0));
+	if (!(line[i + j - 1] == ','))
+	{
+		if (!((*tmp_lex)->token[1]->lexeme = ft_strndup(",", 1)))
+			return (error_msg("fail alloc token->lexeme with strndup", 0));
+	}
+	return (1);
+}
 
 // check if line is not empty or invalid
 // skip all whitespaces
@@ -129,21 +129,24 @@ int					splitter(t_lexer **tmp_lex, char *line)
 {
 	int i;
 	int j;
-	int nb_token;
+	int position;
 
 	i = 0;
-	j = 0;
-	if ((nb_token = count_tokens(line)) == -1)
-		return (error_msg("error in count_tokens", 0));
-	if (is_empty(line))
-		return (error_msg("error in is empty", 0));
-	(void)tmp_lex;
-	ft_printf("line = %s\ncount_token = %d\n", line, nb_token);
-	while (line[i])
+	while (line[i] && is_whitespace(line[i]))
+		i++;
+	while (line[i] && !is_comment(line[i]))
 	{
 		j = 0;
+
+		// allocate a token node and increment position
+		// while (is_token[i++])
+		// lexme_type(line + i, j, position, tmp_lex)
+
+		// if !is_comma() 
+		// nouveau token => checker => allouer => arreij => tokenzier
 		while (line[i] && is_whitespace(line[i]))
 			i++;
+
 		// if (line[i] == ',')
 			// if (!allocate_token(tmp_lex, line))
 				// return (0);
@@ -162,6 +165,8 @@ int					splitter(t_lexer **tmp_lex, char *line)
 	return (1);
 }
 
+while (j > 0)
+	
 
 // int					splitter(t_lexer **tmp_lex, char *line)
 // {

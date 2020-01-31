@@ -6,7 +6,7 @@
 /*   By: nicolasv <nicolasv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/05 14:21:47 by qgirard           #+#    #+#             */
-/*   Updated: 2020/01/30 03:36:23 by nicolasv         ###   ########.fr       */
+/*   Updated: 2020/01/31 02:31:16 by nicolasv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,8 @@ int	translator(t_data **data, t_lexer **lex)
 int		main(int argc, char **argv)
 {
 	int		fd;
-	t_lexer	*lex;
 	t_data	*data;
+	t_lexer	*lex;
 
 	fd = 0;
 	lex = NULL;
@@ -70,6 +70,6 @@ int		main(int argc, char **argv)
 		return (error_mode(&data, &lex));
 	if (!translator(&data, &lex))
 		return (error_msg("error in translator", 1)); //free
-	// print_lexer(&data, &lex);
+	print_lexer(&data, &lex);
 	return (0);
 }
