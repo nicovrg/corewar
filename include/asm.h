@@ -6,7 +6,7 @@
 /*   By: amamy <amamy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/21 01:21:58 by nivergne          #+#    #+#             */
-/*   Updated: 2020/01/31 22:55:23 by amamy            ###   ########.fr       */
+/*   Updated: 2020/02/01 01:54:40 by amamy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,9 @@ typedef	 struct			s_data
 
 typedef struct			s_token
 {
-	int					position; // token's position in the code line
 	int					type;	//type of token (enum token refered)
-	struct u_token		*token; // pointe rtoward the match structure
+	int					position; // token's position in the code line
+	struct u_type		*values; // pointe rtoward the match structure
 	struct s_token		*next; // pointing the next token
 	struct s_code_line	*parent; // pointing to the line it is contained by
 }						t_token;
@@ -50,7 +50,6 @@ typedef struct			s_code_line
 	int					nb_line;
 	int					nb_token;
 	char				*line;
-	char				*label; //  token * ?
 	struct s_token		*token; // we  now point to the first element of a list of tokens
 	struct s_code_line	*next; // point to the next code line
 }						t_code_line;
@@ -76,18 +75,18 @@ int						lexer(int fd, t_data **data, t_code_line *code_line);
 
 /* asm_tokeniser.c */
 int						tokenizer(t_code_line *c_line, char *line);
-int						token_machine_gun(t_code_line *c_line, char *line);
+int						token_machine_gun(t_token **token, char *line);
 void					stuff_token_guns();
 
 /* asm_tokeniser_states-functions.c */
-int						is_separator(t_code_line *lex, char *src);
-int						is_label(t_code_line*lex, char *src);
-int						is_instructions(t_code_line *lex, char *src);
-int						is_direct(t_code_line *lex, char *src);
-int						is_registr(t_code_line *lex, char *src);
-int						is_indirect(t_code_line *lex, char *src);
-int						is_label_call(t_code_line *lex, char *src);
-int						is_unknown(t_code_line *lex, char *src);
+int						is_separator(t_token **token, char *src);
+int						is_label(t_token **token, char *src);
+int						is_instructions(t_token **token, char *src);
+int						is_direct(t_token **token, char *src);
+int						is_registr(t_token **token, char *src);
+int						is_indirect(t_token **token, char *src);
+int						is_label_call(t_token **token, char *src);
+int						is_unknown(t_token **token, char *src);
 
 /* asm_error.c */
 int						error_msg(char *error_msg, int i);

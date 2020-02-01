@@ -6,7 +6,7 @@
 /*   By: amamy <amamy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/23 04:24:28 by nivergne          #+#    #+#             */
-/*   Updated: 2020/01/31 22:54:02 by amamy            ###   ########.fr       */
+/*   Updated: 2020/02/01 02:02:36 by amamy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,23 +68,28 @@ static int			new_line_node(t_code_line **c_line)
 
 int					lexer(int fd, t_data **data, t_code_line *c_line) 
 {
-	int		index;
-	char	*line;
+	int			index;
+	char		*line;
+	t_code_line	*tmp_c_line;
 
 	line = NULL;
+	tmp_c_line = c_line;
 	index = (*data)->index_line;
 	stuff_token_guns();
 	while (get_next_line(fd, &line) > 0)
 	{
 		if (line && !line[0] && is_useless(line) && index++)
 			continue ;
-		if (!new_line_node(&c_line))
-			return (error_msg(ERR_LEXER_NODE_CREATE, 0));
-		c_line->nb_line = index;
-	 	if (!tokenizer(c_line, line))
+		if (tmp_c_line->nb_line)
+			if (!new_line_node(&tmp_c_line))
+				return (error_msg(ERR_LEXER_NODE_CREATE, 0));
+		tmp_c_line->nb_line = index;
+	 	if (!tokenizer(tmp_c_line, line))
             return (0);
 		ft_strdel(&line);
+		// print_lexer(data, &c_line);
 		index++;
 	}
+	ft_printf("(*c_line)->nb_line : %d\n", tmp_c_line->nb_line);
 	return (1);
 }

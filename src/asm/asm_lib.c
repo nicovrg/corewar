@@ -6,7 +6,7 @@
 /*   By: amamy <amamy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/25 03:50:53 by nicolasv          #+#    #+#             */
-/*   Updated: 2020/01/31 18:12:57 by amamy            ###   ########.fr       */
+/*   Updated: 2020/02/01 00:56:22 by amamy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,8 +74,6 @@ int		is_whitespace(char c)
 ** If yes, return an false, else return true
 */
 
-
-//SHould be renamed "is_separator_char"
 int		is_comment(char c)
 {
 	if (c == '#')
@@ -95,3 +93,39 @@ int		is_comma(char c)
 		return (1);
 	return (0);
 }
+
+/*
+** ==================== count_tokens ====================
+** This function count the number of token in one line
+** If there are multiples commas following each others, return an error
+*/
+
+// static int			count_tokens(char *line)
+// {
+// 	int i;
+// 	int j;
+// 	int ret;
+
+// 	i = 0;
+// 	ret = 0;
+// 	if (ft_strnstr(line, ",,", ft_strlen(line)))
+// 		return (error_msg("invalid line, multiples commas in a row", -1));
+// 	while (line[i])
+// 	{
+// 		j = 0;
+// 		while (line[i] && is_whitespace(line[i]))
+// 			i++;
+// 		while (line[i + j] && (!is_whitespace(line[i + j]) && !is_comma(line[i + j])))
+// 		{
+// 			if (is_comment(line[i + j]))
+// 				return (ret);
+// 			j++;
+// 		}
+// 		(line[i + j - 1] > 0 && is_comma(line[i + j - 1])) ? (j++) : (0);
+// 		(line[i + j - 1] > 0 && is_comma(line[i + j - 1])) ? (ret++) : (0);
+// 		(j == 0) ? (i++) : (i = i + j);
+// 		ret++;
+// 	}
+// 	return (ret);
+// }
+

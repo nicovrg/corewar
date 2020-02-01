@@ -6,7 +6,7 @@
 /*   By: amamy <amamy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/26 05:57:28 by amamy             #+#    #+#             */
-/*   Updated: 2020/01/31 15:51:33 by amamy            ###   ########.fr       */
+/*   Updated: 2020/02/01 00:53:20 by amamy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,42 +14,42 @@
 #include "libft.h"
 #include "ft_printf.h"
 
-int						is_label(t_code_line *lex, char *src)
+int						is_label(t_token **token, char *src)
 {
 	(void)src;
-	(void)lex;
-	ft_printf("%s\n", "label");
+	(void)token;
+	ft_printf("%s\n", "label couille");
 	return (0);
 }
 
-int						is_instructions(t_code_line *lex, char *src)
+int						is_instructions(t_token **token, char *src)
 {
 	(void)src;
-	(void)lex;
+	(void)token;
 	ft_printf("%s\n", "instructions");
 	return (0);
 }
 
-int						is_direct(t_code_line *lex, char *src)
+int						is_direct(t_token **token, char *src)
 {
 	(void)src;
-	(void)lex;
+	(void)token;
 	ft_printf("%s\n", "direct");
 	return (0);
 }
 
-int						is_registr(t_code_line *lex, char *src)
+int						is_registr(t_token **token, char *src)
 {
 	(void)src;
-	(void)lex;
+	(void)token;
 	ft_printf("%s\n", "register");
 	return (0);
 }
 
-int						is_indirect(t_code_line *lex, char *src)
+int						is_indirect(t_token **token, char *src)
 {
 	(void)src;
-	(void)lex;
+	(void)token;
 	ft_printf("%s\n", "indirect");
 	return (0);
 }

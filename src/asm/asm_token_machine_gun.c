@@ -21,7 +21,7 @@
 ** a token.
 */
 
-static int	(*token_gun[LEX_STATES_NB])(t_code_line *, char *src);
+static int	(*token_gun[LEX_STATES_NB])(t_token **, char *);
 
 /*
 ** ==================== stuff_token_guns ====================
@@ -52,15 +52,15 @@ void	stuff_token_guns()
 
 
 // new tokenizer for lexeme
-int		token_machine_gun(t_code_line *c_line, char *src)
+int		token_machine_gun(t_token **token, char *src)
 {
 	int		is_token_found;
 	enum	token search_token;
-	
+		
 	is_token_found = 0;
 	search_token = label;
 	while (search_token <= unknown && !is_token_found)
-		is_token_found = token_gun[search_token++] (c_line, src);
+		is_token_found = token_gun[search_token++] (token, src);
 	// if (!check_integrity)
 	// 	return (0);
 	return (1);	 //	maybe we can think qbout returning 0 if unknown token detected, 
