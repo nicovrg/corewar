@@ -60,7 +60,7 @@ int		token_machine_gun(t_token **token, char *src)
 	is_token_found = 0;
 	search_token = label;
 	while (search_token <= unknown && !is_token_found)
-		is_token_found = token_gun[search_token++] (token, src);
+		is_token_found = token_gun[search_token++](token, src);
 	// if (!check_integrity)
 	// 	return (0);
 	return (1);	 //	maybe we can think qbout returning 0 if unknown token detected, 

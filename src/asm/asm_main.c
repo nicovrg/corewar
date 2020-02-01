@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   asm_main.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amamy <amamy@student.42.fr>                +#+  +:+       +#+        */
+/*   By: nivergne <nivergne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/05 14:21:47 by qgirard           #+#    #+#             */
-/*   Updated: 2020/02/01 02:02:45 by amamy            ###   ########.fr       */
+/*   Updated: 2020/02/01 05:44:11 by nivergne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,7 @@ int		main(int argc, char **argv)
 
 	fd = 0;
 	data = NULL;
-	if (!(code_line = ft_memalloc(sizeof(t_code_line))))
-		return (0);
+	code_line = NULL;
 	if (argc != 2)
 		return (error_msg(ERR_MAIN_NB_PARAMETERS, 1));
 	if (argv[1] && ft_strchr(argv[1], '.') && ft_strcmp(ft_strchr(argv[1], '.'), ".s"))
@@ -63,7 +62,7 @@ int		main(int argc, char **argv)
 		return (error_msg(ERR_MAIN_OPEN_FILE, 1));
 	if (!header(fd, &data))
 		return (error_msg("error in header", 1)); //free		
-	if (!lexer(fd, &data, code_line))
+	if (!lexer(fd, &data, &code_line))
 		return (error_msg("error in lexer", 1)); //free
 	if (!parser(&data, &code_line))
 		return (error_msg("error in parser", 1)); //free
@@ -71,6 +70,6 @@ int		main(int argc, char **argv)
 		return (error_mode(&data, &code_line));
 	if (!translator(&data, &code_line))
 		return (error_msg("error in translator", 1)); //free
-	// print_lexer(&data, &code_line);
+	print_code_line(&data, &code_line);
 	return (0);
 }

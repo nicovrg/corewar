@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   asm_lexer.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amamy <amamy@student.42.fr>                +#+  +:+       +#+        */
+/*   By: nivergne <nivergne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/23 04:24:28 by nivergne          #+#    #+#             */
-/*   Updated: 2020/02/01 02:02:36 by amamy            ###   ########.fr       */
+/*   Updated: 2020/02/01 06:04:07 by nivergne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,22 +43,23 @@ static int			is_useless(char *str)
 ** else go at the end of the list and add a new node
 */
 
-static int			new_line_node(t_code_line **c_line)
+static t_code_line	*new_line_node(t_code_line **tmp_c_line, char *line, int index)
 {
 	t_code_line		*new;
 	
-	while ((*c_line) && (*c_line)->next)
-		(*c_line) = (*c_line)->next;
+	new = NULL;
 	if (!(new = (t_code_line *)ft_memalloc(sizeof(t_code_line))))
 		return (0);
-	if ((*c_line))
+	new->nb_line = index;
+	new->line = ft_strdup(line);
+	if ((*tmp_c_line))
 	{
-		(*c_line)->next = new;
-		(*c_line) = (*c_line)->next;
-	}	
+		(*tmp_c_line)->next = new;
+		(*tmp_c_line) = new;
+	}
 	else
-		(*c_line) = new;
-	return (1);
+		(*tmp_c_line) = new;
+	return (new);
 }
 
 /*
@@ -66,30 +67,48 @@ static int			new_line_node(t_code_line **c_line)
 ** 
 */
 
-int					lexer(int fd, t_data **data, t_code_line *c_line) 
+int					lexer(int fd, t_data **data, t_code_line **c_line)
 {
 	int			index;
 	char		*line;
-	t_code_line	*tmp_c_line;
+	t_code_line	*tmp;
+	t_code_line *tmp_c_line;
 
 	line = NULL;
-	tmp_c_line = c_line;
 	index = (*data)->index_line;
+	tmp_c_line = *c_line;
 	stuff_token_guns();
 	while (get_next_line(fd, &line) > 0)
 	{
-		if (line && !line[0] && is_useless(line) && index++)
-			continue ;
-		if (tmp_c_line->nb_line)
-			if (!new_line_node(&tmp_c_line))
+		if (!(line && !line[0] && is_useless(line)))
+		{
+			if (!(tmp = new_line_node(&tmp_c_line, line, index)))
 				return (error_msg(ERR_LEXER_NODE_CREATE, 0));
-		tmp_c_line->nb_line = index;
-	 	if (!tokenizer(tmp_c_line, line))
-            return (0);
+			if (!tokenizer(c_line, line))
+				return (error_msg("error in lexer", 0));
+			if (!(*c_line))
+				*c_line = tmp;
+		}
 		ft_strdel(&line);
-		// print_lexer(data, &c_line);
 		index++;
 	}
-	ft_printf("(*c_line)->nb_line : %d\n", tmp_c_line->nb_line);
 	return (1);
 }
+
+// N : nombre de lignes dans ton fichiers
+// M : nombre de nodes actuellement dans ta liste
+// N*N
+
+
+/*
+** ==================== steven tricks ====================
+**	c_line[0]->nb_line = index;
+** 	(*(c_line)->nb_line = index;
+** 	(*(c_line + 0))->nb_line = index;
+** 	(*(*c_line)).nb_line = index;
+** 	(**c_line).nb_line = index;
+** 	c_line[0][0].nb_line = index;
+
+
+** memcpy(&b, &a, sizeof(int));
+*/

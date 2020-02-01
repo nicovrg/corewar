@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   asm.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amamy <amamy@student.42.fr>                +#+  +:+       +#+        */
+/*   By: nivergne <nivergne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/21 01:21:58 by nivergne          #+#    #+#             */
-/*   Updated: 2020/02/01 01:54:40 by amamy            ###   ########.fr       */
+/*   Updated: 2020/02/01 04:40:30 by nivergne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,11 +70,11 @@ enum					token
 
 /* asm_lexer.c */
 // static int				is_empty(char *str);
-// static t_code_line			**new_lexer_node(t_code_line **lex);
-int						lexer(int fd, t_data **data, t_code_line *code_line);
+// static t_code_line		**new_lexer_node(t_code_line **lex);
+int						lexer(int fd, t_data **data, t_code_line **code_line);
 
 /* asm_tokeniser.c */
-int						tokenizer(t_code_line *c_line, char *line);
+int						tokenizer(t_code_line **c_line, char *line);
 int						token_machine_gun(t_token **token, char *line);
 void					stuff_token_guns();
 
@@ -95,7 +95,7 @@ int						error_while_gnl(char **line, char *error_msg);
 
 /* asm_debug.c */
 int						print_data(t_data **data);
-int						print_lexer(t_data **data, t_code_line **lexer);
+int						print_code_line(t_data **data, t_code_line **lexer);
 int						print_token(t_code_line **lexer);
 
 /* asm_header_one.c */

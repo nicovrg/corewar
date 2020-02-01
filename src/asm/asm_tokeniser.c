@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   asm_tokeniser.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amamy <amamy@student.42.fr>                +#+  +:+       +#+        */
+/*   By: nivergne <nivergne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/23 04:42:59 by nivergne          #+#    #+#             */
-/*   Updated: 2020/02/01 01:35:27 by amamy            ###   ########.fr       */
+/*   Updated: 2020/02/01 04:18:48 by nivergne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,16 +46,15 @@ static int		new_token_node(t_code_line *c_line, t_token **token)
 
 static int			find_token(t_token **token, char *line, int length)
 {
-	// this is stack method, but rais	es conditional jumps
+	// this is stack method, but raises conditional jumps
 	// char	lexeme[length];
 	// ft_strncpy(lexeme, line, length);
-	char	*lexeme;
-	lexeme = ft_strndup(line, length);
-	ft_printf("length : %d, lexeme : ----> |%s|\n-------------\n", length, lexeme);
-	token_machine_gun(token, lexeme);
+	// ft_printf("length : %d, lexeme : ----> |%s|\n-------------\n", length, lexeme);
 	(void)token;
-	
-	// ft_putendl(line);
+	char	*lexeme;
+
+	lexeme = ft_strndup(line, length);
+	token_machine_gun(token, lexeme);
 	return (1);
 }
 
@@ -83,11 +82,9 @@ int					tokenizer(t_code_line *c_line, char *line)
 		i++;
 	while (line[i] && !is_comment(line[i]))
 	{
-	// ft_printf("line = |%s|\n", &line[i]);
-		ft_printf("line[i] |%c|\n", line[i]);
 		j = 0;
 		if (!new_token_node(c_line, &current_token))
-			return (error_msg("error in asm_tokeniser.c -> new_token_node", 0));
+			return (error_msg("error in tokeniser", 0));
 		while (line[i + j] && !is_whitespace(line[i + j]) && !is_comment(line[i + j]) && !is_comma(line[i + j]))
 			j++;
 		if (is_comma(line[i + j]))

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   asm_tokeniser_states-function_two.c                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amamy <amamy@student.42.fr>                +#+  +:+       +#+        */
+/*   By: nivergne <nivergne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/26 05:57:28 by amamy             #+#    #+#             */
-/*   Updated: 2020/01/31 23:57:55 by amamy            ###   ########.fr       */
+/*   Updated: 2020/02/01 02:44:20 by nivergne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int						is_label_call(t_token **token, char *src)
 {
 	(void)src;
 	(void)token;
-	ft_printf("%s\n", "label_call");
+	// ft_printf("%s\n", "is_label_call");
 
 	return (0);
 }
@@ -27,7 +27,7 @@ int						is_separator(t_token **token, char *src)
 {
 	(void)src;
 	(void)token;
-	ft_printf("%s\n", "separator");
+	// ft_printf("%s\n", "is_separator");
 
 	return (0);
 }
@@ -36,7 +36,7 @@ int						is_unknown(t_token **token, char *src)
 {
 	(void)src;
 	(void)token;
-	ft_printf("%s\n", "unknown");
+	// ft_printf("%s\n", "is_unknown");
 
 	return (1);
 }
