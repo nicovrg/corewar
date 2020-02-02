@@ -6,7 +6,7 @@
 /*   By: nivergne <nivergne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/21 01:21:58 by nivergne          #+#    #+#             */
-/*   Updated: 2020/02/01 04:40:30 by nivergne         ###   ########.fr       */
+/*   Updated: 2020/02/02 06:26:14 by nivergne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,23 @@
 
 # define ERR_LEXER_NODE_CREATE "error in lexer - could not create new node"
 
-# define LEX_STATES_NB	9
+typedef enum			e_token_type
+{
+	TOKEN_TYPE_UNDEFINED,
+	TOKEN_TYPE_SEPARATOR,
+	TOKEN_TYPE_LABEL,
+	TOKEN_TYPE_INSTRUCTION,
+	TOKEN_TYPE_DIRECT,
+	TOKEN_TYPE_REGISTR, //TODO: typo
+	TOKEN_TYPE_INDIRECT,
+	TOKEN_TYPE_LABEL_CALL,
+	TOKEN_TYPE_UNKNOWN,
+	NB_TOKEN_TYPE,
+}						t_token_type;
 
 typedef	 struct			s_data
 {
-	int					errors; // is a flag in case there is a lexical or syntaxic error, might be other ways.
+	int					errors;
 	int					name_line;
 	int					index_line;
 	int					comment_line;
@@ -38,11 +50,12 @@ typedef	 struct			s_data
 
 typedef struct			s_token
 {
-	int					type;	//type of token (enum token refered)
-	int					position; // token's position in the code line
-	struct u_type		*values; // pointe rtoward the match structure
-	struct s_token		*next; // pointing the next token
-	struct s_code_line	*parent; // pointing to the line it is contained by
+	int					type;	
+	int					position;
+	int					length;
+	struct s_token		*next; 
+	struct s_code_line	*code_line; 
+	struct u_type		*values;
 }						t_token;
 
 typedef struct			s_code_line
@@ -50,43 +63,29 @@ typedef struct			s_code_line
 	int					nb_line;
 	int					nb_token;
 	char				*line;
-	struct s_token		*token; // we  now point to the first element of a list of tokens
-	struct s_code_line	*next; // point to the next code line
+	struct s_token		*token; 
+	struct s_code_line	*next; 
 }						t_code_line;
 
-enum					token
-{
-	separator,
-	label,
-	instruction,
-	direct,
-	registr,
-	indirect,
-	label_call,
-	unknown,
-};
 
 /* asm_main.c */
 
 /* asm_lexer.c */
-// static int				is_empty(char *str);
-// static t_code_line		**new_lexer_node(t_code_line **lex);
 int						lexer(int fd, t_data **data, t_code_line **code_line);
 
 /* asm_tokeniser.c */
 int						tokenizer(t_code_line **c_line, char *line);
-int						token_machine_gun(t_token **token, char *line);
-void					stuff_token_guns();
+void					determine_token_type_and_length(t_token *token);
 
 /* asm_tokeniser_states-functions.c */
-int						is_separator(t_token **token, char *src);
-int						is_label(t_token **token, char *src);
-int						is_instructions(t_token **token, char *src);
-int						is_direct(t_token **token, char *src);
-int						is_registr(t_token **token, char *src);
-int						is_indirect(t_token **token, char *src);
-int						is_label_call(t_token **token, char *src);
-int						is_unknown(t_token **token, char *src);
+int						is_separator(t_token *token);
+int						is_label(t_token *token);
+int						is_instructions(t_token *token);
+int						is_direct(t_token *token);
+int						is_registr(t_token *token);
+int						is_indirect(t_token *token);
+int						is_label_call(t_token *token);
+int						is_unknown(t_token *token);
 
 /* asm_error.c */
 int						error_msg(char *error_msg, int i);

@@ -6,7 +6,7 @@
 /*   By: nivergne <nivergne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/23 04:24:28 by nivergne          #+#    #+#             */
-/*   Updated: 2020/02/01 06:04:07 by nivergne         ###   ########.fr       */
+/*   Updated: 2020/02/02 06:26:19 by nivergne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,7 @@
 /*
 ** ==================== is_useless ====================
 ** This function return 1 if the string is full of whitespaces
-** or if it is a comment.
-** and 0 otherwise. 
+** or if it is a comment and 0 otherwise. 
 */
 
 static int			is_useless(char *str)
@@ -38,56 +37,67 @@ static int			is_useless(char *str)
 }
 
 /*
-** ==================== new_lexer_node ====================
-** if its the first line, instanciate the list
-** else go at the end of the list and add a new node
+** ====================  ====================
+** 
 */
 
-static t_code_line	*new_line_node(t_code_line **tmp_c_line, char *line, int index)
+static t_code_line	*create_code_line(char *line, int index)
 {
 	t_code_line		*new;
 	
-	new = NULL;
 	if (!(new = (t_code_line *)ft_memalloc(sizeof(t_code_line))))
 		return (0);
 	new->nb_line = index;
 	new->line = ft_strdup(line);
-	if ((*tmp_c_line))
-	{
-		(*tmp_c_line)->next = new;
-		(*tmp_c_line) = new;
-	}
-	else
-		(*tmp_c_line) = new;
 	return (new);
 }
 
 /*
-** ==================== lexer ====================
+** ====================  ====================
 ** 
+*/
+
+static void		chain_code_line(t_code_line **current_c_line, t_code_line *new)
+{
+	if ((*current_c_line))
+	{
+		(*current_c_line)->next = new;
+		(*current_c_line) = new;
+	}
+	else
+		(*current_c_line) = new;
+}
+
+/*
+** ==================== lexer ====================
+** Read a line with gnl, then check if it's usefull
+** if it doesm allocate a new node, store the address 
+** in a tmp variable because at the start of the function
+** the first node is pointing on null. 
+** Then call the tokenizer function
 */
 
 int					lexer(int fd, t_data **data, t_code_line **c_line)
 {
-	int			index;
-	char		*line;
-	t_code_line	*tmp;
-	t_code_line *tmp_c_line;
+	int				index;
+	char			*line;
+	t_code_line		*new_c_line;
+	t_code_line 	*current_c_line;
 
 	line = NULL;
 	index = (*data)->index_line;
-	tmp_c_line = *c_line;
-	stuff_token_guns();
+	current_c_line = *c_line;
 	while (get_next_line(fd, &line) > 0)
 	{
 		if (!(line && !line[0] && is_useless(line)))
 		{
-			if (!(tmp = new_line_node(&tmp_c_line, line, index)))
+			if (!(new_c_line = create_code_line(line, index)))
 				return (error_msg(ERR_LEXER_NODE_CREATE, 0));
-			if (!tokenizer(c_line, line))
+			chain_code_line(&current_c_line, new_c_line);
+			if (!tokenizer(current_c_line, line))
 				return (error_msg("error in lexer", 0));
 			if (!(*c_line))
-				*c_line = tmp;
+				*c_line = new_c_line;
 		}
 		ft_strdel(&line);
 		index++;
@@ -95,20 +105,3 @@ int					lexer(int fd, t_data **data, t_code_line **c_line)
 	return (1);
 }
 
-// N : nombre de lignes dans ton fichiers
-// M : nombre de nodes actuellement dans ta liste
-// N*N
-
-
-/*
-** ==================== steven tricks ====================
-**	c_line[0]->nb_line = index;
-** 	(*(c_line)->nb_line = index;
-** 	(*(c_line + 0))->nb_line = index;
-** 	(*(*c_line)).nb_line = index;
-** 	(**c_line).nb_line = index;
-** 	c_line[0][0].nb_line = index;
-
-
-** memcpy(&b, &a, sizeof(int));
-*/

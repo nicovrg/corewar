@@ -6,7 +6,7 @@
 /*   By: nivergne <nivergne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/23 04:42:59 by nivergne          #+#    #+#             */
-/*   Updated: 2020/02/01 04:18:48 by nivergne         ###   ########.fr       */
+/*   Updated: 2020/02/02 06:25:07 by nivergne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,86 +15,62 @@
 #include "ft_printf.h"
 
 /*
-** ==================== new_token_node ====================
-** if it s the first token, instanciate the list
-** else go at the end of the list and add a new node
-** In case of success, return a pointer to the newly available node.
-*/
-
-static int		new_token_node(t_code_line *c_line, t_token **token)
-{
-	t_token		*new;
-	while ((*token) && (*token)->next)
-		*token = (*token)->next;
-	if (!(new = (t_token *)ft_memalloc(sizeof(t_token))))
-		return (0);
-	new->parent = c_line;
-	if ((*token))
-	{
-		(*token)->next = new;
-		*token = (*token)->next;
-	}
-	else
-		(*token) = new;
-	return (1);
-}
-
-/*
 ** ==================== create_tokens ====================
 ** 
 */
 
-static int			find_token(t_token **token, char *line, int length)
+static int		create_token(t_code_line **current_line, int position)
 {
-	// this is stack method, but raises conditional jumps
-	// char	lexeme[length];
-	// ft_strncpy(lexeme, line, length);
-	// ft_printf("length : %d, lexeme : ----> |%s|\n-------------\n", length, lexeme);
-	(void)token;
-	char	*lexeme;
+	t_token		*new;
 
-	lexeme = ft_strndup(line, length);
-	token_machine_gun(token, lexeme);
-	return (1);
+	if (!(new = (t_token *)ft_memalloc(sizeof(t_token))))
+		return (0);
+	new->position = position;
+	new->code_line = (*current_line);
+	determine_token_type_and_length(new);
+	new->next = NULL;
+	return (new);
 }
 
-void			store_token_quantity(t_code_line *c_line)
+/*
+** ==================== chain_token ====================
+** 
+*/
+
+static void		chain_token(t_token **current_token, t_token *new)
 {
-	(void)c_line;
+	if ((*current_token))
+	{
+		(*current_token)->next = new;
+		(*current_token) = new;
+	}
+	else
+		(*current_token) = new;
 }
 
 /*
 ** ==================== tokenizer ====================
-** This function takes a code_line node and a line, split the line
-** around spaces and commas, and the following instructions are under modification
+** 
 */
 
-int					tokenizer(t_code_line *c_line, char *line)
+int					tokenizer(t_code_line **current_c_line, char *line)
 {
-	int i;
-	int j;
-	t_token	*current_token;
+	int			i;
+	t_token		*new_token;
+	t_token		*current_token;
 
 	i = 0;
-	j = 0;
 	current_token = NULL;
-	while (line[i] && is_whitespace(line[i]))
-		i++;
 	while (line[i] && !is_comment(line[i]))
 	{
-		j = 0;
-		if (!new_token_node(c_line, &current_token))
-			return (error_msg("error in tokeniser", 0));
-		while (line[i + j] && !is_whitespace(line[i + j]) && !is_comment(line[i + j]) && !is_comma(line[i + j]))
-			j++;
-		if (is_comma(line[i + j]))
-			j++;
-		find_token(&current_token, line + i, j);
-		i = i + j;
 		while (line[i] && is_whitespace(line[i]))
 			i++;
+		if (!(new_token = create_token(current_c_line, &current_token)))
+			return (error_msg("error in tokeniser", 0));
+		chain_token(current_token, new_token);
+		if (!(*current_c_line)->token)
+			(*current_c_line)->token = new_token;
+		i += new_token->length;
 	}
-	store_token_quantity(c_line);
-	// c_line = current_token->parent;
 	return (1);
 }
