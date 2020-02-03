@@ -6,7 +6,7 @@
 #    By: nicolasv <nicolasv@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/09/22 23:46:29 by nivergne          #+#    #+#              #
-#    Updated: 2020/02/03 03:47:48 by nicolasv         ###   ########.fr        #
+#    Updated: 2020/02/03 03:54:32 by nicolasv         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,12 +15,12 @@ SRC_ASM_PATH	:=	asm/
 SRC_VM_PATH		:=	vm/
 
 SRC_ASM =			main.c\
-					mini_lib.c\
-					debug.c\
-					error.c\
+					helper_lib.c\
+					helper_debug.c\
+					helper_error.c\
 					lexer.c\
-					get_header_one.c\
-					get_header_two.c\
+					get_header_info_one.c\
+					get_header_info_two.c\
 					get_tokens_from_current_line.c\
 					determine_token_type_one.c\
 					determine_token_type_func_two.c\

@@ -6,7 +6,7 @@
 /*   By: nicolasv <nicolasv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/21 01:21:58 by nivergne          #+#    #+#             */
-/*   Updated: 2020/02/03 03:34:04 by nicolasv         ###   ########.fr       */
+/*   Updated: 2020/02/03 03:57:55 by nicolasv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ typedef enum			e_token_type
 	TOKEN_TYPE_LABEL,
 	TOKEN_TYPE_INSTRUCTION,
 	TOKEN_TYPE_DIRECT,
-	TOKEN_TYPE_REGISTR, //TODO: typo
+	TOKEN_TYPE_REGISTER,
 	TOKEN_TYPE_INDIRECT,
 	TOKEN_TYPE_LABEL_CALL,
 	TOKEN_TYPE_UNKNOWN,
@@ -53,9 +53,9 @@ typedef struct			s_token
 	int					type;	
 	int					position;
 	int					length;
-	struct s_token		*next; 
 	struct s_code_line	*code_line; 
 	struct u_type		*values;
+	struct s_token		*next; 
 }						t_token;
 
 typedef struct			s_code_line
@@ -82,7 +82,7 @@ int						is_separator(t_token *token);
 int						is_label(t_token *token);
 int						is_instructions(t_token *token);
 int						is_direct(t_token *token);
-int						is_registr(t_token *token);
+int						is_register(t_token *token);
 int						is_indirect(t_token *token);
 int						is_label_call(t_token *token);
 int						is_unknown(t_token *token);
