@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   asm.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nivergne <nivergne@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nicolasv <nicolasv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/21 01:21:58 by nivergne          #+#    #+#             */
-/*   Updated: 2020/02/02 06:26:14 by nivergne         ###   ########.fr       */
+/*   Updated: 2020/02/03 03:34:04 by nicolasv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ typedef struct			s_code_line
 int						lexer(int fd, t_data **data, t_code_line **code_line);
 
 /* asm_tokeniser.c */
-int						tokenizer(t_code_line **c_line, char *line);
+int						get_tokens_from_current_line(t_code_line **c_line, char *line);
 void					determine_token_type_and_length(t_token *token);
 
 /* asm_tokeniser_states-functions.c */

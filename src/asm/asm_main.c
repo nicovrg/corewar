@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   asm_main.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nivergne <nivergne@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nicolasv <nicolasv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/05 14:21:47 by qgirard           #+#    #+#             */
-/*   Updated: 2020/02/02 06:34:59 by nivergne         ###   ########.fr       */
+/*   Updated: 2020/02/03 03:34:50 by nicolasv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ static int	check_args_and_open_files(int argc, char **argv)
 		return (error_msg(ERR_MAIN_FILE_TYPE, 1));
 	else if (argv[1] && (fd = open(argv[1], O_RDONLY)) == -1)
 		return (error_msg(ERR_MAIN_OPEN_FILE, 1));
-
+	return (fd);
 }
 
 /*

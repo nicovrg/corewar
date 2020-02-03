@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   asm_tokeniser.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nivergne <nivergne@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nicolasv <nicolasv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/23 04:42:59 by nivergne          #+#    #+#             */
-/*   Updated: 2020/02/02 06:25:07 by nivergne         ###   ########.fr       */
+/*   Updated: 2020/02/03 03:40:02 by nicolasv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 ** 
 */
 
-static int		create_token(t_code_line **current_line, int position)
+static t_token		*create_token(t_code_line **current_line, int position)
 {
 	t_token		*new;
 
@@ -49,11 +49,11 @@ static void		chain_token(t_token **current_token, t_token *new)
 }
 
 /*
-** ==================== tokenizer ====================
+** ==================== get_tokens_from_current_line ====================
 ** 
 */
 
-int					tokenizer(t_code_line **current_c_line, char *line)
+int					get_tokens_from_current_line(t_code_line **current_c_line, char *line)
 {
 	int			i;
 	t_token		*new_token;
@@ -65,12 +65,12 @@ int					tokenizer(t_code_line **current_c_line, char *line)
 	{
 		while (line[i] && is_whitespace(line[i]))
 			i++;
-		if (!(new_token = create_token(current_c_line, &current_token)))
+		if (!(new_token = create_token(current_c_line, i)))
 			return (error_msg("error in tokeniser", 0));
-		chain_token(current_token, new_token);
+		chain_token(&current_token, new_token);
 		if (!(*current_c_line)->token)
 			(*current_c_line)->token = new_token;
-		i += new_token->length;
+		(new_token->length > 0) ? (i += new_token->length) : (i++);
 	}
 	return (1);
 }
