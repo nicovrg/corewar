@@ -6,13 +6,14 @@
 /*   By: nicolasv <nicolasv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/07 15:32:54 by qgirard           #+#    #+#             */
-/*   Updated: 2020/02/03 04:04:10 by nicolasv         ###   ########.fr       */
+/*   Updated: 2020/02/03 04:19:46 by nicolasv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
 #include "libft.h"
 #include "ft_printf.h"
+#include <stdio.h>
 
 int		print_data(t_data **data)
 {
@@ -47,12 +48,12 @@ int		print_code_line(t_data **data, t_code_line **code_line)
 	{
 		ft_printf("\t\x1b[1m\x1b[36m/ ===================== START CODE LINE NODE %d ===================== \\\x1b[0m\n", i);
 		ft_putendl("");
-		ft_printf("\t\tline number =\t\t\t\t%d\n", current_code_line->nb_line);
-		ft_printf("\t\ttoken in line number =\t\t\t%d\n", current_code_line->nb_token);
+		ft_printf("\t\tline number =\t\t\t\t|%d|\n", current_code_line->nb_line);
+		ft_printf("\t\ttoken in line number =\t\t\t|%d|\n", current_code_line->nb_token);
 		ft_printf("\t\tline string =\t\t\t\t|\x1b[32m%s\x1b[0m|\n", current_code_line->line);
 		ft_putendl("");
-		ft_printf("\t\t\x1b[1m\x1b[34m/ ===================== START TOKEN TABLE (%d) ===================== \\\x1b[0m\n", i);
-		print_token(code_line);
+		ft_printf("\t\t\x1b[1m\x1b[34m/ ===================== START TOKEN TABLE (%d) ===================== \\\x1b[0m\n\n", i);
+		print_token(&current_code_line);
 		ft_printf("\t\t\x1b[1m\x1b[34m\\ ======================== END TOKEN TABLE ======================== /\t\t\x1b[0m\n\n");
 		ft_printf("\t\taddress to current node =\t\t|%p|\n", current_code_line);
 		ft_printf("\t\taddress to following node =\t\t|%p|\n", current_code_line->next);
@@ -66,23 +67,27 @@ int		print_code_line(t_data **data, t_code_line **code_line)
 	return (1);
 }
 
-int		print_token(t_code_line **code_line)
+int		print_token(t_code_line **current_code_line)
 {
-	int i;
+	int			i;
+	t_token		*current_token;
 	
 	i = 0;
-	if (!code_line || !(*code_line) || !(*code_line)->token)
+	if (!current_code_line || !(*current_code_line) || !(*current_code_line)->token)
 		return (error_msg("code_line is not initialized", 0));
-	while ((*code_line)->token)
+	current_token = (*current_code_line)->token;
+	while (current_token)
 	{
-		
-		ft_printf("\t\t\ttype =\t\t\t\t\t|%d|\n", ((*code_line)->token)->type);
-		ft_printf("\t\t\tposition =\t\t\t\t|%s|\n", (*code_line)->token->position);
-		ft_printf("\t\t\tlength =\t\t\t\t|%s|\n", (*code_line)->token->length);
-		ft_printf("\t\t\tcode_line parent node address =\t\t|%p|\n", (*code_line)->token->code_line);
-		ft_printf("\t\t\tunion structure address =\t\t|%p|\n", (*code_line)->token->values);
-		ft_printf("\t\t\tnext token address =\t\t\t|%p|\n", (*code_line)->token->next);
-		(*code_line)->token = (*code_line)->token->next;
+		ft_printf("token number %d\n", i);
+		ft_printf("\t\t\ttype =\t\t\t\t\t|%d|\n", current_token->type);
+		ft_printf("\t\t\tposition =\t\t\t\t|%d|\n", current_token->position);
+		ft_printf("\t\t\tlength =\t\t\t\t|%d|\n", current_token->length);
+		ft_printf("\t\t\tcode_line parent node address =\t\t|%p|\n", current_token->code_line);
+		ft_printf("\t\t\tunion structure address =\t\t|%p|\n", current_token->values);
+		ft_printf("\t\t\tnext token address =\t\t\t|%p|\n", current_token->next);
+		ft_printf("\n");
+		current_token = current_token->next;
+		i++;
 	}
 	return (1);
 }
