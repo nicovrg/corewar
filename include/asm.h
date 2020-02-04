@@ -6,7 +6,7 @@
 /*   By: nicolasv <nicolasv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/21 01:21:58 by nivergne          #+#    #+#             */
-/*   Updated: 2020/02/03 03:57:55 by nicolasv         ###   ########.fr       */
+/*   Updated: 2020/02/04 06:02:16 by nicolasv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,52 +68,62 @@ typedef struct			s_code_line
 }						t_code_line;
 
 
-/* asm_main.c */
+/* main.c */
 
-/* asm_lexer.c */
+/* lexer.c */
 int						lexer(int fd, t_data **data, t_code_line **code_line);
 
-/* asm_tokeniser.c */
+/* get_tokens_from_current_line.c */
 int						get_tokens_from_current_line(t_code_line **c_line, char *line);
+
+/* determine_token_type_one.c */
 void					determine_token_type_and_length(t_token *token);
 
-/* asm_tokeniser_states-functions.c */
+/* determine_token_type_two.c */
 int						is_separator(t_token *token);
 int						is_label(t_token *token);
 int						is_instructions(t_token *token);
 int						is_direct(t_token *token);
 int						is_register(t_token *token);
 int						is_indirect(t_token *token);
+
+/* determine_token_type_three.c */
 int						is_label_call(t_token *token);
 int						is_unknown(t_token *token);
 
-/* asm_error.c */
+/* helper_error.c */
 int						error_msg(char *error_msg, int i);
 int						asm_usage(int i);
 int						error_while_gnl(char **line, char *error_msg);
 
-/* asm_debug.c */
+/* helper_debug.c */
 int						print_data(t_data **data);
 int						print_code_line(t_data **data, t_code_line **lexer);
 int						print_token(t_code_line **lexer);
 
-/* asm_header_one.c */
+/* get_header_info_one.c */
 int						is_whitespace(char c);
 int						is_dirty(char *str);
 int						get_string_child(t_data **data, char *str, int mode, int i);
 int						get_string(t_data **data, char *str, int mode);
 
-/* asm_header_two.c */
+/* get_header_info_two.c */
 int						get_name(int i, char *line, t_data **data);
 int						get_comment(int i, char *line, t_data **data);
 int						little_parsing(char *line, t_data **data);
 int						header(int fd, t_data **data);
 
-/* asm_lib.c */
+/* helper_lib.c */
 int						is_comma(char c);
 int						is_comment(char c);
 int						is_whitespace(char c);
 char					*ft_strndup(const char *s1, ssize_t len);
+
+/* helper_free.c */
+int						free_data(t_data **data);
+int						free_code_line(t_code_line **t_code_line);
+int						free_token(t_token **token);
+int						free_all(t_data **data, t_code_line **code_line);
 
 /* asm_splitter.c */
 // static int				count_tokens(char *line);

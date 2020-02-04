@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   asm_main.c                                         :+:      :+:    :+:   */
+/*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nicolasv <nicolasv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/05 14:21:47 by qgirard           #+#    #+#             */
-/*   Updated: 2020/02/03 03:34:50 by nicolasv         ###   ########.fr       */
+/*   Updated: 2020/02/04 06:04:29 by nicolasv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,15 +69,15 @@ int		main(int argc, char **argv)
 	if (!(fd = check_args_and_open_files(argc, argv)))
 		return (1);
 	if (!header(fd, &data))
-		return (error_msg("error in header", 1)); //free		
+		return (free_data(&data));		
 	if (!lexer(fd, &data, &code_line))
-		return (error_msg("error in lexer", 1)); //free
+		return (free_all(&data, &code_line));
 	if (!parser(&data, &code_line))
-		return (error_msg("error in parser", 1)); //free
+		return (free_all(&data, &code_line));
 	if (data->errors)
 		return (error_mode(&data, &code_line));
 	if (!translator(&data, &code_line))
-		return (error_msg("error in translator", 1)); //free
+		return (free_all(&data, &code_line));
 	print_code_line(&data, &code_line);
 	return (0);
 }
