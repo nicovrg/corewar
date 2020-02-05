@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   asm_lib.c                                          :+:      :+:    :+:   */
+/*   helper_lib.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amamy <amamy@student.42.fr>                +#+  +:+       +#+        */
+/*   By: nicolasv <nicolasv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/25 03:50:53 by nicolasv          #+#    #+#             */
-/*   Updated: 2020/02/01 00:56:22 by amamy            ###   ########.fr       */
+/*   Updated: 2020/02/05 05:28:50 by nicolasv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,26 @@ int		ft_lowercase(int c)
 	if (c >= 'a' && c <= 'z')
 		return (1);
 	return (0);
+}
+
+/*
+** ==================== is_digit ====================
+** if the string is only composed by ascii digit return 1
+** otherwise return 0
+*/
+
+int		is_digit(char *str)
+{
+	int i;
+
+	i = 0;
+	while (str[i])
+	{
+		if (!ft_isdigit(str[i]))
+			return (0);
+		i++;
+	}
+	return (1);
 }
 
 /*
