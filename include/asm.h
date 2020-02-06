@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   asm.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nicolasv <nicolasv@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amamy <amamy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/21 01:21:58 by nivergne          #+#    #+#             */
-/*   Updated: 2020/02/05 05:29:10 by nicolasv         ###   ########.fr       */
+/*   Updated: 2020/02/06 00:39:00 by amamy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,7 +116,7 @@ int						header(int fd, t_data **data);
 /* helper_lib.c */
 int						is_comma(char c);
 int						is_comment(char c);
-int						is_digit(char *str);
+int						is_number(char *num);
 int						is_whitespace(char c);
 char					*ft_strndup(const char *s1, ssize_t len);
 

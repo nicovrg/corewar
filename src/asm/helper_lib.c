@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   helper_lib.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nicolasv <nicolasv@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amamy <amamy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/25 03:50:53 by nicolasv          #+#    #+#             */
-/*   Updated: 2020/02/05 05:28:50 by nicolasv         ###   ########.fr       */
+/*   Updated: 2020/02/06 00:37:47 by amamy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,20 +34,6 @@ char	*ft_strndup(const char *s1, ssize_t len)
 	return (sdest);
 }
 
-int ft_isnumber(char *num)
-{
-	int	i;
-
-	i = 0;
-	while (ft_isdigit(num[i]))
-		i++;
-	if (num[i])
-		return (0);
-	else
-		return (1);
-
-}
-
 int		ft_lowercase(int c)
 {
 	if (c >= 'a' && c <= 'z')
@@ -60,8 +46,7 @@ int		ft_lowercase(int c)
 ** if the string is only composed by ascii digit return 1
 ** otherwise return 0
 */
-
-int		is_digit(char *str)
+int		is_number(char *str)
 {
 	int i;
 

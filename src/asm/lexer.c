@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nicolasv <nicolasv@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amamy <amamy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/23 04:24:28 by nivergne          #+#    #+#             */
-/*   Updated: 2020/02/04 06:07:05 by nicolasv         ###   ########.fr       */
+/*   Updated: 2020/02/05 23:30:10 by amamy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ int					lexer(int fd, t_data **data, t_code_line **c_line)
 	current_c_line = *c_line;
 	while (get_next_line(fd, &line) > 0)
 	{
-		if (!(line && !line[0] && is_useless(line)))
+		if (!(line && (!line[0] || is_useless(line))))
 		{
 			if (!(new_c_line = create_code_line(line, index)))
 				return (error_msg(ERR_LEXER_NODE_CREATE, 0));
