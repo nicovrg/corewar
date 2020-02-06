@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_tokens_from_current_line.c                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nicolasv <nicolasv@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nivergne <nivergne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/23 04:42:59 by nivergne          #+#    #+#             */
-/*   Updated: 2020/02/03 04:07:48 by nicolasv         ###   ########.fr       */
+/*   Updated: 2020/02/06 02:24:57 by nivergne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

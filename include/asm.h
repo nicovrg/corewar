@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   asm.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amamy <amamy@student.42.fr>                +#+  +:+       +#+        */
+/*   By: nivergne <nivergne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/21 01:21:58 by nivergne          #+#    #+#             */
-/*   Updated: 2020/02/06 00:39:00 by amamy            ###   ########.fr       */
+/*   Updated: 2020/02/06 02:10:13 by nivergne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,8 +98,9 @@ int						error_while_gnl(char **line, char *error_msg);
 
 /* helper_debug.c */
 int						print_data(t_data **data);
-int						print_code_line(t_data **data, t_code_line **lexer);
-int						print_token(t_code_line **lexer);
+int						print_code_lines(t_data **data, t_code_line **lexer);
+int						print_tokens(t_code_line **lexer);
+int						print_token(int length, char *str);
 
 /* get_header_info_one.c */
 int						is_whitespace(char c);

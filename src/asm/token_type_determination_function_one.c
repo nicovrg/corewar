@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   determine_token_type_func_two.c                    :+:      :+:    :+:   */
+/*   token_type_determination_function_one.c            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amamy <amamy@student.42.fr>                +#+  +:+       +#+        */
+/*   By: nivergne <nivergne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/26 05:57:28 by amamy             #+#    #+#             */
-/*   Updated: 2020/02/06 00:38:59 by amamy            ###   ########.fr       */
+/*   Updated: 2020/02/06 02:37:42 by nivergne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,17 @@
 #include "libft.h"
 #include "ft_printf.h"
 
+int						get_token_length(int position, char *str)
+{
+	int i;
+
+	i = position;
+	ft_printf("get_token_length <sting :|%s|\n", str);
+	while (str[i] && !is_comma(str[i]) && !is_whitespace(str[i]) && !is_comment(str[i]))
+		i++;
+	ft_printf("length ========================================> %d\n", i);
+	return (i);
+}
 
 static int				is_label_char(char c)
 {
@@ -35,33 +46,42 @@ static int				is_label_char(char c)
 int						is_label(t_token *token)
 {
 	int		i;
+	int		length;
 	char	*str;
 
-	i = 0;
+	i = token->position;
 	str = token->code_line->line;
-	ft_printf("is_label : str %s\n", str);
-	while (str[i] && is_label_char(str[i]))
+	length = get_token_length(i, str);
+	while (i < length && is_label_char(str[i]))
 		i++;
-	if (str[i])
+	if (str[i] != ':')
 		return (0);
-	else
-		return (ft_strlen(str));
+	token->length = length;
+	token->type = TOKEN_TYPE_LABEL;
+	return (1);
 }
 
 int						is_label_call(t_token *token)
 {
-	int		i;
+	int		index;
+	int		saved_index;
+	int		length;
 	char	*str;
 
-	i = 0;
+	index = token->position;
 	str = token->code_line->line;
-	if (str[0] && str[1] && str[0] == '%' && str[1] == ':')
+	length = get_token_length(index, str);
+	if (str[index] && str[index + 1] && str[index] == '%' && str[index + 1] == ':')
 	{
-		i = 2;
-		while (str[i] && is_label_char(str[i]))
-			i++;
+		index += 2;
+		saved_index = index;
+		while (str[index] && index < saved_index + length && is_label_char(str[index]))
+			index++;
 	}
-	return (str[i] ? 0 : 1);
+	if (str[index])
+		return (0);
+	token->length = length;
+	return (1);
 }
 
 int						is_direct(t_token *token)

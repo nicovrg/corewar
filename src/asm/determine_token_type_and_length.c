@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   determine_token_type_one.c                         :+:      :+:    :+:   */
+/*   determine_token_type_and_length.c                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amamy <amamy@student.42.fr>                +#+  +:+       +#+        */
+/*   By: nivergne <nivergne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/05 18:14:15 by amamy             #+#    #+#             */
-/*   Updated: 2020/02/05 18:14:22 by amamy            ###   ########.fr       */
+/*   Updated: 2020/02/06 02:15:02 by nivergne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void		determine_token_type_and_length(t_token *token)
 	current_token_type = TOKEN_TYPE_SEPARATOR;
 	while (token->type == TOKEN_TYPE_UNDEFINED)
 	{
-		token->length = g_token_type_determination_func_array[current_token_type](token);
+		g_token_type_determination_func_array[current_token_type](token);
 		current_token_type++;
 	}
 }

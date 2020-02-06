@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nicolasv <nicolasv@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nivergne <nivergne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/05 14:21:47 by qgirard           #+#    #+#             */
-/*   Updated: 2020/02/04 06:04:29 by nicolasv         ###   ########.fr       */
+/*   Updated: 2020/02/06 02:10:22 by nivergne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,6 @@ int		main(int argc, char **argv)
 		return (error_mode(&data, &code_line));
 	if (!translator(&data, &code_line))
 		return (free_all(&data, &code_line));
-	print_code_line(&data, &code_line);
+	print_code_lines(&data, &code_line);
 	return (0);
 }

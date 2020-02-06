@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    src.mk                                             :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: nicolasv <nicolasv@student.42.fr>          +#+  +:+       +#+         #
+#    By: nivergne <nivergne@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/09/22 23:46:29 by nivergne          #+#    #+#              #
-#    Updated: 2020/02/04 05:37:03 by nicolasv         ###   ########.fr        #
+#    Updated: 2020/02/06 01:29:29 by nivergne         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,9 +22,9 @@ SRC_ASM =			main.c\
 					helper_error.c\
 					get_header_info_one.c\
 					get_header_info_two.c\
-					determine_token_type_one.c\
-					determine_token_type_func_two.c\
-					determine_token_type_func_three.c\
+					determine_token_type_and_length.c\
+					token_type_determination_function_one.c\
+					token_type_determination_function_two.c\
 					get_tokens_from_current_line.c\
 
 SRC_VM =			vm_main.c\
