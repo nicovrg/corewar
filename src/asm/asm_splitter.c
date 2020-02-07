@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   asm_splitter.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nicolasv <nicolasv@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amamy <amamy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/23 04:42:59 by nivergne          #+#    #+#             */
-/*   Updated: 2020/01/31 01:34:50 by nicolasv         ###   ########.fr       */
+/*   Updated: 2020/02/06 23:09:34 by amamy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ static int			count_tokens(char *line)
 			i++;
 		while (line[i + j] && (!is_whitespace(line[i + j]) && !is_comma(line[i + j])))
 		{
-			if (is_comment(line[i + j]))
+			if (is_comment_char(line[i + j]))
 				return (ret);
 			j++;
 		}
@@ -134,7 +134,7 @@ int					splitter(t_lexer **tmp_lex, char *line)
 	i = 0;
 	while (line[i] && is_whitespace(line[i]))
 		i++;
-	while (line[i] && !is_comment(line[i]))
+	while (line[i] && !is_comment_char(line[i]))
 	{
 		j = 0;
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_header_info_one.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nicolasv <nicolasv@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amamy <amamy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 23:44:32 by amamy             #+#    #+#             */
-/*   Updated: 2020/02/04 06:06:34 by nicolasv         ###   ########.fr       */
+/*   Updated: 2020/02/06 23:09:34 by amamy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,7 @@ int		header(int fd, t_data **data)
 	{
 		while (is_whitespace(line[i]))
 			i++;
-		if (line && (!is_comment(line[i]) || !ft_strcmp(line, "")))
+		if (line && (!is_comment_char(line[i]) || !ft_strcmp(line, "")))
 			if (!little_parsing(line, data))
 				return(error_msg("Fail in header", 0));
 		(*data)->index_line++;

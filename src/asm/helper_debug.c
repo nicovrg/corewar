@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   helper_debug.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nivergne <nivergne@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amamy <amamy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/07 15:32:54 by qgirard           #+#    #+#             */
-/*   Updated: 2020/02/06 02:13:15 by nivergne         ###   ########.fr       */
+/*   Updated: 2020/02/07 00:51:21 by amamy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,7 @@ int		print_tokens(t_code_line **current_code_line)
 		ft_printf("\t\t\ttoken =\t\t\t\t\t|");
 		print_token(current_token->length, current_token->code_line->line + current_token->position);
 		ft_printf("|\n");
+		ft_printf("\t\t\tToken number :\t\t\t|%d|\n", current_token->token_nb);
 		ft_printf("\t\t\ttype =\t\t\t\t\t|%d|\n", current_token->type);
 		ft_printf("\t\t\tposition =\t\t\t\t|%d|\n", current_token->position);
 		ft_printf("\t\t\tlength =\t\t\t\t|%d|\n", current_token->length);

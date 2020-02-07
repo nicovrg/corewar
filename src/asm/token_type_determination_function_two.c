@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   determine_token_type_func_three.c                  :+:      :+:    :+:   */
+/*   token_type_determination_function_two.c            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: amamy <amamy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/26 05:57:28 by amamy             #+#    #+#             */
-/*   Updated: 2020/02/06 00:38:59 by amamy            ###   ########.fr       */
+/*   Updated: 2020/02/07 00:18:38 by amamy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,41 +18,54 @@
 int						is_instructions(t_token *token)
 {
 	char	*str;
+	int 	position;
 	
+	position = token->position;
 	str = token->code_line->line;
-	if (!ft_strcmp(str, "live") || !ft_strcmp(str, "ld"))
+		if (!ft_strncmp(&str[position], "lfork", 5))
+		token->length = 5;
+	else if (!ft_strncmp(&str[position], "live", 4) || !ft_strncmp(&str[position], "zjmp", 4) \
+		|| (!ft_strncmp(&str[position], "fork", 4)) || !ft_strncmp(&str[position], "lldi", 4))
+		token->length = 4;
+	else if (!ft_strncmp(&str[position], "lld", 3) || !ft_strncmp(&str[position], "add", 3) \
+		|| !ft_strncmp(&str[position], "sub", 3) || !ft_strncmp(&str[position], "aff", 3) \
+		|| !ft_strncmp(&str[position], "xor", 3) || !ft_strncmp(&str[position], "sti", 3) \
+		|| !ft_strncmp(&str[position], "ldi", 3) || !ft_strncmp(&str[position], "and", 3))
+		token->length = 3;
+	else if (!ft_strncmp(&str[position], "ld", 2) || !ft_strncmp(&str[position], "or", 2) \
+		|| (!ft_strncmp(&str[position], "st", 2)))
+		token->length = 2;
+	if 	(token->length)
+	{
+		token->type = TOKEN_TYPE_INSTRUCTION;
 		return (1);
-	else if (!ft_strcmp(str, "add") || !ft_strcmp(str, "sub"))
-		return (1);
-	else if (!ft_strcmp(str, "or") || !ft_strcmp(str, "xor"))
-		return (1);
-	else if (!ft_strcmp(str, "st") || ! ft_strcmp(str, "sti"))
-		return (1);
-	else if (!ft_strcmp(str, "zjmp") || !ft_strcmp(str, "aff"))
-		return (1);
-	else if (!ft_strcmp(str, "ldi") || !ft_strcmp(str, "and"))
-		return (1);
-	else if (!ft_strcmp(str, "fork") || !ft_strcmp(str, "lfork"))
-		return (1);
-	else if (!ft_strcmp(str, "lld") || !ft_strcmp(str, "lldi"))
-		return (1);
+	}
 	return (0);
 }
 
 int						is_indirect(t_token *token)
 {
+	int		i;
 	char	*str;
 	
+	i = token->position;
 	str = token->code_line->line;
-	if (is_number(str))
+	if (ft_isdigit(str[i]) && i++)
+	{
+		while(str[i] && ft_isdigit(str[i]))
+			i++;
+		token->length = i - token->position;
+		token->type = TOKEN_TYPE_INDIRECT;
 		return (1);
+	}
 	return (0);
 }
 
 int						is_separator(t_token *token)
 {
-	if (token->code_line->line[0] == ',')
+	if (token->code_line->line[token->position] == ',')
 	{
+		token->length = 1;
 		token->type = TOKEN_TYPE_SEPARATOR;
 		return (1);
 	}
@@ -61,6 +74,8 @@ int						is_separator(t_token *token)
 
 int						is_unknown(t_token *token)
 {
+	ft_printf("THIS IS UNKONW TOKEN : |%s|\n", &token->code_line->line[token->position]);
+	token->length = 1;
 	token->type = TOKEN_TYPE_UNKNOWN;
 	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: amamy <amamy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/25 03:50:53 by nicolasv          #+#    #+#             */
-/*   Updated: 2020/02/06 00:37:47 by amamy            ###   ########.fr       */
+/*   Updated: 2020/02/06 23:15:55 by amamy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,17 +73,40 @@ int		is_whitespace(char c)
 	return (0);
 }
 
+
 /*
-** ==================== is_comment ====================
+** ==================== is_comment_char ====================
 ** This function check if the character passed in argument is a #.
 ** If yes, return an false, else return true
 */
 
-int		is_comment(char c)
+int		is_comment_char(char c)
 {
 	if (c == '#')
 		return (1);
 	return (0);
+}
+
+/*
+** ==================== is_str_whitespace_or_comment ====================
+** This function return 1 if the string is full of whitespaces
+** or if it is a comment and 0 otherwise. 
+*/
+
+int			is_str_whitespace_or_comment(char *str)
+{
+	int i;
+
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] == '#')
+			return (1);
+		if (!((str[i] >= 9 && str[i] <= 13) || str[i] == ' '))
+			return (0);
+		i++;
+	}
+	return (1);
 }
 
 /*
@@ -122,7 +145,7 @@ int		is_comma(char c)
 // 			i++;
 // 		while (line[i + j] && (!is_whitespace(line[i + j]) && !is_comma(line[i + j])))
 // 		{
-// 			if (is_comment(line[i + j]))
+// 			if (is_comment_char(line[i + j]))
 // 				return (ret);
 // 			j++;
 // 		}

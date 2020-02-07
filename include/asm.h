@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   asm.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nivergne <nivergne@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amamy <amamy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/21 01:21:58 by nivergne          #+#    #+#             */
-/*   Updated: 2020/02/06 02:10:13 by nivergne         ###   ########.fr       */
+/*   Updated: 2020/02/07 00:23:33 by amamy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,9 @@ typedef	 struct			s_data
 typedef struct			s_token
 {
 	int					type;	
-	int					position;
 	int					length;
+	int					position;
+	int					token_nb;
 	struct s_code_line	*code_line; 
 	struct u_type		*values;
 	struct s_token		*next; 
@@ -116,10 +117,11 @@ int						header(int fd, t_data **data);
 
 /* helper_lib.c */
 int						is_comma(char c);
-int						is_comment(char c);
+int						is_comment_char(char c);
 int						is_number(char *num);
 int						is_whitespace(char c);
 char					*ft_strndup(const char *s1, ssize_t len);
+int						is_str_whitespace_or_comment(char *str);
 
 /* helper_free.c */
 int						free_data(t_data **data);
