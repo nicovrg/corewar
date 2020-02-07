@@ -6,7 +6,7 @@
 /*   By: amamy <amamy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/21 01:21:58 by nivergne          #+#    #+#             */
-/*   Updated: 2020/02/07 00:23:33 by amamy            ###   ########.fr       */
+/*   Updated: 2020/02/07 23:05:15 by amamy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,15 @@
 # define ERR_MAIN_OPEN_FILE "error in main - file doesn't exist"
 
 # define ERR_LEXER_NODE_CREATE "error in lexer - could not create new node"
+
+typedef enum			e_errors
+{
+	NO_LINE_ERROR,
+	LINE_ERROR_LEXICAL,
+	LINE_ERROR_SYNTAX,
+	LINE_ERROR_BOTH,
+	
+}						t_errors;
 
 typedef enum			e_token_type
 {
@@ -52,15 +61,17 @@ typedef struct			s_token
 {
 	int					type;	
 	int					length;
+	int					unknown;
 	int					position;
 	int					token_nb;
 	struct s_code_line	*code_line; 
-	struct u_type		*values;
+	union u_type		*values;
 	struct s_token		*next; 
 }						t_token;
 
 typedef struct			s_code_line
 {
+	int					errors;
 	int					nb_line;
 	int					nb_token;
 	char				*line;
@@ -77,8 +88,9 @@ int						lexer(int fd, t_data **data, t_code_line **code_line);
 /* get_tokens_from_current_line.c */
 int						get_tokens_from_current_line(t_code_line **c_line, char *line);
 
-/* determine_token_type_one.c */
+/* determine_token_type_and_length.c */
 void					determine_token_type_and_length(t_token *token);
+int						(*g_token_type_determination_func_array[NB_TOKEN_TYPE])(t_token *);
 
 /* determine_token_type_two.c */
 int						is_separator(t_token *token);
@@ -126,7 +138,8 @@ int						is_str_whitespace_or_comment(char *str);
 /* helper_free.c */
 int						free_data(t_data **data);
 int						free_code_line(t_code_line **t_code_line);
-int						free_token(t_token **token);
+void					free_token(t_token *token);
+int						free_token_list(t_token **token);
 int						free_all(t_data **data, t_code_line **code_line);
 
 /* asm_splitter.c */

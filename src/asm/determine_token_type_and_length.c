@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   determine_token_type_and_length.c                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nivergne <nivergne@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amamy <amamy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/05 18:14:15 by amamy             #+#    #+#             */
-/*   Updated: 2020/02/06 02:15:02 by nivergne         ###   ########.fr       */
+/*   Updated: 2020/02/07 23:18:46 by amamy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "libft.h"
 #include "ft_printf.h"
 
-static int (*g_token_type_determination_func_array[NB_TOKEN_TYPE])(t_token *) = {
+int (*g_token_type_determination_func_array[NB_TOKEN_TYPE])(t_token *) = {
 	[TOKEN_TYPE_SEPARATOR] = is_separator,
 	[TOKEN_TYPE_LABEL] = is_label,
 	[TOKEN_TYPE_INSTRUCTION] = is_instructions,
@@ -28,7 +28,7 @@ static int (*g_token_type_determination_func_array[NB_TOKEN_TYPE])(t_token *) = 
 void		determine_token_type_and_length(t_token *token)
 {
 	t_token_type	current_token_type;
-		
+	
 	token->type = TOKEN_TYPE_UNDEFINED;
 	current_token_type = TOKEN_TYPE_SEPARATOR;
 	while (token->type == TOKEN_TYPE_UNDEFINED)

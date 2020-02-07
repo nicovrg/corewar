@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   helper_free.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nicolasv <nicolasv@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amamy <amamy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/04 05:36:34 by nicolasv          #+#    #+#             */
-/*   Updated: 2020/02/04 06:10:28 by nicolasv         ###   ########.fr       */
+/*   Updated: 2020/02/07 04:22:58 by amamy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,14 @@ int		free_data(t_data **data)
 	return (1);
 }
 
-int		free_token(t_token **token)
+void	free_token(t_token *token)
+{
+	// ft_memdel((void*)&token->values);
+	ft_memdel((void*)&token->values);
+	ft_memdel((void*)&token);
+}
+
+int		free_token_list(t_token **token)
 {
 	t_token *current_token_address;
 
@@ -43,7 +50,7 @@ int		free_code_line(t_code_line **code_line)
 		current_code_line_address = (*code_line);
 		(*code_line) = (*code_line)->next;
 		ft_strdel(&current_code_line_address->line);
-		free_token(&current_code_line_address->token);
+		free_token_list(&current_code_line_address->token);
 		free(current_code_line_address);
 	}
 	free(*code_line);
