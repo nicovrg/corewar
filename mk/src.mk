@@ -6,7 +6,7 @@
 #    By: amamy <amamy@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/09/22 23:46:29 by nivergne          #+#    #+#              #
-#    Updated: 2020/02/08 02:30:29 by amamy            ###   ########.fr        #
+#    Updated: 2020/02/08 04:21:00 by amamy            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,6 +26,7 @@ SRC_ASM =			main.c\
 					determine_token_type_and_length.c\
 					token_type_determination_function_one.c\
 					token_type_determination_function_two.c\
+					token_type_determination_function_three.c\
 					get_tokens_from_current_line.c\
 
 SRC_VM =			vm_main.c\

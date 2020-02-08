@@ -6,7 +6,7 @@
 /*   By: amamy <amamy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/21 01:21:58 by nivergne          #+#    #+#             */
-/*   Updated: 2020/02/08 03:28:00 by amamy            ###   ########.fr       */
+/*   Updated: 2020/02/08 04:43:24 by amamy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,8 @@ typedef enum			e_token_type
 	TOKEN_TYPE_INDIRECT,
 	TOKEN_TYPE_LABEL_CALL,
 	TOKEN_TYPE_UNKNOWN,
+	TOKEN_TYPE_DIRECT_LABEL_CALL,
+	TOKEN_TYPE_INDIRECT_LABEL_CALL,
 	NB_TOKEN_TYPE,
 }						t_token_type;
 
