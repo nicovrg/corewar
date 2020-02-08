@@ -6,7 +6,7 @@
 /*   By: amamy <amamy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/26 05:57:28 by amamy             #+#    #+#             */
-/*   Updated: 2020/02/08 03:11:00 by amamy            ###   ########.fr       */
+/*   Updated: 2020/02/08 21:38:56 by amamy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,47 +18,30 @@
 
 int						is_instructions(t_token *token)
 {
-	int 	i;
+	int		i;
 	int		length;
 	char	*str;
-	
+
 	length = 0;
 	i = token->position;
 	str = token->code_line->line;
 	if (!ft_strncmp(&str[i], "lfork", 5))
 		length = 5;
-	else if (!ft_strncmp(&str[i], "live", 4) || !ft_strncmp(&str[i], "zjmp", 4) \
+	else if (!ft_strncmp(&str[i], "live", 4) \
+		|| !ft_strncmp(&str[i], "zjmp", 4) \
 		|| (!ft_strncmp(&str[i], "fork", 4)) || !ft_strncmp(&str[i], "lldi", 4))
 		length = 4;
 	else if (!ft_strncmp(&str[i], "lld", 3) || !ft_strncmp(&str[i], "add", 3) \
 		|| !ft_strncmp(&str[i], "sub", 3) || !ft_strncmp(&str[i], "aff", 3) \
-		|| !ft_strncmp(	&str[i], "xor", 3) || !ft_strncmp(&str[i], "sti", 3) \
+		|| !ft_strncmp(&str[i], "xor", 3) || !ft_strncmp(&str[i], "sti", 3) \
 		|| !ft_strncmp(&str[i], "ldi", 3) || !ft_strncmp(&str[i], "and", 3))
 		length = 3;
 	else if (!ft_strncmp(&str[i], "ld", 2) || !ft_strncmp(&str[i], "or", 2) \
 		|| (!ft_strncmp(&str[i], "st", 2)))
 		length = 2;
-	if 	(length != 0 && (token->length = length))
-			token->type = TOKEN_TYPE_INSTRUCTION;
+	if (length != 0 && (token->length = length))
+		token->type = TOKEN_TYPE_INSTRUCTION;
 	return ((length != 0) ? (1) : (0));
-}
-
-int						is_indirect(t_token *token)
-{
-	int		i;
-	char	*str;
-	
-	i = token->position;
-	str = token->code_line->line;
-	if (ft_isdigit(str[i]) && i++)
-	{
-		while(str[i] && ft_isdigit(str[i]))
-			i++;
-		token->length = i - token->position;
-		token->type = TOKEN_TYPE_INDIRECT;
-		return (1);
-	}
-	return (0);
 }
 
 int						is_separator(t_token *token)
@@ -75,16 +58,16 @@ int						is_separator(t_token *token)
 static void				detect_unknown_length(t_token *token)
 {
 	t_token_type	current_token_type;
-	
+
 	token->type = TOKEN_TYPE_UNDEFINED;
 	current_token_type = TOKEN_TYPE_SEPARATOR;
-	while (current_token_type < TOKEN_TYPE_UNKNOWN && token->type == TOKEN_TYPE_UNDEFINED)
+	while (current_token_type < TOKEN_TYPE_UNKNOWN \
+		&& token->type == TOKEN_TYPE_UNDEFINED)
 	{
 		g_token_type_determination_func_array[current_token_type](token);
 		current_token_type++;
 	}
 }
-
 
 int						is_unknown(t_token *token)
 {

@@ -6,7 +6,7 @@
 /*   By: amamy <amamy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/23 04:42:59 by nivergne          #+#    #+#             */
-/*   Updated: 2020/02/07 01:04:25 by amamy            ###   ########.fr       */
+/*   Updated: 2020/02/08 22:17:11 by amamy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,12 @@
 
 /*
 ** ==================== create_tokens ====================
-** 
+** Allocates memory for new token, git it its position, 
+** token_nb and the line it is contained by.
+** Send it to tokens identification and return it.
 */
 
-static t_token		*create_token(t_code_line **current_line, int position, int token_nb)
+static t_token	*create_token(t_code_line **current_line, int position, int token_nb)
 {
 	t_token		*new;
 
@@ -35,7 +37,9 @@ static t_token		*create_token(t_code_line **current_line, int position, int toke
 
 /*
 ** ==================== chain_token ====================
-** 
+** Receives 2 t_token, setting the token->next address of the 
+** first one to point on the second.
+** In case of first token, set the pointer himself.
 */
 
 static void		chain_token(t_token **current_token, t_token *new)
@@ -51,10 +55,10 @@ static void		chain_token(t_token **current_token, t_token *new)
 
 /*
 ** ==================== get_tokens_from_current_line ====================
-** 
+** Goes through line token by token to identify them.
 */
 
-int					get_tokens_from_current_line(t_code_line **current_c_line, char *line)
+int				get_tokens_from_current_line(t_code_line **current_c_line, char *line)
 {
 	int			i;
 	int			token_nb;

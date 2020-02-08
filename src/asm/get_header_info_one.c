@@ -6,7 +6,7 @@
 /*   By: amamy <amamy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 23:44:32 by amamy             #+#    #+#             */
-/*   Updated: 2020/02/06 23:09:34 by amamy            ###   ########.fr       */
+/*   Updated: 2020/02/08 20:29:23 by amamy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@
 
 int		get_name(int i, char *line, t_data **data)
 {
-
 	if (ft_strncmp(".name", line + i, 5) == 0)
 	{
 		i = i + 5;
@@ -79,7 +78,7 @@ int		little_parsing(char *line, t_data **data)
 		{
 			i = i + 8;
 			return (1);
-		}		
+		}
 		else if (line[i] != '.')
 			return (error_msg("Unknown token in header", 0));
 		i++;
@@ -89,7 +88,7 @@ int		little_parsing(char *line, t_data **data)
 
 /*
 ** ==================== lexer_header ====================
-** Deals with the headerpart. After this function, GNL is 
+** Deals with the headerpart. After this function, GNL is
 ** supposed to have read at least 2 lines (the 2 commands).
 ** comments lines will be ignored.
 ** The first 2 nodes of lexer will filled.
@@ -111,7 +110,7 @@ int		header(int fd, t_data **data)
 			i++;
 		if (line && (!is_comment_char(line[i]) || !ft_strcmp(line, "")))
 			if (!little_parsing(line, data))
-				return(error_msg("Fail in header", 0));
+				return (error_msg("Fail in header", 0));
 		(*data)->index_line++;
 		ft_strdel(&line);
 	}

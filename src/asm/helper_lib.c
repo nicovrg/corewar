@@ -6,7 +6,7 @@
 /*   By: amamy <amamy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/25 03:50:53 by nicolasv          #+#    #+#             */
-/*   Updated: 2020/02/08 03:20:00 by amamy            ###   ########.fr       */
+/*   Updated: 2020/02/08 20:34:46 by amamy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ int		ft_lowercase(int c)
 ** if the string is only composed by ascii digit return 1
 ** otherwise return 0
 */
+
 int		is_number(char *str)
 {
 	int i;
@@ -79,7 +80,6 @@ int		is_whitespace(char c)
 	return (0);
 }
 
-
 /*
 ** ==================== is_comment_char ====================
 ** This function check if the character passed in argument is a #.
@@ -96,7 +96,7 @@ int		is_comment_char(char c)
 /*
 ** ==================== is_str_whitespace_or_comment ====================
 ** This function return 1 if the string is full of whitespaces
-** or if it is a comment and 0 otherwise. 
+** or if it is a comment and 0 otherwise.
 */
 
 int			is_str_whitespace_or_comment(char *str)
@@ -127,39 +127,3 @@ int		is_comma(char c)
 		return (1);
 	return (0);
 }
-
-/*
-** ==================== count_tokens ====================
-** This function count the number of token in one line
-** If there are multiples commas following each others, return an error
-*/
-
-// static int			count_tokens(char *line)
-// {
-// 	int i;
-// 	int j;
-// 	int ret;
-
-// 	i = 0;
-// 	ret = 0;
-// 	if (ft_strnstr(line, ",,", ft_strlen(line)))
-// 		return (error_msg("invalid line, multiples commas in a row", -1));
-// 	while (line[i])
-// 	{
-// 		j = 0;
-// 		while (line[i] && is_whitespace(line[i]))
-// 			i++;
-// 		while (line[i + j] && (!is_whitespace(line[i + j]) && !is_comma(line[i + j])))
-// 		{
-// 			if (is_comment_char(line[i + j]))
-// 				return (ret);
-// 			j++;
-// 		}
-// 		(line[i + j - 1] > 0 && is_comma(line[i + j - 1])) ? (j++) : (0);
-// 		(line[i + j - 1] > 0 && is_comma(line[i + j - 1])) ? (ret++) : (0);
-// 		(j == 0) ? (i++) : (i = i + j);
-// 		ret++;
-// 	}
-// 	return (ret);
-// }
-

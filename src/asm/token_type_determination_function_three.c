@@ -6,7 +6,7 @@
 /*   By: amamy <amamy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/08 04:21:46 by amamy             #+#    #+#             */
-/*   Updated: 2020/02/08 04:54:56 by amamy            ###   ########.fr       */
+/*   Updated: 2020/02/08 21:41:09 by amamy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,23 +52,23 @@ int						is_label(t_token *token)
 
 static int				is_valid_label_call(t_token *token, int index, char *str)
 {
-		if (!is_label_char(str[index]))
-			return (0);
-		while (str[index] && is_label_char(str[index]))
-			index++;
-		token->length = index - token->position;
-		return (1);
+	if (!is_label_char(str[index]))
+		return (0);
+	while (str[index] && is_label_char(str[index]))
+		index++;
+	token->length = index - token->position;
+	return (1);
 }
 
-
-int						is_label_call(t_token *token)
+int						is_direct_label_call(t_token *token)
 {
 	int		index;
 	char	*str;
 
 	index = token->position;
 	str = token->code_line->line;
-	if (str[index] && str[index + 1] && str[index] == '%' && str[index + 1] == ':')
+	if (str[index] && str[index + 1] \
+		&& str[index] == '%' && str[index + 1] == ':')
 	{
 		index += 2;
 		if (is_valid_label_call(token, index, str))
@@ -77,7 +77,17 @@ int						is_label_call(t_token *token)
 			return (1);
 		}
 	}
-	else if (str[index] && str[index] == ':')
+	return (0);
+}
+
+int						is_indirect_label_call(t_token *token)
+{
+	int		index;
+	char	*str;
+
+	index = token->position;
+	str = token->code_line->line;
+	if (str[index] && str[index] == ':')
 	{
 		index++;
 		if (is_valid_label_call(token, index, str))
@@ -88,26 +98,3 @@ int						is_label_call(t_token *token)
 	}
 	return (0);
 }
-
-// int						is_label_call(t_token *token)
-// {
-// 	int		index;
-// 	int		saved_index;
-// 	char	*str;
-
-// 	index = token->position;
-// 	str = token->code_line->line;
-// 	if (str[index] && str[index + 1] && str[index] == '%' && str[index + 1] == ':')
-// 	{
-// 		index += 2;
-// 		if (!is_label_char(str[index]))
-// 			return (0);
-// 		saved_index = index;
-// 		while (str[index] && is_label_char(str[index]))
-// 			index++;
-// 		token->length = index - token->position;
-// 		token->type = TOKEN_TYPE_LABEL_CALL;
-// 		return (1);
-// 	}
-// 	return (0);
-// }

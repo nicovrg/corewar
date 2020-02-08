@@ -6,7 +6,7 @@
 /*   By: amamy <amamy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/23 04:24:28 by nivergne          #+#    #+#             */
-/*   Updated: 2020/02/08 02:15:39 by amamy            ###   ########.fr       */
+/*   Updated: 2020/02/08 22:11:52 by amamy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,15 @@
 #include "ft_printf.h"
 
 /*
-** ====================  ====================
-** 
+** ==================== create_code_line ====================
+** Allocate memory for a new line of code, give it its number
+** and the content of the line.
 */
 
 static t_code_line	*create_code_line(char *line, int index)
 {
 	t_code_line		*new;
-	
+
 	if (!(new = (t_code_line *)ft_memalloc(sizeof(t_code_line))))
 		return (0);
 	new->nb_line = index;
@@ -31,11 +32,13 @@ static t_code_line	*create_code_line(char *line, int index)
 }
 
 /*
-** ====================  ====================
-** 
+** ==================== chain_code_line ====================
+** Receives 2 t_code_line, setting the line->next address of the 
+** first one to point on the second.
+** In case of first line, set the pointer himself.
 */
 
-static void		chain_code_line(t_code_line **current_c_line, t_code_line *new)
+static void			chain_code_line(t_code_line **current_c_line, t_code_line *new)
 {
 	if ((*current_c_line))
 	{
@@ -48,11 +51,9 @@ static void		chain_code_line(t_code_line **current_c_line, t_code_line *new)
 
 /*
 ** ==================== lexer ====================
-** Read a line with gnl, then check if it's usefull
-** if it doesm allocate a new node, store the address 
-** in a tmp variable because at the start of the function
-** the first node is pointing on null. 
-** Then call the get_tokens_from_current_line function
+** Read a line with gnl, then check if there is something
+** to get from it. If so, send it for token analyse.
+** Raise error flag if line comes back with errors.
 */
 
 int					lexer(int fd, t_data **data, t_code_line **c_line)
@@ -60,7 +61,7 @@ int					lexer(int fd, t_data **data, t_code_line **c_line)
 	int				index;
 	char			*line;
 	t_code_line		*new_c_line;
-	t_code_line 	*current_c_line;
+	t_code_line		*current_c_line;
 
 	line = NULL;
 	index = (*data)->index_line;
@@ -75,10 +76,7 @@ int					lexer(int fd, t_data **data, t_code_line **c_line)
 			if (!get_tokens_from_current_line(&current_c_line, line))
 				return (error_msg("error in lexer", 0));
 			if ((*current_c_line).errors && !(*data)->errors)
-			{
-				ft_printf("%s\n", "ERROR FLAG ON");
 				(*data)->errors = LINE_ERROR_LEXICAL;
-			}
 			if (!(*c_line))
 				*c_line = new_c_line;
 		}
@@ -87,4 +85,3 @@ int					lexer(int fd, t_data **data, t_code_line **c_line)
 	}
 	return (1);
 }
-

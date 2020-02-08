@@ -6,7 +6,7 @@
 /*   By: amamy <amamy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/21 01:21:58 by nivergne          #+#    #+#             */
-/*   Updated: 2020/02/08 04:43:24 by amamy            ###   ########.fr       */
+/*   Updated: 2020/02/08 20:22:08 by amamy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,6 @@
 
 # include <stdlib.h>
 # include <string.h>
-// # include <unistd.h>
-// # include "libft.h"
 
 # define ERR_MAIN_NB_PARAMETERS "error in main - asm takes only one file as parameter"
 # define ERR_MAIN_FILE_TYPE "error in main - not a valid file, the file should be a .s"
@@ -41,18 +39,17 @@ typedef enum			e_line_errors
 
 typedef enum			e_token_type
 {
-	TOKEN_TYPE_UNDEFINED,
-	TOKEN_TYPE_SEPARATOR,
-	TOKEN_TYPE_LABEL,
-	TOKEN_TYPE_INSTRUCTION,
-	TOKEN_TYPE_DIRECT,
-	TOKEN_TYPE_REGISTER,
-	TOKEN_TYPE_INDIRECT,
-	TOKEN_TYPE_LABEL_CALL,
-	TOKEN_TYPE_UNKNOWN,
-	TOKEN_TYPE_DIRECT_LABEL_CALL,
-	TOKEN_TYPE_INDIRECT_LABEL_CALL,
-	NB_TOKEN_TYPE,
+	TOKEN_TYPE_UNDEFINED,//============ 0
+	TOKEN_TYPE_SEPARATOR,//============ 1
+	TOKEN_TYPE_LABEL,//================ 2
+	TOKEN_TYPE_INSTRUCTION,//========== 3
+	TOKEN_TYPE_DIRECT,//=============== 4
+	TOKEN_TYPE_REGISTER,//============= 5
+	TOKEN_TYPE_INDIRECT,//============= 6
+	TOKEN_TYPE_DIRECT_LABEL_CALL,//==== 7
+	TOKEN_TYPE_INDIRECT_LABEL_CALL,//== 8
+	TOKEN_TYPE_UNKNOWN,//============== 9
+	NB_TOKEN_TYPE,//=================== 10
 }						t_token_type;
 
 typedef	 struct			s_data
@@ -95,7 +92,7 @@ typedef struct			s_code_line
 int						lexer(int fd, t_data **data, t_code_line **code_line);
 
 /* error_mde */
-int						error_mode(t_code_line **c_line);
+void					error_mode(t_code_line **c_line);
 
 /* get_tokens_from_current_line.c */
 int						get_tokens_from_current_line(t_code_line **c_line, char *line);
@@ -104,17 +101,19 @@ int						get_tokens_from_current_line(t_code_line **c_line, char *line);
 void					determine_token_type_and_length(t_token *token);
 int						(*g_token_type_determination_func_array[NB_TOKEN_TYPE])(t_token *);
 
-/* determine_token_type_two.c */
-int						is_separator(t_token *token);
-int						is_label(t_token *token);
-int						is_instructions(t_token *token);
+/* determine_token_type_one.c */
 int						is_direct(t_token *token);
-int						is_register(t_token *token);
 int						is_indirect(t_token *token);
+int						is_register(t_token *token);
+/* determine_token_type_two.c */
+int						is_instructions(t_token *token);
+int						is_separator(t_token *token);
+int						is_unknown(t_token *token);
 
 /* determine_token_type_three.c */
-int						is_label_call(t_token *token);
-int						is_unknown(t_token *token);
+int						is_label(t_token *token);
+int						is_direct_label_call(t_token *token);
+int						is_indirect_label_call(t_token *token);
 
 /* helper_error.c */
 int						error_msg(char *error_msg, int i);
@@ -154,10 +153,5 @@ int						free_code_line(t_code_line **t_code_line);
 void					free_token(t_token *token);
 int						free_token_list(t_token **token);
 int						free_all(t_data **data, t_code_line **code_line);
-
-/* asm_splitter.c */
-// static int				count_tokens(char *line);
-// static int				allocate_token(t_code_line **tmp_lex, char *line);
-
 
 #endif

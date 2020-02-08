@@ -6,7 +6,7 @@
 /*   By: amamy <amamy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/04 05:36:34 by nicolasv          #+#    #+#             */
-/*   Updated: 2020/02/07 04:22:58 by amamy            ###   ########.fr       */
+/*   Updated: 2020/02/08 20:33:39 by amamy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int		free_token_list(t_token **token)
 int		free_code_line(t_code_line **code_line)
 {
 	t_code_line *current_code_line_address;
-	
+
 	while (*code_line)
 	{
 		current_code_line_address = (*code_line);
@@ -57,7 +57,6 @@ int		free_code_line(t_code_line **code_line)
 	return (1);
 }
 
-
 int		free_all(t_data **data, t_code_line **code_line)
 {
 	if (data)
@@ -66,4 +65,3 @@ int		free_all(t_data **data, t_code_line **code_line)
 		free_code_line(code_line);
 	return (1);
 }
-
