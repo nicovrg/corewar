@@ -6,7 +6,7 @@
 /*   By: amamy <amamy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/23 04:24:28 by nivergne          #+#    #+#             */
-/*   Updated: 2020/02/06 23:15:27 by amamy            ###   ########.fr       */
+/*   Updated: 2020/02/08 02:15:39 by amamy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,11 @@ int					lexer(int fd, t_data **data, t_code_line **c_line)
 			chain_code_line(&current_c_line, new_c_line);
 			if (!get_tokens_from_current_line(&current_c_line, line))
 				return (error_msg("error in lexer", 0));
+			if ((*current_c_line).errors && !(*data)->errors)
+			{
+				ft_printf("%s\n", "ERROR FLAG ON");
+				(*data)->errors = LINE_ERROR_LEXICAL;
+			}
 			if (!(*c_line))
 				*c_line = new_c_line;
 		}

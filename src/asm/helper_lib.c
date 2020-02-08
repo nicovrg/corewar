@@ -6,7 +6,7 @@
 /*   By: amamy <amamy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/25 03:50:53 by nicolasv          #+#    #+#             */
-/*   Updated: 2020/02/06 23:15:55 by amamy            ###   ########.fr       */
+/*   Updated: 2020/02/08 03:20:00 by amamy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,12 @@
 
 #include "asm.h"
 #include "libft.h"
+
+void	ft_putstrn(char const *s, int size)
+{
+	if (s != NULL)
+		write(1, s, size);
+}
 
 char	*ft_strndup(const char *s1, ssize_t len)
 {

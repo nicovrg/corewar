@@ -6,7 +6,7 @@
 /*   By: amamy <amamy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/26 05:57:28 by amamy             #+#    #+#             */
-/*   Updated: 2020/02/08 00:27:38 by amamy            ###   ########.fr       */
+/*   Updated: 2020/02/08 01:28:47 by amamy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ int						is_label(t_token *token)
 	int		i;
 	char	*str;
 
-	// ft_printf("%s\n", "LA");
 	i = token->position;
 	str = token->code_line->line;
 	while (is_label_char(str[i]))
@@ -89,7 +88,6 @@ int						is_direct(t_token *token)
 			return (1);
 			
 		}
-		// i += 2;
 	}
 	return (0);
 }

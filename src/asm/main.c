@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nivergne <nivergne@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amamy <amamy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/05 14:21:47 by qgirard           #+#    #+#             */
-/*   Updated: 2020/02/06 02:10:22 by nivergne         ###   ########.fr       */
+/*   Updated: 2020/02/08 02:54:19 by amamy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,6 @@
 #include "libft.h"
 
 int	parser(t_data **data, t_code_line **lex)
-{
-	(void)data;
-	(void)lex;
-	return (1);
-}
-
-int	error_mode(t_data **data, t_code_line **lex)
 {
 	(void)data;
 	(void)lex;
@@ -75,9 +68,10 @@ int		main(int argc, char **argv)
 	if (!parser(&data, &code_line))
 		return (free_all(&data, &code_line));
 	if (data->errors)
-		return (error_mode(&data, &code_line));
-	if (!translator(&data, &code_line))
-		return (free_all(&data, &code_line));
+		error_mode(&code_line);
+	else
+		if (!translator(&data, &code_line))
+			return (free_all(&data, &code_line));
 	print_code_lines(&data, &code_line);
 	return (0);
 }

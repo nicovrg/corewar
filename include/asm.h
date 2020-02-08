@@ -6,7 +6,7 @@
 /*   By: amamy <amamy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/21 01:21:58 by nivergne          #+#    #+#             */
-/*   Updated: 2020/02/07 23:05:15 by amamy            ###   ########.fr       */
+/*   Updated: 2020/02/08 03:28:00 by amamy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,14 +24,20 @@
 
 # define ERR_LEXER_NODE_CREATE "error in lexer - could not create new node"
 
-typedef enum			e_errors
+typedef enum			e_token_errors
+{
+	NO_ERROR,
+	UNKNOWN_TOKEN,
+}						t_token_errors;
+
+typedef enum			e_line_errors
 {
 	NO_LINE_ERROR,
 	LINE_ERROR_LEXICAL,
 	LINE_ERROR_SYNTAX,
 	LINE_ERROR_BOTH,
 	
-}						t_errors;
+}						t_line_errors;
 
 typedef enum			e_token_type
 {
@@ -59,9 +65,9 @@ typedef	 struct			s_data
 
 typedef struct			s_token
 {
-	int					type;	
+	int					type;
 	int					length;
-	int					unknown;
+	int					error;
 	int					position;
 	int					token_nb;
 	struct s_code_line	*code_line; 
@@ -80,10 +86,14 @@ typedef struct			s_code_line
 }						t_code_line;
 
 
+
 /* main.c */
 
 /* lexer.c */
 int						lexer(int fd, t_data **data, t_code_line **code_line);
+
+/* error_mde */
+int						error_mode(t_code_line **c_line);
 
 /* get_tokens_from_current_line.c */
 int						get_tokens_from_current_line(t_code_line **c_line, char *line);
@@ -132,6 +142,7 @@ int						is_comma(char c);
 int						is_comment_char(char c);
 int						is_number(char *num);
 int						is_whitespace(char c);
+void					ft_putstrn(char const *s, int size);	
 char					*ft_strndup(const char *s1, ssize_t len);
 int						is_str_whitespace_or_comment(char *str);
 

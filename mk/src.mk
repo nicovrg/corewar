@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    src.mk                                             :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: nivergne <nivergne@student.42.fr>          +#+  +:+       +#+         #
+#    By: amamy <amamy@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/09/22 23:46:29 by nivergne          #+#    #+#              #
-#    Updated: 2020/02/06 01:29:29 by nivergne         ###   ########.fr        #
+#    Updated: 2020/02/08 02:30:29 by amamy            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,6 +16,7 @@ SRC_VM_PATH		:=	vm/
 
 SRC_ASM =			main.c\
 					lexer.c\
+					error_mode.c\
 					helper_lib.c\
 					helper_free.c\
 					helper_debug.c\
