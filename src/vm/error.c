@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   vm_error.c                                         :+:      :+:    :+:   */
+/*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: amamy <amamy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/05 17:21:52 by qgirard           #+#    #+#             */
-/*   Updated: 2020/02/10 04:51:10 by amamy            ###   ########.fr       */
+/*   Updated: 2020/02/10 04:53:24 by amamy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,10 @@ int		error_header(int *fd)
 ** print an error message and return NULL.
 */
 
-void	*error_msg_null(ERR_MALLOC, &state);char *error_msg)
+void	*error_msg_null(char *error_msg, t_header *state)
 {
+		if (state)
+		state[0] = ERROR;
 	ft_putendl(error_msg);
 	return (NULL);
 }
@@ -42,7 +44,7 @@ void	*error_msg_null(ERR_MALLOC, &state);char *error_msg)
 int		error_msg(char *error_msg, int i, t_header *state)
 {
 	if (state)
-		state[0] = error;
+		state[0] = ERROR;
 	ft_putendl(error_msg);
 	return (i);
 }

@@ -6,7 +6,7 @@
 /*   By: amamy <amamy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/20 00:07:02 by nicolasv          #+#    #+#             */
-/*   Updated: 2020/02/10 01:50:37 by amamy            ###   ########.fr       */
+/*   Updated: 2020/02/10 04:53:04 by amamy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,12 +35,13 @@
 
 typedef enum		e_header
 {
-	magic_nb,
-	name,
-	instructions_size,
-	comment,
-	padding,
-	error,
+	PARSING_MAGIC_NB,
+	PARSING_NAME,
+	PARSING_INSTRUCTION_SIZE,
+	PARSING_COMMENT,
+	PARSING_PADDING,
+	ERROR,
+
 }					t_header;
 
 typedef struct		s_champion
@@ -66,6 +67,10 @@ typedef struct			s_corewar
 	struct	s_champion	*champs;
 }						t_corewar;
 
+
+// process_parse_arguments.c
+int						process_parse_arguments(t_corewar *stock, t_champion **champions, char **argv);
+
 int						add_champions(char *argv, t_corewar *stock, t_champion **champions);
 int						add_nb_player(t_corewar *stock, t_champion **champions, t_champion **tmp);
 t_champion				*champions_list(t_champion **champions);
@@ -84,7 +89,7 @@ int						vm_usage(int i);
 
 // error.c
 int						error_header(int *fd);
-void					*error_msg_null(char *error_msg);
+void					*error_msg_null(char *error_msg, t_header *state);
 int						error_msg(char *error_msg, int i, t_header *state);
 int						vm_error_champion(char *champion, int var, int size);
 

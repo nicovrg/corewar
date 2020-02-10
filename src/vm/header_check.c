@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   vm_header_check.c                                  :+:      :+:    :+:   */
+/*   header_check.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: amamy <amamy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/22 03:15:38 by qgirard           #+#    #+#             */
-/*   Updated: 2020/02/10 04:51:10 by amamy            ###   ########.fr       */
+/*   Updated: 2020/02/10 04:56:03 by amamy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ t_champion **tmp)
 
 	*i = *i + 1;
 	index = *i;
-	if (state[0] == error)
+	if (state[0] == ERROR)
 		return (0);
 	while (line[index])
 		index++;
@@ -63,18 +63,18 @@ t_champion **champions)
 	t_champion	*tmp;
 
 	index = *i;
-	if (state[0] == error)
+	if (state[0] == ERROR)
 		return (0);
 	if (!(tmp = champions_list(champions)))
-		error_msg_null(ERR_MALLOC, &state);ERR_MALLOC);
+		error_msg_null(ERR_MALLOC, state);
 	while (line[index])
 		index++;
 	if (!(tmp->name = ft_strsub(line, *i, index - *i)))
-		error_msg_null(ERR_MALLOC, &state);ERR_MALLOC);
+		error_msg_null(ERR_MALLOC, state);
 	*state = PARSING_INSTRUCTION_SIZE;
 	*i = index;
 	if (!check_paddings(line, i, BYTE_AFTER_PADDING))
-		error_msg_null(ERR_MALLOC, &state);ERR_MALLOC);
+		error_msg_null(ERR_MALLOC, state);
 	return (tmp);
 }
 
@@ -86,7 +86,7 @@ t_champion **champions)
 
 static int			magic_number(char *line, t_header *state, int *i)
 {
-	if (state[0] == error)
+	if (state[0] == ERROR)
 		return (0);
 	if ((unsigned int)line[*i] == MAGIC_NUMBER_PT_1
 	&& (unsigned int)line[*i + 1] == MAGIC_NUMBER_PT_2
@@ -118,15 +118,15 @@ t_champion **champions)
 	state = PARSING_MAGIC_NB;
 	while (i < HEADER_SIZE)
 	{
-		if (state == PARSING_MAGIC_NB && state != error)
+		if (state == PARSING_MAGIC_NB && state != ERROR)
 			magic_number(line, &state, &i);
-		if (state == PARSING_NAME && state != error)
+		if (state == PARSING_NAME && state != ERROR)
 			tmp = check_name(line, &state, &i, champions);
-		if (state == PARSING_INSTRUCTION_SIZE && state != error)
+		if (state == PARSING_INSTRUCTION_SIZE && state != ERROR)
 			check_instructions_size(line, &state, &i, &tmp);
-		if (state == PARSING_COMMENT && state != error)
+		if (state == PARSING_COMMENT && state != ERROR)
 			check_comments(line, &state, &i, &tmp);
-		if (state == error)
+		if (state == ERROR)
 			return (error_msg(ERR_FILE_HEADER, 0, NULL));
 		i++;
 	}

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   vm_check_instructions_size.c                       :+:      :+:    :+:   */
+/*   parsing_check_instructions_size.c                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: amamy <amamy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/28 15:17:51 by qgirard           #+#    #+#             */
-/*   Updated: 2020/02/10 01:18:30 by amamy            ###   ########.fr       */
+/*   Updated: 2020/02/10 04:57:14 by amamy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,7 @@ int *i, t_champion **tmp)
 	char	*buff;
 
 	byte = 0;
-	if ((!init_values(&index, i, line, &buff) || *state == error))
+	if ((!init_values(&index, i, line, &buff) || *state == ERROR))
 		return (error_msg(ERR_MALLOC, 0, state));
 	if (buff)
 	{
@@ -123,6 +123,6 @@ int *i, t_champion **tmp)
 		}
 	}
 	ft_strdel(&buff);
-	*state = comment;
+	*state = PARSING_COMMENT;
 	return (1);
 }

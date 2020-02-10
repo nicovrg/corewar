@@ -6,7 +6,7 @@
 #    By: amamy <amamy@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/09/22 23:46:29 by nivergne          #+#    #+#              #
-#    Updated: 2020/02/09 22:06:34 by amamy            ###   ########.fr        #
+#    Updated: 2020/02/10 04:35:15 by amamy            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,17 +16,18 @@ SRC_VM_PATH		:=	vm/
 
 SRC_ASM =			asm_main.c\
 
-SRC_VM =			vm_checks.c\
-					vm_main.c\
+SRC_VM =			main.c\
+					init.c\
+					error.c\
+					champions_list.c\
+					parsing_checks.c\
 					vm_free.c\
-					vm_init.c\
-					vm_error.c\
-					vm_lists.c\
 					helper_lib.c\
-					vm_nb_players.c\
-					vm_add_champions.c\
-					vm_header_check.c\
-					vm_check_instructions_size.c
+					nb_players.c\
+					header_check.c\
+					add_champions.c\
+					process_parse_arguments.c\
+					parsing_check_instructions_size.c
 
 
 SRC_ASM := $(addprefix $(SRC_ASM_PATH), $(SRC_ASM))

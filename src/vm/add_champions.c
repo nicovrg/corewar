@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   vm_add_champions.c                                 :+:      :+:    :+:   */
+/*   add_champions.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: amamy <amamy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/21 03:04:45 by nivergne          #+#    #+#             */
-/*   Updated: 2020/02/10 02:59:41 by amamy            ###   ########.fr       */
+/*   Updated: 2020/02/10 04:56:20 by amamy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,7 @@ t_champion **champions)
 	fd = 0;
 	if (argv && (fd = open(argv, O_RDONLY)) == -1)
 		return (error_msg(ERR_OPEN_FILE, 0, NULL));
-	int t = CHAMP_MAX_SIZE;
-	if ((t = read(fd, &line, (HEADER_SIZE + CHAMP_MAX_SIZE))) > 0)
+	if (read(fd, &line, (HEADER_SIZE + CHAMP_MAX_SIZE)) > 0)
 	{
 		if (!(header_check(stock, line, champions)))
 			return (error_header(&fd));
