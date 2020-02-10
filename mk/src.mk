@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    src.mk                                             :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: qgirard <qgirard@student.42.fr>            +#+  +:+       +#+         #
+#    By: amamy <amamy@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/09/22 23:46:29 by nivergne          #+#    #+#              #
-#    Updated: 2020/01/28 15:19:31 by qgirard          ###   ########.fr        #
+#    Updated: 2020/02/09 22:06:34 by amamy            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,13 +18,14 @@ SRC_ASM =			asm_main.c\
 
 SRC_VM =			vm_checks.c\
 					vm_main.c\
-					vm_error.c\
-					vm_add_champions.c\
-					vm_header_check.c\
-					vm_lists.c\
 					vm_free.c\
 					vm_init.c\
+					vm_error.c\
+					vm_lists.c\
+					helper_lib.c\
 					vm_nb_players.c\
+					vm_add_champions.c\
+					vm_header_check.c\
 					vm_check_instructions_size.c
 
 

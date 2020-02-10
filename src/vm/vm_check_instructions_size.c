@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vm_check_instructions_size.c                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: qgirard <qgirard@student.42.fr>            +#+  +:+       +#+        */
+/*   By: amamy <amamy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/28 15:17:51 by qgirard           #+#    #+#             */
-/*   Updated: 2020/01/28 19:30:03 by qgirard          ###   ########.fr       */
+/*   Updated: 2020/02/10 01:18:30 by amamy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ static int		init_values(int *index, int *i, char *line, char **buff)
 ** faire la gestion d'erreur si size > max_champ_size
 */
 
-int				check_instructions_size(char *line, enum header *state,
+int				check_instructions_size(char *line, t_header *state,
 int *i, t_champion **tmp)
 {
 	int		kobe;
@@ -106,8 +106,8 @@ int *i, t_champion **tmp)
 	char	*buff;
 
 	byte = 0;
-	if (!init_values(&index, i, line, &buff))
-		return (error_msg(ERR_MALLOC, 0));
+	if ((!init_values(&index, i, line, &buff) || *state == error))
+		return (error_msg(ERR_MALLOC, 0, state));
 	if (buff)
 	{
 		kobe = ft_strlen(buff) - 1;

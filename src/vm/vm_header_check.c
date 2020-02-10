@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vm_header_check.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: qgirard <qgirard@student.42.fr>            +#+  +:+       +#+        */
+/*   By: amamy <amamy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/22 03:15:38 by qgirard           #+#    #+#             */
-/*   Updated: 2020/01/28 18:40:07 by qgirard          ###   ########.fr       */
+/*   Updated: 2020/02/10 03:02:20 by amamy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,21 +31,23 @@ static int			check_paddings(char *line, int *i, int size)
 ** check and stock the comment of the champion
 */
 
-static int			check_comments(char *line, enum header *state, int *i,
+static int			check_comments(char *line, t_header *state, int *i,
 t_champion **tmp)
 {
 	int			index;
 
 	*i = *i + 1;
 	index = *i;
+	if (state[0] == error)
+		return (0);
 	while (line[index])
 		index++;
 	if (!((*tmp)->comment = ft_strsub(line, *i, index - *i)))
-		return (error_msg(ERR_MALLOC, 0));
+		return (error_msg(ERR_MALLOC, 0, state));
 	*state = padding;
 	*i = index;
 	if (!check_paddings(line, i, HEADER_SIZE))
-		return (error_msg(ERR_FILE_HEADER, 0));
+		return (error_msg(ERR_FILE_HEADER, 0, state));
 	return (1);
 }
 
@@ -54,32 +56,25 @@ t_champion **tmp)
 ** check and stock the name of the champion
 */
 
-static t_champion	*check_name(char *line, enum header *state, int *i,
+static t_champion	*check_name(char *line, t_header *state, int *i,
 t_champion **champions)
 {
 	int			index;
 	t_champion	*tmp;
 
 	index = *i;
+	if (state[0] == error)
+		return (0);
 	if (!(tmp = champions_list(champions)))
-	{
-		error_msg(ERR_MALLOC, 0);
-		return (NULL);
-	}
+		error_msg_null(ERR_MALLOC);
 	while (line[index])
 		index++;
 	if (!(tmp->name = ft_strsub(line, *i, index - *i)))
-	{
-		error_msg(ERR_MALLOC, 0);
-		return (NULL);
-	}
+		error_msg_null(ERR_MALLOC);
 	*state = instructions_size;
 	*i = index;
 	if (!check_paddings(line, i, BYTE_AFTER_PADDING))
-	{
-		error_msg(ERR_FILE_HEADER, 0);
-		return (NULL);
-	}
+		error_msg_null(ERR_MALLOC);
 	return (tmp);
 }
 
@@ -89,8 +84,10 @@ t_champion **champions)
 ** return an error
 */
 
-static int			magic_number(char *line, enum header *state, int *i)
+static int			magic_number(char *line, t_header *state, int *i)
 {
+	if (state[0] == error)
+		return (0);
 	if ((unsigned int)line[*i] == MAGIC_NUMBER_PT_1
 	&& (unsigned int)line[*i + 1] == MAGIC_NUMBER_PT_2
 	&& (unsigned int)line[*i + 2] == MAGIC_NUMBER_PT_3
@@ -115,27 +112,27 @@ t_champion **champions)
 {
 	int			i;
 	t_champion	*tmp;
-	enum header	state;
+	t_header	state;
 
 	i = 0;
 	state = magic_nb;
 	while (i < HEADER_SIZE)
 	{
-		if (state == magic_nb)
-			if (!(magic_number(line, &state, &i)))
-				return (error_msg(ERR_FILE_HEADER, 0));
-		if (state == name)
-			if (!(tmp = check_name(line, &state, &i, champions)))
-				return (0);
-		if (state == instructions_size)
-			if (!(check_instructions_size(line, &state, &i, &tmp)))
-				return (0);
-		if (state == comment)
-			if (!(check_comments(line, &state, &i, &tmp)))
-				return (0);
+		if (state == magic_nb && state != error)
+			magic_number(line, &state, &i);
+		if (state == name && state != error)
+			tmp = check_name(line, &state, &i, champions);
+		if (state == instructions_size && state != error)
+			check_instructions_size(line, &state, &i, &tmp);
+		if (state == comment && state != error)
+			check_comments(line, &state, &i, &tmp);
+		if (state == error)
+			return (error_msg(ERR_FILE_HEADER, 0, NULL));
 		i++;
 	}
 	if (stock->nb_player)
 		add_nb_player(stock, champions, &tmp);
+	if (!(tmp->instructions = ft_strndup(&line[INSTRUCTION_SECTION_START], CHAMP_MAX_SIZE)))
+		return (0);
 	return (1);
 }

@@ -3,16 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   vm.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: qgirard <qgirard@student.42.fr>            +#+  +:+       +#+        */
+/*   By: amamy <amamy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/20 00:07:02 by nicolasv          #+#    #+#             */
-/*   Updated: 2020/01/28 18:54:42 by qgirard          ###   ########.fr       */
+/*   Updated: 2020/02/10 01:50:37 by amamy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef VM_H
 # define VM_H
 
+#include <unistd.h>
 # include "op.h"
 
 # define ERR_CHAMPS_NB "Too many champions"
@@ -25,13 +26,22 @@
 # define ERR_VM_NB_PLAYERS_EXCEED "-n number exceed the total number of champions"
 
 # define HEADER_SIZE 2192
+# define INSTRUCTION_SECTION_START 2192
 # define BYTE_AFTER_PADDING 136
 # define MAGIC_NUMBER_PT_1 0
 # define MAGIC_NUMBER_PT_2 4294967274
 # define MAGIC_NUMBER_PT_3 4294967171
 # define MAGIC_NUMBER_PT_4 4294967283
 
-enum header {magic_nb, name, instructions_size, comment, padding};
+typedef enum		e_header
+{
+	magic_nb,
+	name,
+	instructions_size,
+	comment,
+	padding,
+	error,
+}					t_header;
 
 typedef struct		s_champion
 {
@@ -39,6 +49,7 @@ typedef struct		s_champion
 	int					player;
 	char				*name;
 	char				*comment;
+	char				*instructions;
 	struct s_champion	*next;
 }					t_champion;
 
@@ -61,17 +72,26 @@ t_champion				*champions_list(t_champion **champions);
 int						check_champion_size(char *argv, t_champion **champions);
 int						check_flags(char *argv, t_corewar *stock);
 int						check_if_number(char *argv);
-int						check_instructions_size(char *line, enum header *state,
+int						check_instructions_size(char *line, t_header *state,
 						int *i, t_champion **tmp);
 int						check_player_or_cycles(char *argv, t_corewar *stock);
 int						count_champions(t_champion **champions);
-int						error_header(int *fd);
-int						error_msg(char *error_msg, int i);
 int						find_nb_player(t_corewar *stock, t_champion **champions);
 int						header_check(t_corewar *stock, char *line, t_champion **champions);
 int						introduce_champs(t_champion **champions);
-int						vm_error_champion(char *champion, int var, int size);
 int						vm_free(t_champion **champions);
 int						vm_usage(int i);
+
+// error.c
+int						error_header(int *fd);
+void					*error_msg_null(char *error_msg);
+int						error_msg(char *error_msg, int i, t_header *state);
+int						vm_error_champion(char *champion, int var, int size);
+
+// helper_lib.c
+char					*ft_strndup(const char *s1, ssize_t len);
+char					*ft_strjoinf(char *s1, char *s2, size_t rm);
+char					*ft_itoa_base(int n, int base);
+int						ft_atoi_base(const char *str, int base);
 
 #endif

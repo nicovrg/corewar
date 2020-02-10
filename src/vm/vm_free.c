@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vm_free.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: qgirard <qgirard@student.42.fr>            +#+  +:+       +#+        */
+/*   By: amamy <amamy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 20:03:56 by qgirard           #+#    #+#             */
-/*   Updated: 2020/01/28 19:35:49 by qgirard          ###   ########.fr       */
+/*   Updated: 2020/02/10 02:52:41 by amamy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ int		vm_free(t_champion **champions)
 		tmp = *champions;
 		ft_strdel(&(tmp->name));
 		ft_strdel(&(tmp->comment));
+		ft_strdel(&(tmp->instructions));
 		*champions = (*champions)->next;
 		free(tmp);
 	}

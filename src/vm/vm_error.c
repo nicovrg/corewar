@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vm_error.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: qgirard <qgirard@student.42.fr>            +#+  +:+       +#+        */
+/*   By: amamy <amamy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/05 17:21:52 by qgirard           #+#    #+#             */
-/*   Updated: 2020/01/28 19:35:09 by qgirard          ###   ########.fr       */
+/*   Updated: 2020/02/10 01:08:25 by amamy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,24 @@ int		error_header(int *fd)
 }
 
 /*
+** ==================== error_msg_null ====================
+** print an error message and return NULL.
+*/
+
+void	*error_msg_null(char *error_msg)
+{
+	ft_putendl(error_msg);
+	return (NULL);
+}
+/*
 ** ==================== error_msg ====================
 ** print an error message
 */
 
-int		error_msg(char *error_msg, int i)
+int		error_msg(char *error_msg, int i, t_header *state)
 {
+	if (state)
+		state[0] = error;
 	ft_putendl(error_msg);
 	return (i);
 }

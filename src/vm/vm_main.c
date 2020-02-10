@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vm_main.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: qgirard <qgirard@student.42.fr>            +#+  +:+       +#+        */
+/*   By: amamy <amamy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/05 15:32:40 by qgirard           #+#    #+#             */
-/*   Updated: 2020/01/28 19:16:31 by qgirard          ###   ########.fr       */
+/*   Updated: 2020/02/10 02:57:13 by amamy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int		parse_args(char *argv, t_corewar *stock, t_champion **champions)
 	if (argv[0] == '-')
 	{
 		if (!check_flags(argv, stock))
-			return (error_msg(ERR_VM_USAGE, 0));
+			return (error_msg(ERR_VM_USAGE, 0, NULL));
 	}
 	else if (check_if_number(argv))
 	{
@@ -63,28 +63,8 @@ int		parse_args(char *argv, t_corewar *stock, t_champion **champions)
 				return (0);
 		}
 		else
-			return (error_msg(ERR_CHAMPS_NB, 0));
+			return (error_msg(ERR_CHAMPS_NB, 0, NULL));
 	}
-	return (1);
-}
-
-/*
-** ==================== init_structs ====================
-** a remplacer par un ft_bzero de la structure mais a garder
-** pour le moment pour une meilleure visibilite
-*/
-
-int		init_structs(t_corewar *stock)
-{
-	stock->first_player = 0;
-	stock->second_player = 0;
-	stock->third_player = 0;
-	stock->fourth_player = 0;
-	stock->dump_option = 0;
-	stock->dump_cycles = 0;
-	stock->n_option = 0;
-	stock->nb_player = 0;
-	stock->champs = NULL;
 	return (1);
 }
 
@@ -97,8 +77,8 @@ int		main(int argc, char **argv)
 	i = 1;
 	champions = NULL;
 	if (argc < 2)
-		return (error_msg(ERR_VM_USAGE, 1));
-	init_structs(&stock);
+		return (error_msg(ERR_VM_USAGE, 1, NULL));
+	ft_bzero(&stock, sizeof(t_corewar));
 	while (argv[i])
 	{
 		if (!parse_args(argv[i], &stock, &champions))

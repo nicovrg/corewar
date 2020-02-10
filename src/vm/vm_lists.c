@@ -3,15 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   vm_lists.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: qgirard <qgirard@student.42.fr>            +#+  +:+       +#+        */
+/*   By: amamy <amamy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/22 05:40:42 by qgirard           #+#    #+#             */
-/*   Updated: 2020/01/28 17:18:20 by qgirard          ###   ########.fr       */
+/*   Updated: 2020/02/10 01:20:30 by amamy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
 #include "libft.h"
+#include "ft_printf.h"
 
 /*
 ** ==================== champions_list ====================
@@ -26,13 +27,8 @@ t_champion		*champions_list(t_champion **champions)
 	tmp = (*champions);
 	while (tmp && tmp->next)
 		tmp = tmp->next;
-	if (!(new = (t_champion *)malloc(sizeof(t_champion))))
+	if (!(new = (t_champion *)ft_memalloc(sizeof(t_champion))))
 		return (NULL);
-	new->next = NULL;
-	new->name = NULL;
-	new->comment = NULL;
-	new->size = 0;
-	new->player = 0;
 	if (*champions)
 		tmp->next = new;
 	else

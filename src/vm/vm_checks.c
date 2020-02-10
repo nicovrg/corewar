@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vm_checks.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: qgirard <qgirard@student.42.fr>            +#+  +:+       +#+        */
+/*   By: amamy <amamy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 12:23:03 by qgirard           #+#    #+#             */
-/*   Updated: 2020/01/28 19:32:43 by qgirard          ###   ########.fr       */
+/*   Updated: 2020/02/10 01:11:35 by amamy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ int		check_player_or_cycles(char *argv, t_corewar *stock)
 	{
 		stock->nb_player = ft_atoi(argv);
 		if (stock->nb_player < 1 || stock->nb_player > 4)
-			return (error_msg(ERR_VM_NB_PLAYERS, 0));
+			return (error_msg(ERR_VM_NB_PLAYERS, 0, NULL));
 	}
 	else if (stock->dump_option == 1)
 		stock->dump_cycles = ft_atol(argv);

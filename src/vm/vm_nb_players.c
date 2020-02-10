@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vm_nb_players.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: qgirard <qgirard@student.42.fr>            +#+  +:+       +#+        */
+/*   By: amamy <amamy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 21:38:25 by qgirard           #+#    #+#             */
-/*   Updated: 2020/01/28 19:40:41 by qgirard          ###   ########.fr       */
+/*   Updated: 2020/02/10 01:12:25 by amamy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ int				find_nb_player(t_corewar *stock, t_champion **champions)
 	{
 		if (tmp->player > 0)
 			if (tmp->player > count_champions(champions))
-				return (error_msg(ERR_VM_NB_PLAYERS_EXCEED, 0));
+				return (error_msg(ERR_VM_NB_PLAYERS_EXCEED, 0, NULL));
 		if (tmp->player == 0)
 			put_nb_player(stock, &tmp);
 		tmp = tmp->next;
