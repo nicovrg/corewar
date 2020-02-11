@@ -6,7 +6,7 @@
 #    By: amamy <amamy@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/09/22 23:46:29 by nivergne          #+#    #+#              #
-#    Updated: 2020/02/10 04:35:15 by amamy            ###   ########.fr        #
+#    Updated: 2020/02/11 01:04:26 by amamy            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,9 +24,16 @@ SRC_VM =			main.c\
 					vm_free.c\
 					helper_lib.c\
 					nb_players.c\
+					instruction_1.c\
+					instruction_2.c\
+					instruction_3.c\
+					instruction_4.c\
 					header_check.c\
+					vm_execution.c\
 					add_champions.c\
+					parse_instruction.c\
 					process_parse_arguments.c\
+					parse_instruction_functions.c\
 					parsing_check_instructions_size.c
 
 

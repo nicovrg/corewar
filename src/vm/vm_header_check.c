@@ -6,7 +6,7 @@
 /*   By: amamy <amamy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/22 03:15:38 by qgirard           #+#    #+#             */
-/*   Updated: 2020/02/10 04:51:10 by amamy            ###   ########.fr       */
+/*   Updated: 2020/02/10 23:50:55 by amamy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static int			check_paddings(char *line, int *i, int size)
 
 /*
 ** ==================== check_comments ====================
-** check and stock the comment of the champion
+** check and arena the comment of the champion
 */
 
 static int			check_comments(char *line, t_header *state, int *i,
@@ -53,7 +53,7 @@ t_champion **tmp)
 
 /*
 ** ==================== check_name ====================
-** check and stock the name of the champion
+** check and arena the name of the champion
 */
 
 static t_champion	*check_name(char *line, t_header *state, int *i,
@@ -107,7 +107,7 @@ static int			magic_number(char *line, t_header *state, int *i)
 ** and then display to specified checking functions
 */
 
-int					header_check(t_corewar *stock, char *line,
+int					header_check(t_corewar *arena, char *line,
 t_champion **champions)
 {
 	int			i;
@@ -130,8 +130,8 @@ t_champion **champions)
 			return (error_msg(ERR_FILE_HEADER, 0, NULL));
 		i++;
 	}
-	if (stock->nb_player)
-		add_nb_player(stock, champions, &tmp);
+	if (arena->nb_player)
+		add_nb_player(arena, champions, &tmp);
 	if (!(tmp->instructions = ft_strndup(&line[INSTRUCTION_SECTION_START], CHAMP_MAX_SIZE)))
 		return (0);
 	return (1);

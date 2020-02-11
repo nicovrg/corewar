@@ -6,7 +6,7 @@
 /*   By: amamy <amamy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/05 17:21:52 by qgirard           #+#    #+#             */
-/*   Updated: 2020/02/10 04:53:24 by amamy            ###   ########.fr       */
+/*   Updated: 2020/02/11 00:47:15 by amamy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int		error_header(int *fd)
 void	*error_msg_null(char *error_msg, t_header *state)
 {
 		if (state)
-		state[0] = ERROR;
+		state[0] = 0;
 	ft_putendl(error_msg);
 	return (NULL);
 }
@@ -44,7 +44,7 @@ void	*error_msg_null(char *error_msg, t_header *state)
 int		error_msg(char *error_msg, int i, t_header *state)
 {
 	if (state)
-		state[0] = ERROR;
+		state[0] = 0;
 	ft_putendl(error_msg);
 	return (i);
 }
@@ -68,4 +68,11 @@ int		vm_error_champion(char *champion, int var, int size)
 		ft_putendl(" bytes > 682 bytes)");
 	}
 	return (0);
+}
+
+int     inst_error(t_instruction **instruction, t_corewar *arena)
+{
+	(void)instruction;
+	(void)arena;
+    return (1);
 }

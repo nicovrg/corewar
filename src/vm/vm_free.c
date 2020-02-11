@@ -6,7 +6,7 @@
 /*   By: amamy <amamy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 20:03:56 by qgirard           #+#    #+#             */
-/*   Updated: 2020/02/10 02:52:41 by amamy            ###   ########.fr       */
+/*   Updated: 2020/02/10 22:57:55 by amamy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,5 +31,5 @@ int		vm_free(t_champion **champions)
 		*champions = (*champions)->next;
 		free(tmp);
 	}
-	return (1);
+	return (0);
 }

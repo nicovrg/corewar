@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   vm_checks.c                                        :+:      :+:    :+:   */
+/*   parsing_checks.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: amamy <amamy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 12:23:03 by qgirard           #+#    #+#             */
-/*   Updated: 2020/02/10 01:11:35 by amamy            ###   ########.fr       */
+/*   Updated: 2020/02/10 23:50:55 by amamy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,21 +53,21 @@ int		check_if_number(char *argv)
 
 /*
 ** ==================== check_player_or_cycles ====================
-** if flag -n is present check the validity of the player number and stock it
-** else if flag -dump is present stock the cycles we have to pass before dump
+** if flag -n is present check the validity of the player number and arena it
+** else if flag -dump is present arena the cycles we have to pass before dump
 ** memory
 */
 
-int		check_player_or_cycles(char *argv, t_corewar *stock)
+int		check_player_or_cycles(char *argv, t_corewar *arena)
 {
-	if (stock->n_option == 1)
+	if (arena->n_option == 1)
 	{
-		stock->nb_player = ft_atoi(argv);
-		if (stock->nb_player < 1 || stock->nb_player > 4)
+		arena->nb_player = ft_atoi(argv);
+		if (arena->nb_player < 1 || arena->nb_player > 4)
 			return (error_msg(ERR_VM_NB_PLAYERS, 0, NULL));
 	}
-	else if (stock->dump_option == 1)
-		stock->dump_cycles = ft_atol(argv);
+	else if (arena->dump_option == 1)
+		arena->dump_cycles = ft_atol(argv);
 	return (1);
 }
 
@@ -76,12 +76,12 @@ int		check_player_or_cycles(char *argv, t_corewar *stock)
 ** check if arguments are existed flags
 */
 
-int		check_flags(char *argv, t_corewar *stock)
+int		check_flags(char *argv, t_corewar *arena)
 {
 	if (!ft_strcmp(argv, "-n"))
-		stock->n_option = 1;
+		arena->n_option = 1;
 	else if (!ft_strcmp(argv, "-dump"))
-		stock->dump_option = 1;
+		arena->dump_option = 1;
 	else
 		return (0);
 	return (1);

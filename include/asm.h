@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   asm.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: qgirard <qgirard@student.42.fr>            +#+  +:+       +#+        */
+/*   By: amamy <amamy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/21 01:21:58 by nivergne          #+#    #+#             */
-/*   Updated: 2020/01/22 00:42:37 by qgirard          ###   ########.fr       */
+/*   Updated: 2020/02/10 23:50:55 by amamy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,11 +40,11 @@ typedef struct			s_corewar
 	struct	s_champion	*champs;
 }						t_corewar;
 
-int						add_champions(char *champion, t_corewar *stock);
-int						check_flags(char *argv, t_corewar *stock);
-int						check_player_or_cycles(char *argv, t_corewar *stock);
+int						add_champions(char *champion, t_corewar *arena);
+int						check_flags(char *argv, t_corewar *arena);
+int						check_player_or_cycles(char *argv, t_corewar *arena);
 int						error_msg(char *error_msg, int i);
-int						read_champions(char *argv, t_corewar *stock);
+int						read_champions(char *argv, t_corewar *arena);
 int						vm_error_champion(char *champion, int var, int size);
 int						vm_usage(int i);
 
