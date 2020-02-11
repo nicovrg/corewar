@@ -6,7 +6,7 @@
 /*   By: amamy <amamy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/05 17:21:52 by qgirard           #+#    #+#             */
-/*   Updated: 2020/02/10 04:51:10 by amamy            ###   ########.fr       */
+/*   Updated: 2020/02/11 01:20:26 by amamy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	*error_msg_null(ERR_MALLOC, &state);char *error_msg)
 ** print an error message
 */
 
-int		error_msg(char *error_msg, int i, t_header *state)
+int		error_msg(char *error_msg, int i, t_header_state *state)
 {
 	if (state)
 		state[0] = error;

@@ -6,7 +6,7 @@
 /*   By: amamy <amamy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/28 15:17:51 by qgirard           #+#    #+#             */
-/*   Updated: 2020/02/10 21:31:12 by amamy            ###   ########.fr       */
+/*   Updated: 2020/02/11 01:20:26 by amamy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ static int		init_values(int *index, int *i, char *line, char **buff)
 ** faire la gestion d'erreur si size > max_champ_size
 */
 
-int				check_instructions_size(char *line, t_header *state,
+int				check_instructions_size(char *line, t_header_state *state,
 int *i, t_champion **tmp)
 {
 	int		kobe;

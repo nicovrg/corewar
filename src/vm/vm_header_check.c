@@ -6,7 +6,7 @@
 /*   By: amamy <amamy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/22 03:15:38 by qgirard           #+#    #+#             */
-/*   Updated: 2020/02/10 23:50:55 by amamy            ###   ########.fr       */
+/*   Updated: 2020/02/11 01:20:26 by amamy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static int			check_paddings(char *line, int *i, int size)
 ** check and arena the comment of the champion
 */
 
-static int			check_comments(char *line, t_header *state, int *i,
+static int			check_comments(char *line, t_header_state *state, int *i,
 t_champion **tmp)
 {
 	int			index;
@@ -56,7 +56,7 @@ t_champion **tmp)
 ** check and arena the name of the champion
 */
 
-static t_champion	*check_name(char *line, t_header *state, int *i,
+static t_champion	*check_name(char *line, t_header_state *state, int *i,
 t_champion **champions)
 {
 	int			index;
@@ -84,7 +84,7 @@ t_champion **champions)
 ** return an error
 */
 
-static int			magic_number(char *line, t_header *state, int *i)
+static int			magic_number(char *line, t_header_state *state, int *i)
 {
 	if (state[0] == error)
 		return (0);
@@ -112,7 +112,7 @@ t_champion **champions)
 {
 	int			i;
 	t_champion	*tmp;
-	t_header	state;
+	t_header_state	state;
 
 	i = 0;
 	state = PARSING_MAGIC_NB;

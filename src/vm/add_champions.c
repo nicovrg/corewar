@@ -6,11 +6,12 @@
 /*   By: amamy <amamy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/21 03:04:45 by nivergne          #+#    #+#             */
-/*   Updated: 2020/02/10 23:50:55 by amamy            ###   ########.fr       */
+/*   Updated: 2020/02/11 01:27:56 by amamy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
+#include "op.h"
 #include "libft.h"
 #include "ft_printf.h"
 

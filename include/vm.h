@@ -6,7 +6,7 @@
 /*   By: amamy <amamy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/20 00:07:02 by nicolasv          #+#    #+#             */
-/*   Updated: 2020/02/11 01:03:45 by amamy            ###   ########.fr       */
+/*   Updated: 2020/02/11 01:27:46 by amamy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 # define VM_H
 
 #include <unistd.h>
-# include "op.h"
 
 # define ERR_CHAMPS_NB "Too many champions"
 # define ERR_FILE_HEADER "Header of the file is invalid"
@@ -25,6 +24,7 @@
 # define ERR_VM_USAGE "Usage:  ./corewar [-dump nbr_cycles] [[-n number] champion1.cor]"
 # define ERR_VM_NB_PLAYERS_EXCEED "-n number exceed the total number of champions"
 
+# define HEADER_SIZE 2192
 # define HEADER_SIZE 2192
 # define INSTRUCTION_SECTION_START 2192
 # define BYTE_AFTER_PADDING 136
@@ -69,7 +69,7 @@ typedef enum		e_instructions_states
 	INST_STATE_NUMBER,
 }					t_instrcutions_states;
 
-typedef enum		e_header
+typedef enum		e_header_states
 {
 	HEADER_ERROR,
 	HEADER_PARSING_MAGIC_NB,
@@ -78,7 +78,7 @@ typedef enum		e_header
 	HEADER_PARSING_COMMENT,
 	HEADER_PARSING_PADDING,
 
-}					t_header;
+}					t_header_state;
 
 typedef struct		s_champion
 {
@@ -122,7 +122,7 @@ t_champion				*champions_list(t_champion **champions);
 int						check_champion_size(char *argv, t_champion **champions);
 int						check_flags(char *argv, t_corewar *arena);
 int						check_if_number(char *argv);
-int						check_instructions_size(char *line, t_header *state, int *i, t_champion **tmp);
+int						check_instructions_size(char *line, t_header_state *state, int *i, t_champion **tmp);
 int						check_player_or_cycles(char *argv, t_corewar *arena);
 int						count_champions(t_champion **champions);
 int						find_nb_player(t_corewar *arena, t_champion **champions);
@@ -162,8 +162,8 @@ int						inst_aff(t_instruction **instruction, t_corewar *arena);
 
 // error.c
 int						error_header(int *fd);
-void					*error_msg_null(char *error_msg, t_header *state);
-int						error_msg(char *error_msg, int i, t_header *state);
+void					*error_msg_null(char *error_msg, t_header_state *state);
+int						error_msg(char *error_msg, int i, t_header_state *state);
 int						vm_error_champion(char *champion, int var, int size);
 int						inst_error(t_instruction **instruction, t_corewar *arena);
 

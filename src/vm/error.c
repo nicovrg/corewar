@@ -6,7 +6,7 @@
 /*   By: amamy <amamy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/05 17:21:52 by qgirard           #+#    #+#             */
-/*   Updated: 2020/02/11 00:47:15 by amamy            ###   ########.fr       */
+/*   Updated: 2020/02/11 01:17:56 by amamy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int		error_header(int *fd)
 ** print an error message and return NULL.
 */
 
-void	*error_msg_null(char *error_msg, t_header *state)
+void	*error_msg_null(char *error_msg, t_header_state *state)
 {
 		if (state)
 		state[0] = 0;
@@ -41,7 +41,7 @@ void	*error_msg_null(char *error_msg, t_header *state)
 ** print an error message
 */
 
-int		error_msg(char *error_msg, int i, t_header *state)
+int		error_msg(char *error_msg, int i, t_header_state *state)
 {
 	if (state)
 		state[0] = 0;
