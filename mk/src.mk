@@ -6,7 +6,7 @@
 #    By: amamy <amamy@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/09/22 23:46:29 by nivergne          #+#    #+#              #
-#    Updated: 2020/02/11 01:04:26 by amamy            ###   ########.fr        #
+#    Updated: 2020/02/11 01:10:22 by amamy            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,20 @@ SRC_PATH		:=	src/
 SRC_ASM_PATH	:=	asm/
 SRC_VM_PATH		:=	vm/
 
-SRC_ASM =			asm_main.c\
+SRC_ASM =			main.c\
+					lexer.c\
+					error_mode.c\
+					helper_lib.c\
+					helper_free.c\
+					helper_debug.c\
+					helper_error.c\
+					get_header_info_one.c\
+					get_header_info_two.c\
+					determine_token_type_and_length.c\
+					token_type_determination_function_one.c\
+					token_type_determination_function_two.c\
+					token_type_determination_function_three.c\
+					get_tokens_from_current_line.c\
 
 SRC_VM =			main.c\
 					init.c\
@@ -35,7 +48,6 @@ SRC_VM =			main.c\
 					process_parse_arguments.c\
 					parse_instruction_functions.c\
 					parsing_check_instructions_size.c
-
 
 SRC_ASM := $(addprefix $(SRC_ASM_PATH), $(SRC_ASM))
 SRC_ASM := $(addprefix $(SRC_PATH), $(SRC_ASM))
