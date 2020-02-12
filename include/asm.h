@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   asm.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amamy <amamy@student.42.fr>                +#+  +:+       +#+        */
+/*   By: nicolasv <nicolasv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/21 01:21:58 by nivergne          #+#    #+#             */
-/*   Updated: 2020/02/08 20:22:08 by amamy            ###   ########.fr       */
+/*   Updated: 2020/02/12 20:04:36 by nicolasv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,17 +39,17 @@ typedef enum			e_line_errors
 
 typedef enum			e_token_type
 {
-	TOKEN_TYPE_UNDEFINED,//============ 0
-	TOKEN_TYPE_SEPARATOR,//============ 1
-	TOKEN_TYPE_LABEL,//================ 2
-	TOKEN_TYPE_INSTRUCTION,//========== 3
-	TOKEN_TYPE_DIRECT,//=============== 4
-	TOKEN_TYPE_REGISTER,//============= 5
-	TOKEN_TYPE_INDIRECT,//============= 6
-	TOKEN_TYPE_DIRECT_LABEL_CALL,//==== 7
-	TOKEN_TYPE_INDIRECT_LABEL_CALL,//== 8
-	TOKEN_TYPE_UNKNOWN,//============== 9
-	NB_TOKEN_TYPE,//=================== 10
+	TOKEN_TYPE_UNDEFINED,					// 0
+	TOKEN_TYPE_SEPARATOR,					// 1
+	TOKEN_TYPE_LABEL,						// 2
+	TOKEN_TYPE_INSTRUCTION,					// 3
+	TOKEN_TYPE_DIRECT,						// 4
+	TOKEN_TYPE_REGISTER,					// 5
+	TOKEN_TYPE_INDIRECT,					// 6
+	TOKEN_TYPE_DIRECT_LABEL_CALL,			// 7
+	TOKEN_TYPE_INDIRECT_LABEL_CALL,			// 8
+	TOKEN_TYPE_UNKNOWN,						// 9
+	NB_TOKEN_TYPE,							// 10
 }						t_token_type;
 
 typedef	 struct			s_data

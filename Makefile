@@ -6,7 +6,7 @@
 #    By: nicolasv <nicolasv@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/18 19:23:29 by nivergne          #+#    #+#              #
-#    Updated: 2020/01/27 18:58:16 by nicolasv         ###   ########.fr        #
+#    Updated: 2020/02/12 20:02:41 by nicolasv         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,7 +37,7 @@ $(VM): $(OBJ_VM) | makelib
 makelib:
 	@$(MAKE) -C libft
 
-$(OBJ_PATH)%.o: $(SRC_PATH)%.c
+$(OBJ_PATH)%.o: $(SRC_PATH)%.c $(INC_FILES)
 	@mkdir -p obj
 	@mkdir -p $(dir $@)
 	@if [[ "$(findstring asm,$(basename $@))" = "asm" ]]; then\
