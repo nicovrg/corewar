@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   asm.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nicolasv <nicolasv@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amamy <amamy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/21 01:21:58 by nivergne          #+#    #+#             */
-/*   Updated: 2020/02/12 20:04:36 by nicolasv         ###   ########.fr       */
+/*   Updated: 2020/02/19 04:19:15 by amamy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,9 +76,11 @@ typedef struct			s_token
 
 typedef struct			s_code_line
 {
+	char				*label;
 	int					errors;
 	int					nb_line;
 	int					nb_token;
+	int					instruction_size;
 	char				*line;
 	struct s_token		*token; 
 	struct s_code_line	*next; 
@@ -91,6 +93,8 @@ typedef struct			s_code_line
 /* lexer.c */
 int						lexer(int fd, t_data **data, t_code_line **code_line);
 
+/* parser.c */
+int						parser(t_data **data, t_code_line **code_line);
 /* error_mde */
 void					error_mode(t_code_line **c_line);
 

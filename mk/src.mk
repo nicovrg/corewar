@@ -6,7 +6,7 @@
 #    By: amamy <amamy@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/09/22 23:46:29 by nivergne          #+#    #+#              #
-#    Updated: 2020/02/08 04:21:00 by amamy            ###   ########.fr        #
+#    Updated: 2020/02/19 03:00:24 by amamy            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,6 +16,7 @@ SRC_VM_PATH		:=	vm/
 
 SRC_ASM =			main.c\
 					lexer.c\
+					parser.c\
 					error_mode.c\
 					helper_lib.c\
 					helper_free.c\

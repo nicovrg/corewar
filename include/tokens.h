@@ -6,7 +6,7 @@
 /*   By: amamy <amamy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/21 01:21:58 by nivergne          #+#    #+#             */
-/*   Updated: 2020/02/08 20:24:32 by amamy            ###   ########.fr       */
+/*   Updated: 2020/02/19 01:45:25 by amamy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 typedef union				u_type
 {
-	struct s_label			*label;
+	// struct s_label			*label;
 	struct s_instruction	*instruction;
 	struct s_registr		*registr;
 	struct s_direct			*direct;
@@ -24,11 +24,11 @@ typedef union				u_type
 	struct s_unknown		*unknown;
 }							t_type;
 
-typedef struct				s_label
-{
-	char					*lexeme;
-	struct s_code_line		*target;
-}							t_label;
+// typedef struct				s_label
+// {
+// 	char					*lexeme;
+// 	struct s_code_line		*target;
+// }							t_label;
 
 typedef struct				s_instruction
 {
