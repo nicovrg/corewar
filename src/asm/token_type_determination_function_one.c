@@ -6,7 +6,7 @@
 /*   By: amamy <amamy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/26 05:57:28 by amamy             #+#    #+#             */
-/*   Updated: 2020/02/08 21:35:47 by amamy            ###   ########.fr       */
+/*   Updated: 2020/02/18 23:02:55 by amamy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,10 +39,18 @@ int						is_direct(t_token *token)
 int						is_indirect(t_token *token)
 {
 	int		i;
+	int		negative;
 	char	*str;
 
 	i = token->position;
 	str = token->code_line->line;
+	negative = 0;
+	if (str[i] && (str[i] == '-' || str[i] == '+'))
+	{
+		i++;
+		if (str[i] == '-')
+			negative = 1;
+	}
 	if (ft_isdigit(str[i]) && i++)
 	{
 		while (str[i] && ft_isdigit(str[i]))
