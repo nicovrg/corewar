@@ -6,7 +6,7 @@
 /*   By: amamy <amamy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/23 04:42:59 by nivergne          #+#    #+#             */
-/*   Updated: 2020/02/08 22:17:11 by amamy            ###   ########.fr       */
+/*   Updated: 2020/02/20 02:40:39 by amamy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,5 +79,7 @@ int				get_tokens_from_current_line(t_code_line **current_c_line, char *line)
 			(*current_c_line)->token = new_token;
 		(new_token->length > 0) ? (i += new_token->length) : (i++);
 	}
+	(*current_c_line)->nb_token = token_nb;
+		ft_printf("lexer token_nb %d\n", (*current_c_line)->nb_token);
 	return (1);
 }

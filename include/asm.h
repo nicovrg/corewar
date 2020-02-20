@@ -6,7 +6,7 @@
 /*   By: amamy <amamy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/21 01:21:58 by nivergne          #+#    #+#             */
-/*   Updated: 2020/02/19 04:19:15 by amamy            ###   ########.fr       */
+/*   Updated: 2020/02/20 00:16:44 by amamy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ typedef struct			s_token
 	int					token_nb;
 	struct s_code_line	*code_line; 
 	union u_type		*values;
-	struct s_token		*next; 
+	struct s_token		*next;  
 }						t_token;
 
 typedef struct			s_code_line
@@ -83,6 +83,7 @@ typedef struct			s_code_line
 	int					instruction_size;
 	char				*line;
 	struct s_token		*token; 
+	struct s_token		**tokens; 
 	struct s_code_line	*next; 
 }						t_code_line;
 
