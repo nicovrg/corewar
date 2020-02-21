@@ -6,7 +6,7 @@
 /*   By: amamy <amamy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/19 02:56:10 by amamy             #+#    #+#             */
-/*   Updated: 2020/02/21 04:48:59 by amamy            ###   ########.fr       */
+/*   Updated: 2020/02/22 12:01:41 by amamy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ int	parser(t_data **data, t_code_line **code_line)
 	while (current_line)
 	{
 		ft_putendl("coucou");
-		parse_line(*data, *code_line, &current_byte);
+		parse_line(*data, current_line, &current_byte);
 		if (current_line->errors)
 			(*data)->errors = 1;
 		if (current_line)

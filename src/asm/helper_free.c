@@ -6,12 +6,14 @@
 /*   By: amamy <amamy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/04 05:36:34 by nicolasv          #+#    #+#             */
-/*   Updated: 2020/02/21 06:30:17 by amamy            ###   ########.fr       */
+/*   Updated: 2020/02/21 10:00:12 by amamy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
+#include "tokens.h"
 #include "libft.h"
+#include "ft_printf.h"
 
 int		free_data(t_data **data)
 {
@@ -23,7 +25,12 @@ int		free_data(t_data **data)
 
 void	free_token(t_token *token)
 {
-	// ft_memdel((void*)&token->values);
+	int	type;
+
+	type = token->type;
+	if (type == TOKEN_TYPE_LABEL || type == TOKEN_TYPE_INSTRUCTION \
+	|| type == TOKEN_TYPE_LABEL_CALL || type ==  TOKEN_TYPE_UNKNOWN)
+	g_token_free_values_func_array[type](token);
 	ft_memdel((void*)&token->values);
 	ft_memdel((void*)&token);
 }
@@ -36,7 +43,9 @@ int		free_token_list(t_token **token)
 	{
 		current_token_address = (*token);
 		(*token) = (*token)->next;
-		free(current_token_address);
+		if (current_token_address != NULL)
+			free_token(current_token_address);
+		// ft_memdel((void*)&current_token_address);
 	}
 	return (1);
 }
@@ -52,7 +61,7 @@ int		free_code_line(t_code_line **code_line)
 		ft_strdel(&current_code_line_address->line);
 		free_token_list(&current_code_line_address->token);
 		ft_memdel((void*)&current_code_line_address->tokens);
-		free(current_code_line_address);
+		ft_memdel((void*)&current_code_line_address);
 	}
 	free(*code_line);
 	return (1);

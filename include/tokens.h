@@ -6,7 +6,7 @@
 /*   By: amamy <amamy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/21 01:21:58 by nivergne          #+#    #+#             */
-/*   Updated: 2020/02/21 03:21:07 by amamy            ###   ########.fr       */
+/*   Updated: 2020/02/21 09:26:58 by amamy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ typedef struct				s_label
 typedef struct				s_instruction
 {
 	int						type;
-	char					*lexme;
+	char					*lexeme;
 	union token				*arg1;
 	union token				*arg2;
 	union token				*arg3;
@@ -57,6 +57,7 @@ typedef struct				s_indirect
 
 typedef struct				s_label_call
 {
+	int						type;
 	char					*lexeme;
 	struct s_code_line		*target;
 	struct s_label_call		*next;

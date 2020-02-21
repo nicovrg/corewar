@@ -6,7 +6,7 @@
 /*   By: amamy <amamy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/05 18:14:15 by amamy             #+#    #+#             */
-/*   Updated: 2020/02/08 22:18:24 by amamy            ###   ########.fr       */
+/*   Updated: 2020/02/21 08:52:34 by amamy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,7 @@ int (*g_token_type_determination_func_array[NB_TOKEN_TYPE])(t_token *) = {
 	[TOKEN_TYPE_DIRECT] = is_direct,
 	[TOKEN_TYPE_REGISTER] = is_register,
 	[TOKEN_TYPE_INDIRECT] = is_indirect,
-	[TOKEN_TYPE_DIRECT_LABEL_CALL] = is_direct_label_call,
-	[TOKEN_TYPE_INDIRECT_LABEL_CALL] = is_indirect_label_call,
+	[TOKEN_TYPE_LABEL_CALL] = is_label_call,
 	[TOKEN_TYPE_UNKNOWN] = is_unknown,
 };
 

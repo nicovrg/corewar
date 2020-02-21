@@ -6,7 +6,7 @@
 /*   By: amamy <amamy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/21 01:21:58 by nivergne          #+#    #+#             */
-/*   Updated: 2020/02/21 06:39:00 by amamy            ###   ########.fr       */
+/*   Updated: 2020/02/21 09:33:12 by amamy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,10 +47,11 @@ typedef enum			e_token_type
 	TOKEN_TYPE_DIRECT,						// 4
 	TOKEN_TYPE_REGISTER,					// 5
 	TOKEN_TYPE_INDIRECT,					// 6
-	TOKEN_TYPE_DIRECT_LABEL_CALL,			// 7
-	TOKEN_TYPE_INDIRECT_LABEL_CALL,			// 8
-	TOKEN_TYPE_UNKNOWN,						// 9
-	NB_TOKEN_TYPE,							// 10
+	TOKEN_TYPE_LABEL_CALL,					// 7
+	TOKEN_TYPE_UNKNOWN,						// 8
+	LABEL_CALL_TYPE_DIRECT,					// 9
+	LABEL_CALL_TYPE_INDIRECT,				// 10
+	NB_TOKEN_TYPE,							// 11
 }						t_token_type;
 
 typedef	 struct			s_data
@@ -73,6 +74,7 @@ typedef struct			s_token
 	int					error;
 	int					position;
 	int					token_nb;
+	int					mem_address;
 	struct s_code_line	*code_line; 
 	union u_type		*values;
 	struct s_token		*next;  
@@ -114,6 +116,8 @@ void					determine_token_type_and_length(t_token *token);
 int						(*g_token_type_determination_func_array[NB_TOKEN_TYPE])(t_token *);
 
 /* determine_token_type_one.c */
+int						is_label_char(char c);
+int						is_label(t_token *token);
 int						is_direct(t_token *token);
 int						is_indirect(t_token *token);
 int						is_register(t_token *token);
@@ -123,9 +127,9 @@ int						is_separator(t_token *token);
 int						is_unknown(t_token *token);
 
 /* determine_token_type_three.c */
-int						is_label(t_token *token);
-int						is_direct_label_call(t_token *token);
-int						is_indirect_label_call(t_token *token);
+// int						is_direct_label_call(t_token *token);
+// int						is_indirect_label_call(t_token *token);
+int						is_label_call(t_token *token);
 
 /* helper_error.c */
 int						error_msg(char *error_msg, int i);
@@ -165,5 +169,8 @@ int						free_code_line(t_code_line **t_code_line);
 void					free_token(t_token *token);
 int						free_token_list(t_token **token);
 int						free_all(t_data **data, t_code_line **code_line);
+
+/* helper_free_token_values.c */
+void 		(*g_token_free_values_func_array[NB_TOKEN_TYPE])(t_token *);
 
 #endif
