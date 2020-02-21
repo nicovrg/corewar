@@ -6,7 +6,7 @@
 /*   By: amamy <amamy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/21 01:21:58 by nivergne          #+#    #+#             */
-/*   Updated: 2020/02/20 00:16:44 by amamy            ###   ########.fr       */
+/*   Updated: 2020/02/21 06:39:00 by amamy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include <stdlib.h>
 # include <string.h>
+# include "op.h"
 
 # define ERR_MAIN_NB_PARAMETERS "error in main - asm takes only one file as parameter"
 # define ERR_MAIN_FILE_TYPE "error in main - not a valid file, the file should be a .s"
@@ -60,6 +61,9 @@ typedef	 struct			s_data
 	int					comment_line;
 	char				*name;
 	char				*comment;
+	t_op				*op_tab;
+	struct s_label		*label_list;
+	struct s_label		*label_calls;
 }						t_data;
 
 typedef struct			s_token
@@ -87,8 +91,6 @@ typedef struct			s_code_line
 	struct s_code_line	*next; 
 }						t_code_line;
 
-
-
 /* main.c */
 
 /* lexer.c */
@@ -96,8 +98,13 @@ int						lexer(int fd, t_data **data, t_code_line **code_line);
 
 /* parser.c */
 int						parser(t_data **data, t_code_line **code_line);
-/* error_mde */
+/* error_mode */
 void					error_mode(t_code_line **c_line);
+/* label_functions.c*/
+int						is_label_only(t_code_line *code_line);
+int						is_valid_label(t_code_line *code_line);
+int						parse_labels_declaration(t_data *data, t_code_line *code_line);
+void					labels_calls_computing(t_data *data, t_code_line *code_line);
 
 /* get_tokens_from_current_line.c */
 int						get_tokens_from_current_line(t_code_line **c_line, char *line);

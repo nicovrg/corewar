@@ -6,7 +6,7 @@
 /*   By: amamy <amamy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/23 04:42:59 by nivergne          #+#    #+#             */
-/*   Updated: 2020/02/20 02:40:39 by amamy            ###   ########.fr       */
+/*   Updated: 2020/02/21 05:49:16 by amamy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,30 @@ static void		chain_token(t_token **current_token, t_token *new)
 }
 
 /*
+** ==================== build_token_array ====================
+** This function build an array which will store pointer toward
+** tokens of the line, in order.
+*/
+
+static int		build_token_array(t_code_line *code_line)
+{
+	int	i;
+	t_token *current_token;
+
+	i = 0;
+	current_token = code_line->token;
+	if (!(code_line->tokens = ft_memalloc(sizeof(t_token*) * code_line->nb_token)))
+		return (0);
+	while (current_token)
+	{
+		code_line->tokens[i] = current_token;
+		current_token = current_token->next;
+		i++;
+	}
+	return (1);
+}
+
+/*
 ** ==================== get_tokens_from_current_line ====================
 ** Goes through line token by token to identify them.
 */
@@ -80,6 +104,7 @@ int				get_tokens_from_current_line(t_code_line **current_c_line, char *line)
 		(new_token->length > 0) ? (i += new_token->length) : (i++);
 	}
 	(*current_c_line)->nb_token = token_nb;
-		ft_printf("lexer token_nb %d\n", (*current_c_line)->nb_token);
+	if (!(build_token_array(*current_c_line)))
+		error_msg("Alocation error in build_token_array()", 0);
 	return (1);
 }

@@ -6,12 +6,41 @@
 /*   By: amamy <amamy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/05 14:21:47 by qgirard           #+#    #+#             */
-/*   Updated: 2020/02/19 03:05:09 by amamy            ###   ########.fr       */
+/*   Updated: 2020/02/21 06:39:39 by amamy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
+#include "op.h"
 #include "libft.h"
+
+t_op    op_tab[17] =
+{
+	{"PADDING", 0, 0, 0, "PADDING", 0, 0},
+	{"live", 1, 400, 10, "alive", 0, 0},
+	{"ld", 2, 610, 5, "load", 1, 0},
+	{"st", 2, 130, 5, "store", 1, 0},
+	{"add", 3, 111, 10, "addition", 1, 0},
+	{"sub", 3, 111, 10, "soustraction", 1, 0},
+	{"and", 3, 771, 6,
+		"et (and  r1, r2, r3   r1&r2 -> r3", 1, 0},
+	{"or", 3, 771, 6,
+		"ou  (or   r1, r2, r3   r1 | r2 -> r3", 1, 0},
+	{"xor", 3, 771, 6,
+		"ou (xor  r1, r2, r3   r1^r2 -> r3", 1, 0},
+	{"zjmp", 1, 400, 20, "jump if zero", 0, 1},
+	{"ldi", 3, 751,  25,
+		"load index", 1, 1},
+	{"sti", 3, 175,  25,
+		"store index", 1, 1},
+	{"fork", 1, 400,  800, "fork", 0, 1},
+	{"lld", 2, 610,  10, "long load", 1, 0},
+	{"lldi", 3, 761,  50,
+		"long load index", 1, 1},
+	{"lfork", 1, 400,  1000, "long fork", 0, 1},
+	{"aff", 1, 100,  2, "aff", 1, 0},
+};
+
 
 int				translator(t_data **data, t_code_line **lex)
 {
@@ -56,6 +85,7 @@ int				main(int argc, char **argv)
 		return (1);
 	if (!header(fd, &data))
 		return (free_data(&data));
+	data->op_tab = op_tab;
 	if (!lexer(fd, &data, &code_line))
 		return (free_all(&data, &code_line));
 	if (!parser(&data, &code_line))

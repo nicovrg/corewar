@@ -6,12 +6,12 @@
 /*   By: amamy <amamy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/10/04 11:33:27 by zaz               #+#    #+#             */
-/*   Updated: 2020/02/08 20:18:38 by amamy            ###   ########.fr       */
+/*   Updated: 2020/02/21 06:59:55 by amamy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-//#ifndef OP_H TO BE UNCOMMENTED ON FOR NORMINETE TESTING
-#define OP_H
+#ifndef OP_H
+# define OP_H
 
 /*
 ** Toutes les tailles sont en octets.
@@ -59,10 +59,25 @@ typedef char	t_arg_type;
 #define COMMENT_LENGTH			2048
 #define COREWAR_EXEC_MAGIC		0xea83f3
 
-typedef struct		s_header
+// typedef struct		s_header
+// {
+// 	unsigned int		magic;
+// 	char				prog_name[PROG_NAME_LENGTH + 1];
+// 	unsigned int		prog_size;
+// 	char				comment[COMMENT_LENGTH + 1];
+// }					t_header;
+
+
+typedef struct		s_op
 {
-	unsigned int		magic;
-	char				prog_name[PROG_NAME_LENGTH + 1];
-	unsigned int		prog_size;
-	char				comment[COMMENT_LENGTH + 1];
-}					t_header;
+	char			*name;
+	int				param_nb;
+	int				param_types;
+	int				cycle;
+	char			*complete_name;
+	int				encoding_byte;
+	int				direct_size;
+
+}					t_op;
+
+#endif
