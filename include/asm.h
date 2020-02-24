@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   asm.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amamy <amamy@student.42.fr>                +#+  +:+       +#+        */
+/*   By: takoumys <takoumys@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/21 01:21:58 by nivergne          #+#    #+#             */
-/*   Updated: 2020/02/21 09:33:12 by amamy            ###   ########.fr       */
+/*   Updated: 2020/02/24 18:57:47 by takoumys         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,8 @@ typedef	 struct			s_data
 	int					name_line;
 	int					index_line;
 	int					comment_line;
+	int					instruction_section_size;
+	char				*file_name;
 	char				*name;
 	char				*comment;
 	t_op				*op_tab;
@@ -98,38 +100,46 @@ typedef struct			s_code_line
 /* lexer.c */
 int						lexer(int fd, t_data **data, t_code_line **code_line);
 
-/* parser.c */
-int						parser(t_data **data, t_code_line **code_line);
-/* error_mode */
-void					error_mode(t_code_line **c_line);
-/* label_functions.c*/
-int						is_label_only(t_code_line *code_line);
-int						is_valid_label(t_code_line *code_line);
-int						parse_labels_declaration(t_data *data, t_code_line *code_line);
-void					labels_calls_computing(t_data *data, t_code_line *code_line);
-
-/* get_tokens_from_current_line.c */
+	//  get_tokens_from_current_line.c */
 int						get_tokens_from_current_line(t_code_line **c_line, char *line);
 
-/* determine_token_type_and_length.c */
+	//  determine_token_type_and_length.c */
 void					determine_token_type_and_length(t_token *token);
 int						(*g_token_type_determination_func_array[NB_TOKEN_TYPE])(t_token *);
 
-/* determine_token_type_one.c */
+	//  determine_token_type_one.c */
 int						is_label_char(char c);
 int						is_label(t_token *token);
 int						is_direct(t_token *token);
 int						is_indirect(t_token *token);
 int						is_register(t_token *token);
-/* determine_token_type_two.c */
+	//  determine_token_type_two.c */
 int						is_instructions(t_token *token);
 int						is_separator(t_token *token);
 int						is_unknown(t_token *token);
 
-/* determine_token_type_three.c */
+	//  determine_token_type_three.c */
 // int						is_direct_label_call(t_token *token);
 // int						is_indirect_label_call(t_token *token);
 int						is_label_call(t_token *token);
+
+
+
+/* parser.c */
+int						parser(t_data **data, t_code_line **code_line);
+void					error_mode(t_code_line **c_line);
+	/* label_functions.c*/
+int						is_label_only(t_code_line *code_line);
+int						is_valid_label(t_code_line *code_line);
+int						parse_labels_declaration(t_data *data, t_code_line *code_line);
+void					labels_calls_computing(t_data *data, t_code_line *code_line);
+
+	/* error_mode */
+	
+	
+	/* translator */
+int						translator(t_data **data, t_code_line **code_line);
+
 
 /* helper_error.c */
 int						error_msg(char *error_msg, int i);
