@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   write_instruction_section.c                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amamy <amamy@student.42.fr>                +#+  +:+       +#+        */
+/*   By: takoumys <takoumys@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/25 15:55:58 by amamy             #+#    #+#             */
-/*   Updated: 2020/02/25 19:54:10 by amamy            ###   ########.fr       */
+/*   Updated: 2020/02/25 23:24:58 by takoumys         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,13 @@ static void	write_register(t_data *data, t_token *token, int fd)
 static void	write_encoding_byte(t_data *data, t_token *token, int fd)
 {
 	ft_printf("%s\n", "encoding_byte");
-	// if (!data->op_tab[token->values->instruction->type].encoding_byte)	
-	// 	return ;
+	ft_printf("type : %d\n", token->type);
+	if (token->type != TOKEN_TYPE_INSTRUCTION || !data->op_tab[token->values->instruction->type].encoding_byte)	
+		return ;
+	else
+	{
+		ft_printf("%s\n", "tteubb");
+	}
 	
 	(void)data;
 	(void)token;
@@ -99,8 +104,10 @@ void		write_instruction(t_data *data, t_code_line *code_line, int fd)
 	t_token	*current_token;
 
 	current_state = TRANSLATE_OPCODE;
-	current_token = code_line->token;
+	// current_token = code_line->token;
+	ft_printf("token : %d\n", code_line->token->type);
 	current_token = skip_label_declaration(code_line->token);
+	ft_printf("token apres : %d\n", code_line->token->type);
 	while (current_token)
 	{
 		while (current_state <= TRANSLATE_REGISTER)
