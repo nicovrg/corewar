@@ -6,7 +6,7 @@
 #    By: amamy <amamy@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/09/22 23:46:29 by nivergne          #+#    #+#              #
-#    Updated: 2020/02/25 15:43:33 by amamy            ###   ########.fr        #
+#    Updated: 2020/02/25 15:57:43 by amamy            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,6 +29,7 @@ SRC_ASM =			main.c\
 					get_header_info_one.c\
 					get_header_info_two.c\
 					helper_free_token_values.c\
+					write_instruction_section.c\
 					determine_token_type_and_length.c\
 					token_type_determination_function_one.c\
 					token_type_determination_function_two.c\

@@ -6,7 +6,7 @@
 /*   By: amamy <amamy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/21 01:21:58 by nivergne          #+#    #+#             */
-/*   Updated: 2020/02/25 15:34:17 by amamy            ###   ########.fr       */
+/*   Updated: 2020/02/25 19:17:07 by amamy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,16 @@ typedef enum			e_line_errors
 	LINE_ERROR_BOTH,
 	
 }						t_line_errors;
+
+typedef enum			e_translator_states
+{
+	TRANSLATE_OPCODE,				// 0
+	TRANSLATE_ENCODING_BYTE,			// 1
+	TRANSLATE_DIRECT,					// 2
+	TRANSLATE_INDIRECT,					// 3
+	TRANSLATE_REGISTER,					// 4
+	TRANSLATE_STATES_NUMBER,			// 5
+}						t_translator_states;
 
 typedef enum			e_token_type
 {
@@ -141,6 +151,7 @@ void					labels_calls_computing(t_data *data, t_code_line *code_line);
 int						translator(t_data **data, t_code_line **code_line);
 int						create_output_file(t_data *data);
 void					write_header(t_data * data, int fd);
+void					write_instruction(t_data *data, t_code_line *code_line, int fd);
 
 /* helper_error.c */
 int						error_msg(char *error_msg, int i);

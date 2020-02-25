@@ -6,7 +6,7 @@
 /*   By: amamy <amamy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/21 09:09:43 by amamy             #+#    #+#             */
-/*   Updated: 2020/02/21 10:01:51 by amamy            ###   ########.fr       */
+/*   Updated: 2020/02/25 19:45:08 by amamy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,14 @@ static void	free_label(t_token *token)
 
 static void	free_instruction(t_token *token)
 {
+	int i;
+
+	i = 0;
 	if (token->values)
 	{
-	ft_memdel((void*)&token->values->instruction->lexeme);
-	ft_memdel((void*)&token->values->instruction->arg1);
-	ft_memdel((void*)&token->values->instruction->arg2);
-	ft_memdel((void*)&token->values->instruction->arg3);
+		ft_memdel((void*)&token->values->instruction->lexeme);
+		while (i < 3)
+			ft_memdel((void*)&token->values->instruction->parameter[i++]);
 	}
 	ft_memdel((void*)&token->values->instruction);
 	(void)token;
