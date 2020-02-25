@@ -6,19 +6,20 @@
 /*   By: amamy <amamy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/04 05:36:34 by nicolasv          #+#    #+#             */
-/*   Updated: 2020/02/21 10:00:12 by amamy            ###   ########.fr       */
+/*   Updated: 2020/02/25 12:38:04 by amamy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
 #include "tokens.h"
 #include "libft.h"
-#include "ft_printf.h"
+#include "ft_printf.h"	
 
 int		free_data(t_data **data)
 {
 	ft_strdel(&(*data)->name);
 	ft_strdel(&(*data)->comment);
+	ft_strdel(&(*data)->file_name);
 	free((*data));
 	return (1);
 }

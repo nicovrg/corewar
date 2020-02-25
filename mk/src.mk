@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    src.mk                                             :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: takoumys <takoumys@student.42.fr>          +#+  +:+       +#+         #
+#    By: amamy <amamy@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/09/22 23:46:29 by nivergne          #+#    #+#              #
-#    Updated: 2020/02/24 18:39:31 by takoumys         ###   ########.fr        #
+#    Updated: 2020/02/25 15:43:33 by amamy            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,8 +22,10 @@ SRC_ASM =			main.c\
 					helper_lib.c\
 					helper_free.c\
 					helper_debug.c\
+					write_header.c\
 					helper_error.c\
 					label_functions.c\
+					create_output_file.c\
 					get_header_info_one.c\
 					get_header_info_two.c\
 					helper_free_token_values.c\

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: takoumys <takoumys@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amamy <amamy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/05 14:21:47 by qgirard           #+#    #+#             */
-/*   Updated: 2020/02/24 22:00:42 by takoumys         ###   ########.fr       */
+/*   Updated: 2020/02/25 15:48:26 by amamy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,17 +55,14 @@ static int		check_args_and_open_files(int argc, char **argv, t_data **data)
 	int			fd;
 
 	fd = 0;
-	if (!(*data = ft_memalloc(sizeof(t_data))))
+	if (!(*data = (t_data*)ft_memalloc(sizeof(t_data))))
 		return (0);
 	if (argc != 2)
 		return (error_msg(ERR_MAIN_NB_PARAMETERS, 1));
 	if (argv[1] && ft_strchr(argv[1], '.') && ft_strcmp(ft_strchr(argv[1], '.'), ".s")) // 18/20/2020 : check if we need to do this check, I think we can compile everything
 		return (error_msg(ERR_MAIN_FILE_TYPE, 1));
 	else if (!(argv[1] && (fd = open(argv[1], O_RDONLY)) == -1))
-	{
 		(*data)->file_name = ft_strdup(argv[1]);
-		ft_printf("file_name : %s\n", (*data)->file_name);
-	}
 	else
 		return (error_msg(ERR_MAIN_OPEN_FILE, 1));
 	return (fd);

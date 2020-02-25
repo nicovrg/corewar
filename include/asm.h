@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   asm.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: takoumys <takoumys@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amamy <amamy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/21 01:21:58 by nivergne          #+#    #+#             */
-/*   Updated: 2020/02/24 18:57:47 by takoumys         ###   ########.fr       */
+/*   Updated: 2020/02/25 15:34:17 by amamy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,7 +139,8 @@ void					labels_calls_computing(t_data *data, t_code_line *code_line);
 	
 	/* translator */
 int						translator(t_data **data, t_code_line **code_line);
-
+int						create_output_file(t_data *data);
+void					write_header(t_data * data, int fd);
 
 /* helper_error.c */
 int						error_msg(char *error_msg, int i);

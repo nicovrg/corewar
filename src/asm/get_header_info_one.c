@@ -6,7 +6,7 @@
 /*   By: amamy <amamy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 23:44:32 by amamy             #+#    #+#             */
-/*   Updated: 2020/02/08 20:29:23 by amamy            ###   ########.fr       */
+/*   Updated: 2020/02/25 12:32:01 by amamy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,8 +101,6 @@ int		header(int fd, t_data **data)
 
 	i = 0;
 	line = NULL;
-	if (!(*data = ft_memalloc(sizeof(t_data))))
-		return (0);
 	(*data)->index_line = 1;
 	while (((!((*data)->name)) || (!((*data)->comment))) && (get_next_line(fd, &line) > 0))
 	{
