@@ -6,7 +6,7 @@
 /*   By: amamy <amamy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/19 02:56:10 by amamy             #+#    #+#             */
-/*   Updated: 2020/02/22 12:01:41 by amamy            ###   ########.fr       */
+/*   Updated: 2020/02/26 19:20:36 by amamy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ int	parser(t_data **data, t_code_line **code_line)
 
 	current_byte = 0;
 	current_line = (*code_line);
-	if (!(parse_labels_declaration(*data, *code_line)))
+	if (!(parse_labels_declaration(*data, *code_line))) // need to check return, if label existe, will return -1, need to set up error here
 		return (0);
 	while (current_line)
 	{
