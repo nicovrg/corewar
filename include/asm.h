@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   asm.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amamy <amamy@student.42.fr>                +#+  +:+       +#+        */
+/*   By: takoumys <takoumys@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/21 01:21:58 by nivergne          #+#    #+#             */
-/*   Updated: 2020/02/21 09:33:12 by amamy            ###   ########.fr       */
+/*   Updated: 2020/02/26 23:18:02 by takoumys         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,7 @@ int						parser(t_data **data, t_code_line **code_line);
 /* error_mode */
 void					error_mode(t_code_line **c_line);
 /* label_functions.c*/
-int						is_label_only(t_code_line *code_line);
+int						is_only_label(t_code_line *code_line);
 int						is_valid_label(t_code_line *code_line);
 int						parse_labels_declaration(t_data *data, t_code_line *code_line);
 void					labels_calls_computing(t_data *data, t_code_line *code_line);
@@ -141,6 +141,7 @@ int						print_data(t_data **data);
 int						print_code_lines(t_data **data, t_code_line **lexer);
 int						print_tokens(t_code_line **lexer);
 int						print_token(int length, char *str);
+void					print_labels(t_data *data);
 
 /* get_header_info_one.c */
 int						is_whitespace(char c);

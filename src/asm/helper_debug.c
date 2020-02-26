@@ -3,15 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   helper_debug.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amamy <amamy@student.42.fr>                +#+  +:+       +#+        */
+/*   By: takoumys <takoumys@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/07 15:32:54 by qgirard           #+#    #+#             */
-/*   Updated: 2020/02/07 00:51:21 by amamy            ###   ########.fr       */
+/*   Updated: 2020/02/26 23:18:30 by takoumys         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
 #include "libft.h"
+#include "tokens.h"
 #include "ft_printf.h"
 #include <stdio.h>
 
@@ -107,4 +108,20 @@ int		print_tokens(t_code_line **current_code_line)
 		i++;
 	}
 	return (1);
+}
+
+void	print_labels(t_data *data)
+{
+	int		i;
+	t_label	*current_label;
+
+	i = 0;
+	current_label = data->label_list;
+	while (current_label)
+	{
+		ft_printf("==== Label n : %d ====\n", i);
+		ft_printf("Lexeme -> |%s|\n", current_label->lexeme);
+		current_label = current_label->next;
+		i++;
+	}
 }
