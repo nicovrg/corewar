@@ -6,17 +6,22 @@
 /*   By: amamy <amamy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/19 02:56:10 by amamy             #+#    #+#             */
-/*   Updated: 2020/02/22 12:01:41 by amamy            ###   ########.fr       */
+/*   Updated: 2020/02/26 16:04:13 by amamy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
 #include "libft.h"
+#include "tokens.h"
 #include "ft_printf.h"
 
-int	parse_instruction(t_code_line *code_line,int current_token, int current_byte[1])
+int	parse_instruction(t_data  *data, t_code_line *code_line, int current_token, int current_byte[1])
 {
-	ft_putendl("coucou");
+	int	i;
+
+	i = 1;
+	ft_putendl("parse_instruc");
+	(void)data;
 	(void)code_line;
 	(void)current_token;
 	(void)current_byte;
@@ -61,7 +66,7 @@ static int	parse_line(t_data *data, t_code_line *code_line, int current_byte[1])
 	if(!label_check(data, code_line))
 		return (0);
 	if (is_valid_instruction(code_line, current_byte, &contains_instruction))
-		parse_instruction(code_line, current_token, current_byte);
+		parse_instruction(data, code_line, current_token, current_byte);
 	else
 		invalid_syntax(code_line, contains_instruction);
 	ft_printf("=========\n\n");

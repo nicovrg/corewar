@@ -6,7 +6,7 @@
 /*   By: amamy <amamy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/21 01:21:58 by nivergne          #+#    #+#             */
-/*   Updated: 2020/02/25 19:44:57 by amamy            ###   ########.fr       */
+/*   Updated: 2020/02/26 12:14:34 by amamy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ typedef struct				s_instruction
 {
 	int						type;
 	char					*lexeme;
-	union token				*parameter[3];
+	struct s_token			*parameter[3];
 
 	// union token				*arg1;
 	// union token				*arg2;

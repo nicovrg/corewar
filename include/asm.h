@@ -6,7 +6,7 @@
 /*   By: amamy <amamy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/21 01:21:58 by nivergne          #+#    #+#             */
-/*   Updated: 2020/02/25 19:17:07 by amamy            ###   ########.fr       */
+/*   Updated: 2020/02/26 15:40:51 by amamy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,7 @@ typedef struct			s_code_line
 {
 	char				*label;
 	int					errors;
+	int					op_code;
 	int					nb_line;
 	int					nb_token;
 	int					instruction_size;
@@ -148,6 +149,8 @@ void					labels_calls_computing(t_data *data, t_code_line *code_line);
 	
 	
 	/* translator */
+void					write_big_endian(int fd, int nb, int size);
+
 int						translator(t_data **data, t_code_line **code_line);
 int						create_output_file(t_data *data);
 void					write_header(t_data * data, int fd);
