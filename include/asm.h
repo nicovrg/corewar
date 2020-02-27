@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   asm.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: takoumys <takoumys@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amamy <amamy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/21 01:21:58 by nivergne          #+#    #+#             */
-/*   Updated: 2020/02/26 23:18:02 by takoumys         ###   ########.fr       */
+/*   Updated: 2020/02/27 12:44:39 by amamy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,7 @@ typedef struct			s_code_line
 {
 	char				*label;
 	int					errors;
+	int					op_code;
 	int					nb_line;
 	int					nb_token;
 	int					instruction_size;
@@ -100,12 +101,14 @@ int						lexer(int fd, t_data **data, t_code_line **code_line);
 
 /* parser.c */
 int						parser(t_data **data, t_code_line **code_line);
-/* error_mode */
-void					error_mode(t_code_line **c_line);
+int						parse_label_declarations(t_data *data, t_code_line *code_line);
+
+/* is_label_declaration.c */
+int						is_label_declaration(t_code_line *code_line);
+
 /* label_functions.c*/
 int						is_only_label(t_code_line *code_line);
 int						is_valid_label(t_code_line *code_line);
-int						parse_labels_declaration(t_data *data, t_code_line *code_line);
 void					labels_calls_computing(t_data *data, t_code_line *code_line);
 
 /* get_tokens_from_current_line.c */
@@ -130,6 +133,9 @@ int						is_unknown(t_token *token);
 // int						is_direct_label_call(t_token *token);
 // int						is_indirect_label_call(t_token *token);
 int						is_label_call(t_token *token);
+
+/* error_mode */
+void					error_mode(t_code_line **c_line);
 
 /* helper_error.c */
 int						error_msg(char *error_msg, int i);

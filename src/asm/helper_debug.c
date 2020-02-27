@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   helper_debug.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: takoumys <takoumys@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amamy <amamy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/07 15:32:54 by qgirard           #+#    #+#             */
-/*   Updated: 2020/02/26 23:18:30 by takoumys         ###   ########.fr       */
+/*   Updated: 2020/02/27 11:33:32 by amamy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,7 +121,9 @@ void	print_labels(t_data *data)
 	{
 		ft_printf("==== Label n : %d ====\n", i);
 		ft_printf("Lexeme -> |%s|\n", current_label->lexeme);
+		ft_printf("target : L%d : |%s|\n", current_label->target->nb_line, current_label->target->line);
 		current_label = current_label->next;
 		i++;
+	ft_printf("%s\n", "==== End ====\n");
 	}
 }
