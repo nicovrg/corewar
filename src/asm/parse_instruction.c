@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_instruction.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amamy <amamy@student.42.fr>                +#+  +:+       +#+        */
+/*   By: takoumys <takoumys@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/28 13:18:15 by amamy             #+#    #+#             */
-/*   Updated: 2020/02/28 15:18:56 by amamy            ###   ########.fr       */
+/*   Updated: 2020/02/29 00:09:54 by takoumys         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,21 @@ static int	allocation_instruction(t_code_line *code_line, t_instruction **inst, 
 	return (1);
 }
 
+static int	is_param_parsed_or_error(t_data *data, t_token *token, int current_param)
+{
+	if (token->error)
+	{
+		if (token->error == MEMORY_ALLOCATION_ERROR)
+			exit (0); // NEED TO FREE ALL HERE
+		token->code_line->errors = LINE_ERROR_SYNTAX;
+		return (1);
+	}
+	if (token->values->instruction->args[current_param] == NULL)
+		return (0);
+	return (1);	
+	(void)data;
+}
+
 int	parse_instruction(t_data *data, t_code_line *code_line, int inst_position, int current_byte[1])
 {
 	t_instruction	*inst;
@@ -45,28 +60,21 @@ int	parse_instruction(t_data *data, t_code_line *code_line, int inst_position, i
 
 	inst = NULL;
 	current_param = 0;
-	token_parse_state = PARSE_TOKEN_REGISTER;
 	inst_token = code_line->tokens[inst_position];
 	update_instruction_size_and_address(data, code_line, current_byte);
 	if (!(allocation_instruction(code_line, &inst, &inst_token)))
 		return (0);
 	while (current_param < data->op_tab[code_line->op_code].param_nb)
 	{
+		token_parse_state = PARSE_TOKEN_REGISTER;
 		ft_printf("inst param number : %d\n", data->op_tab[code_line->op_code].param_nb);
-		while (inst_token->values->instruction->args[current_param] == NULL\
-		&& token_parse_state != ERROR_PARSE_TOKEN)
+		ft_printf("token->Number : |%d|\n", code_line->tokens[(inst_position + (1 + current_param * 2))]->token_nb);
+		while (!is_param_parsed_or_error(data, inst_token, current_param))
 		{
-			ft_printf("curent paramrererg : %d\n", current_param);
-			ft_printf("current_line : |%s|\n", code_line->line);
-			ft_printf("token position : %d\n", code_line->tokens[inst_position + 1 + current_param]->position);
-			ft_printf(" current_statte : %d\n", token_parse_state);
-			ft_printf("test : %p\n", inst_token->values->instruction->args[current_param]);
-			ft_printf("2:\n");
-			// inst_token->values->instruction->args[current_param] = g_parse_parameters_func_array[token_parse_state](0,0,0);
-			inst_token->values->instruction->args[current_param] = g_parse_parameters_func_array[token_parse_state](code_line, code_line->tokens[inst_position + 1 + current_param], &token_parse_state);
+			inst_token->values->instruction->args[current_param] = g_parse_parameters_func_array[token_parse_state](data, code_line, code_line->tokens[inst_position + (1 + current_param * 2)], &token_parse_state);
 			token_parse_state++;
-			ft_printf("3:\n");
 		}
+		ft_putendl("===========");
 		current_param++;
 	}
 	return (1);	

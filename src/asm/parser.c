@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amamy <amamy@student.42.fr>                +#+  +:+       +#+        */
+/*   By: takoumys <takoumys@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/19 02:56:10 by amamy             #+#    #+#             */
-/*   Updated: 2020/02/28 13:28:03 by amamy            ###   ########.fr       */
+/*   Updated: 2020/02/28 21:49:22 by takoumys         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,13 @@ static int	parse_line(t_data *data, t_code_line *code_line, int inst_position, i
 {
 	ft_printf("=========\nLINE : |%s|\n", code_line->line);
 	if (is_valid_instruction(data, code_line, inst_position))
+	{
 		parse_instruction(data, code_line, inst_position, current_byte);
+		ft_printf("instruction size : |%d|\n", code_line->instruction_size);
+		*current_byte = *current_byte +code_line->instruction_size;
+		ft_printf("address : |%d|\n", code_line->mem_address);
+
+	}
 	else
 		invalid_syntax(code_line);
 	ft_printf("=========\n\n");

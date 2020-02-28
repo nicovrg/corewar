@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   asm.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amamy <amamy@student.42.fr>                +#+  +:+       +#+        */
+/*   By: takoumys <takoumys@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/21 01:21:58 by nivergne          #+#    #+#             */
-/*   Updated: 2020/02/28 15:24:45 by amamy            ###   ########.fr       */
+/*   Updated: 2020/02/28 23:05:16 by takoumys         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,10 @@ typedef enum			e_token_errors
 {
 	NO_ERROR,
 	UNKNOWN_TOKEN,
+	MEMORY_ALLOCATION_ERROR,
+	INVALID_REGISTER,
+	BAD_PARAMETER,
+	NOT_ARGUMENT_TYPE,
 }						t_token_errors;
 
 typedef enum			e_line_errors
@@ -51,18 +55,18 @@ typedef enum			e_parse_token_args
 
 typedef enum			e_token_type
 {
-	TOKEN_TYPE_UNDEFINED,					// 0
-	TOKEN_TYPE_SEPARATOR,					// 1
-	TOKEN_TYPE_LABEL,						// 2
-	TOKEN_TYPE_INSTRUCTION,					// 3
-	TOKEN_TYPE_DIRECT,						// 4
-	TOKEN_TYPE_REGISTER,					// 5
-	TOKEN_TYPE_INDIRECT,					// 6
-	TOKEN_TYPE_LABEL_CALL,					// 7
-	TOKEN_TYPE_UNKNOWN,						// 8
-	LABEL_CALL_TYPE_DIRECT,					// 9
-	LABEL_CALL_TYPE_INDIRECT,				// 10
-	NB_TOKEN_TYPE,							// 11
+	TOKEN_TYPE_UNDEFINED,		// 0
+	TOKEN_TYPE_SEPARATOR,		// 1
+	TOKEN_TYPE_LABEL,			// 2
+	TOKEN_TYPE_INSTRUCTION,		// 3
+	TOKEN_TYPE_DIRECT,			// 4
+	TOKEN_TYPE_REGISTER,		// 5
+	TOKEN_TYPE_INDIRECT,		// 6
+	TOKEN_TYPE_LABEL_CALL,		// 7
+	TOKEN_TYPE_UNKNOWN,			// 8
+	LABEL_CALL_TYPE_DIRECT,		// 9
+	LABEL_CALL_TYPE_INDIRECT,	// 10
+	NB_TOKEN_TYPE,				// 11
 }						t_token_type;
 
 typedef	 struct			s_data
@@ -93,7 +97,7 @@ typedef struct			s_token
 
 typedef struct			s_code_line
 {
-	char				*label;
+	char			*label;
 	int					errors;
 	int					op_code;
 	int					nb_line;
@@ -115,7 +119,7 @@ int						lexer(int fd, t_data **data, t_code_line **code_line);
 int						parser(t_data **data, t_code_line **code_line);
 int						parse_label_declarations(t_data *data, t_code_line *code_line);
 
-t_token					*(*g_parse_parameters_func_array[PARSE_TOKEN_STATES_NUMBER])(t_code_line *, t_token *, int *);
+t_token					*(*g_parse_parameters_func_array[PARSE_TOKEN_STATES_NUMBER])(t_data *, t_code_line *, t_token *, int *);
 /* is_label_declaration.c */
 int						is_label_declaration(t_code_line *code_line);
 
@@ -159,6 +163,7 @@ void					error_mode(t_code_line **c_line);
 int						error_msg(char *error_msg, int i);
 int						asm_usage(int i);
 int						error_while_gnl(char **line, char *error_msg);
+int						error_syntax_token(t_token *token, int	error_syntax_token, int error_code);
 
 /* helper_debug.c */
 int						print_data(t_data **data);

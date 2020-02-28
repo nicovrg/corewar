@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   is_valid_instruction.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amamy <amamy@student.42.fr>                +#+  +:+       +#+        */
+/*   By: takoumys <takoumys@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/27 17:22:45 by amamy             #+#    #+#             */
-/*   Updated: 2020/02/27 17:58:58 by amamy            ###   ########.fr       */
+/*   Updated: 2020/02/28 23:28:09 by takoumys         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,15 +36,23 @@ static int	is_param_type_accepted(t_data *data, t_token *param, int param_nb)
 		if (param_allowed != 1 && param_allowed != 3 && param_allowed != 5 && param_allowed != 7)
 			return (0);
 	}
-	else if (param->type == TOKEN_TYPE_INDIRECT)
+	else if (param->type == TOKEN_TYPE_INDIRECT || param->type == LABEL_CALL_TYPE_INDIRECT)
 	{
 		if (param_allowed != 2 && param_allowed != 3 && param_allowed != 6 && param_allowed != 7)
 			return (0);
 	}
-	else if (param->type == TOKEN_TYPE_DIRECT)
+	else if (param->type == TOKEN_TYPE_DIRECT || param->type == LABEL_CALL_TYPE_DIRECT)
 	{
 		if (param_allowed < 4)
 			return (0);
+	}
+	 if (param->type != TOKEN_TYPE_REGISTER && param->type != TOKEN_TYPE_INDIRECT && param->type != LABEL_CALL_TYPE_INDIRECT \
+	&& param->type != TOKEN_TYPE_DIRECT && param->type != LABEL_CALL_TYPE_DIRECT)
+	{
+		ft_printf("lexeme : |%s|\n", &param->code_line->line[param->position]);
+		ft_printf("type : %d\n", param->type);
+		param->error = NOT_ARGUMENT_TYPE;
+		return (0);
 	}
 	return (1);
 }
@@ -56,26 +64,26 @@ static int	is_param_type_accepted(t_data *data, t_token *param, int param_nb)
 ** compatible with this instruction.
 */
 
-int	is_valid_instruction(t_data *data, t_code_line *code_line, int inst_position)
+int	is_valid_instruction(t_data *data, t_code_line *line, int inst_position)
 {
 	int	i;
-	int	valid_params;
-	int	instruction_index;
+	int	valid_parms;
+	int	inst_index;
 
 	i = 0;
-	valid_params = 0;
-	instruction_index = inst_position;
-	if (code_line->tokens[instruction_index]->type !=  TOKEN_TYPE_INSTRUCTION)
+	valid_parms = 0;
+	inst_index = inst_position;
+	if (line->tokens[inst_index]->type !=  TOKEN_TYPE_INSTRUCTION)
 		return (-1);
 	i = 1;
-	code_line->op_code = get_op_code(data, code_line->tokens[instruction_index]);
-	while (valid_params < data->op_tab[code_line->op_code].param_nb)	
+	line->op_code = get_op_code(data, line->tokens[inst_index]);
+	while (valid_parms < data->op_tab[line->op_code].param_nb)	
 	{
-		if (!is_param_type_accepted(data, code_line->tokens[instruction_index + i], valid_params))
-			return (0);
-		valid_params++;
-		if (valid_params < data->op_tab[code_line->op_code].param_nb \
-		&& (!is_separator(code_line->tokens[instruction_index + i + 1])))
+		if (!is_param_type_accepted(data, line->tokens[inst_index + i], valid_parms))
+			return (error_syntax_token(line->tokens[inst_index + i], BAD_PARAMETER, 0));
+		valid_parms++;
+		if (valid_parms < data->op_tab[line->op_code].param_nb \
+		&& (!is_separator(line->tokens[inst_index + i + 1])))
 			return (0);
 		i = i + 2;
 	}

@@ -3,63 +3,117 @@
 /*                                                        :::      ::::::::   */
 /*   parse_parameters.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amamy <amamy@student.42.fr>                +#+  +:+       +#+        */
+/*   By: takoumys <takoumys@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/27 18:21:24 by amamy             #+#    #+#             */
-/*   Updated: 2020/02/28 15:23:17 by amamy            ###   ########.fr       */
+/*   Updated: 2020/02/29 00:08:21 by takoumys         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "asm.h"
 #include "libft.h"
+#include "asm.h"
 #include "tokens.h"
 #include "ft_printf.h"
 
-t_token	*parse_token_register(t_code_line *codeline, t_token *param, int *state)
+t_token	*parse_token_register(t_data *data, t_code_line *codeline, t_token *param, int *state)
 {
 	t_registr *registr;
 	
-	ft_putendl("===== ICI ICI ICI ===");
-	if ((*param)->type == TOKEN_TYPE_REGISTER)
+	if (param->type == TOKEN_TYPE_REGISTER)
 	{
-		if (!(registr = ft_memalloc(sizeof(t_registr))))
+		if (!(registr = ft_memalloc(sizeof(t_registr)))\
+		|| !(param->values = ft_memalloc(sizeof(t_type*))))
 		{
-			(state) = ERROR_PARSE_TOKEN;
-			return (NULL);
-		}
-		if (!((*param)->values = ft_memalloc(sizeof(t_type))))
-		{
-			(state) = ERROR_PARSE_TOKEN;
+			param->error = MEMORY_ALLOCATION_ERROR,
+			(*state) = ERROR_PARSE_TOKEN;
 			return (NULL);
 		}
 		registr->reg_nb = ft_atoi(&codeline->line[param->position + 1]);
-		ft_printf(" this is the register nb : %d\n", registr->reg_nb);
+		if (registr->reg_nb < 1 || registr->reg_nb > 16)
+		{
+			ft_printf("%s\n", "inv reg");
+			param->error = INVALID_REGISTER;
+		}
+		codeline->instruction_size = codeline->instruction_size + 1;
+		ft_printf("register %d\n", registr->reg_nb);
 		return (param);
 	}
 	return (NULL);
+	(void)data;
 }
 
-t_token	*parse_token_indirect(t_code_line *codeline, t_token *param, int *state)
+t_token	*parse_token_indirect(t_data *data, t_code_line *codeline, t_token *param, int *state)
 {
-	ft_printf("%s\n", "parse_token_indirect");
-	return (param);
+	t_indirect *indirect;
+	if (param->type == TOKEN_TYPE_INDIRECT)
+	{
+		if (!(indirect = ft_memalloc(sizeof(t_indirect)))\
+		|| !(param->values = ft_memalloc(sizeof(t_type*))))
+		{
+			param->error = MEMORY_ALLOCATION_ERROR,
+			(*state) = ERROR_PARSE_TOKEN;
+			return (NULL);
+		}
+		indirect->value = ft_atoi(&codeline->line[param->position]);
+		codeline->instruction_size = codeline->instruction_size + 2;
+		return (param);
+	}
+	return (NULL);
+	(void)data;
 }
 
-t_token	*parse_token_direct(t_code_line *codeline, t_token *param, int *state)
+t_token	*parse_token_direct(t_data *data, t_code_line *codeline, t_token *param, int *state)
 {
-	ft_printf("%s\n", "parse_token_direct");
-	return (param);
+	t_indirect *direct;
+	if (param->type == TOKEN_TYPE_DIRECT)
+	{
+		if (!(direct = ft_memalloc(sizeof(t_direct)))\
+		|| !(param->values = ft_memalloc(sizeof(t_type*))))
+		{
+			param->error = MEMORY_ALLOCATION_ERROR,
+			(*state) = ERROR_PARSE_TOKEN;
+			return (NULL);
+		}
+		direct->value = ft_atoi(&codeline->line[param->position + 1]);
+		if ( data->op_tab[codeline->op_code].direct_size)
+			codeline->instruction_size = codeline->instruction_size + 2;
+		else
+			codeline->instruction_size = codeline->instruction_size + 4;
+		return (param);
+	}
+	(void)data;
+	return (NULL);
 }
 
-t_token	*parse_token_label_call(t_code_line *codeline, t_token *param, int *state)
+t_token	*parse_token_label_call(t_data *data, t_code_line *codeline, t_token *param, int *state)
 {
+	t_label_call *label_call;
+
 	ft_printf("%s\n", "parse_token_label_call");
-	return (param);
+	ft_printf("token_type : |%d|\n", param->type);
+	if (param->type == TOKEN_TYPE_LABEL_CALL)
+	{
+		label_call = param->values->label_call;
+		label_call->lexeme = ft_strndup(&param->code_line->line[param->position], param->length);
+		
+		if ( data->op_tab[codeline->op_code].direct_size)
+			codeline->instruction_size = codeline->instruction_size + 2;
+		else
+			codeline->instruction_size = codeline->instruction_size + 4;
+		return (param);
+	}
+	(void)data;
+	return (NULL);
+	(void)codeline;
+	(void)param;
+	(void)state;
+	(void)data;
+	return (NULL);
 }
 
-// t_token	*(*g_parse_parameters_func_array[PARSE_TOKEN_STATES_NUMBER])(t_code_line *, t_token *, int *) = {
-// 	[PARSE_TOKEN_REGISTER] = parse_token_register,
-// 	[PARSE_TOKEN_INDIRECT] = parse_token_indirect,
-// 	[PARSE_TOKEN_DIRECT] = parse_token_direct,
-// 	[PARSE_TOKEN_LABEL_CALL] = parse_token_label_call,
-// };
+t_token	*(*g_parse_parameters_func_array[PARSE_TOKEN_STATES_NUMBER])(t_data *,t_code_line *, t_token *, int *) = {
+	[PARSE_TOKEN_REGISTER] = parse_token_register,
+	[PARSE_TOKEN_INDIRECT] = parse_token_indirect,
+	[PARSE_TOKEN_DIRECT] = parse_token_direct,
+	[PARSE_TOKEN_LABEL_CALL] = parse_token_label_call,
+};

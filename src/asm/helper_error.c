@@ -1,24 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   asm_error.c                                        :+:      :+:    :+:   */
+/*   helper_error.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amamy <amamy@student.42.fr>                +#+  +:+       +#+        */
+/*   By: takoumys <takoumys@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/07 15:32:54 by qgirard           #+#    #+#             */
-/*   Updated: 2020/01/26 21:51:38 by amamy            ###   ########.fr       */
+/*   Updated: 2020/02/28 21:14:43 by takoumys         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
 #include "libft.h"
 
+int		error_syntax_token(t_token *token, int	error_syntax_token, int error_code)
+{
+	token->error = error_syntax_token;
+	return (error_code);
+}
+
 int		error_msg(char *error_msg, int error_code)
 {
 	ft_putendl(error_msg);
 	return (error_code);
 }
-
 
 int		error_while_gnl(char **line, char *error_msg)
 {
