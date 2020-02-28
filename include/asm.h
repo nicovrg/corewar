@@ -6,7 +6,7 @@
 /*   By: amamy <amamy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/21 01:21:58 by nivergne          #+#    #+#             */
-/*   Updated: 2020/02/27 12:44:39 by amamy            ###   ########.fr       */
+/*   Updated: 2020/02/28 15:24:45 by amamy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,17 @@ typedef enum			e_line_errors
 	LINE_ERROR_BOTH,
 	
 }						t_line_errors;
+
+typedef enum			e_parse_token_args
+{
+	PARSE_TOKEN_REGISTER,
+	PARSE_TOKEN_INDIRECT,
+	PARSE_TOKEN_DIRECT,
+	PARSE_TOKEN_LABEL_CALL,
+	ERROR_PARSE_TOKEN,
+	PARSE_TOKEN_STATES_NUMBER,
+	
+}						t_parse_token__args;
 
 typedef enum			e_token_type
 {
@@ -87,6 +98,7 @@ typedef struct			s_code_line
 	int					op_code;
 	int					nb_line;
 	int					nb_token;
+	int					mem_address;
 	int					instruction_size;
 	char				*line;
 	struct s_token		*token; 
@@ -103,8 +115,14 @@ int						lexer(int fd, t_data **data, t_code_line **code_line);
 int						parser(t_data **data, t_code_line **code_line);
 int						parse_label_declarations(t_data *data, t_code_line *code_line);
 
+t_token					*(*g_parse_parameters_func_array[PARSE_TOKEN_STATES_NUMBER])(t_code_line *, t_token *, int *);
 /* is_label_declaration.c */
 int						is_label_declaration(t_code_line *code_line);
+
+/* is_valid_instruction.c */
+int						is_valid_instruction(t_data *data, t_code_line *code_line, int current_byte);
+/* parse_instruction.c */
+int						parse_instruction(t_data *data, t_code_line *code_line, int inst_position, int current_byte[1]);
 
 /* label_functions.c*/
 int						is_only_label(t_code_line *code_line);

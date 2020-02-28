@@ -6,7 +6,7 @@
 #    By: amamy <amamy@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/09/22 23:46:29 by nivergne          #+#    #+#              #
-#    Updated: 2020/02/27 11:45:54 by amamy            ###   ########.fr        #
+#    Updated: 2020/02/28 15:25:16 by amamy            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,8 +23,11 @@ SRC_ASM =			main.c\
 					helper_debug.c\
 					helper_error.c\
 					label_functions.c\
+					parse_instruction.c\
+					parse_parameters.c\
 					get_header_info_one.c\
 					get_header_info_two.c\
+					is_valid_instruction.c\
 					helper_free_token_values.c\
 					parse_label_declarations.c\
 					determine_token_type_and_length.c\

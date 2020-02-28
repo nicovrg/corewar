@@ -6,7 +6,7 @@
 /*   By: amamy <amamy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/21 09:09:43 by amamy             #+#    #+#             */
-/*   Updated: 2020/02/21 10:01:51 by amamy            ###   ########.fr       */
+/*   Updated: 2020/02/28 12:15:38 by amamy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,9 @@ static void	free_instruction(t_token *token)
 	if (token->values)
 	{
 	ft_memdel((void*)&token->values->instruction->lexeme);
-	ft_memdel((void*)&token->values->instruction->arg1);
-	ft_memdel((void*)&token->values->instruction->arg2);
-	ft_memdel((void*)&token->values->instruction->arg3);
+	ft_memdel((void*)&token->values->instruction->args[0]);
+	ft_memdel((void*)&token->values->instruction->args[1]);
+	ft_memdel((void*)&token->values->instruction->args[2]);
 	}
 	ft_memdel((void*)&token->values->instruction);
 	(void)token;
