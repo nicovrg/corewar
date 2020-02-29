@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   label_functions.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amamy <amamy@student.42.fr>                +#+  +:+       +#+        */
+/*   By: takoumys <takoumys@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/20 23:58:28 by amamy             #+#    #+#             */
-/*   Updated: 2020/02/27 15:38:19 by amamy            ###   ########.fr       */
+/*   Updated: 2020/02/29 13:20:36 by takoumys         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,17 @@
 #include "libft.h"
 #include "tokens.h"
 #include "ft_printf.h"
+
+int	check_label_call_type(t_token *label_call, int is_this_type)
+{
+	if (label_call->type == TOKEN_TYPE_LABEL_CALL)
+		if (label_call && label_call->values && label_call->values->label_call)
+		{
+			if (label_call->values->label_call->type == is_this_type)
+				return (1);
+		}
+	return (0);
+}
 
 int		is_only_label(t_code_line *code_line)
 {

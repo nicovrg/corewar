@@ -6,7 +6,7 @@
 /*   By: takoumys <takoumys@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/21 01:21:58 by nivergne          #+#    #+#             */
-/*   Updated: 2020/02/28 23:05:16 by takoumys         ###   ########.fr       */
+/*   Updated: 2020/02/29 23:23:03 by takoumys         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@
 
 # define ERR_LEXER_NODE_CREATE "error in lexer - could not create new node"
 
+# define TO_PROCESS 100
+
 typedef enum			e_token_errors
 {
 	NO_ERROR,
@@ -31,6 +33,8 @@ typedef enum			e_token_errors
 	INVALID_REGISTER,
 	BAD_PARAMETER,
 	NOT_ARGUMENT_TYPE,
+	UNDECLARED_LABEL_CALL,
+	TOKEN_ERRORS_NUMBER,
 }						t_token_errors;
 
 typedef enum			e_line_errors
@@ -39,7 +43,6 @@ typedef enum			e_line_errors
 	LINE_ERROR_LEXICAL,
 	LINE_ERROR_SYNTAX,
 	LINE_ERROR_BOTH,
-	
 }						t_line_errors;
 
 typedef enum			e_parse_token_args
@@ -132,6 +135,7 @@ int						parse_instruction(t_data *data, t_code_line *code_line, int inst_positi
 int						is_only_label(t_code_line *code_line);
 int						is_valid_label(t_code_line *code_line);
 void					labels_calls_computing(t_data *data, t_code_line *code_line);
+int						check_label_call_type(t_token *label_call, int is_this_type);
 
 /* get_tokens_from_current_line.c */
 int						get_tokens_from_current_line(t_code_line **c_line, char *line);

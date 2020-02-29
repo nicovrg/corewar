@@ -6,12 +6,13 @@
 /*   By: takoumys <takoumys@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/27 17:22:45 by amamy             #+#    #+#             */
-/*   Updated: 2020/02/28 23:28:09 by takoumys         ###   ########.fr       */
+/*   Updated: 2020/02/29 23:27:48 by takoumys         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
 #include "libft.h"
+#include "tokens.h"
 #include "ft_printf.h"
 
 static int	get_op_code(t_data *data, t_token *op)
@@ -36,21 +37,22 @@ static int	is_param_type_accepted(t_data *data, t_token *param, int param_nb)
 		if (param_allowed != 1 && param_allowed != 3 && param_allowed != 5 && param_allowed != 7)
 			return (0);
 	}
-	else if (param->type == TOKEN_TYPE_INDIRECT || param->type == LABEL_CALL_TYPE_INDIRECT)
+	else if (param->type == TOKEN_TYPE_INDIRECT || check_label_call_type(param, LABEL_CALL_TYPE_INDIRECT))
 	{
 		if (param_allowed != 2 && param_allowed != 3 && param_allowed != 6 && param_allowed != 7)
 			return (0);
 	}
-	else if (param->type == TOKEN_TYPE_DIRECT || param->type == LABEL_CALL_TYPE_DIRECT)
+	else if (param->type == TOKEN_TYPE_DIRECT || check_label_call_type(param, LABEL_CALL_TYPE_DIRECT))
 	{
 		if (param_allowed < 4)
 			return (0);
 	}
-	 if (param->type != TOKEN_TYPE_REGISTER && param->type != TOKEN_TYPE_INDIRECT && param->type != LABEL_CALL_TYPE_INDIRECT \
-	&& param->type != TOKEN_TYPE_DIRECT && param->type != LABEL_CALL_TYPE_DIRECT)
+	 if (param->type != TOKEN_TYPE_REGISTER && param->type != TOKEN_TYPE_INDIRECT \
+	&& param->type != TOKEN_TYPE_DIRECT && param->type != TOKEN_TYPE_LABEL_CALL)
 	{
 		ft_printf("lexeme : |%s|\n", &param->code_line->line[param->position]);
 		ft_printf("type : %d\n", param->type);
+		ft_printf("%s\n", "NOT_ARGUMENT_TYPE");
 		param->error = NOT_ARGUMENT_TYPE;
 		return (0);
 	}
@@ -89,3 +91,12 @@ int	is_valid_instruction(t_data *data, t_code_line *line, int inst_position)
 	}
 	return (1);	
 }
+
+
+
+
+
+
+
+
+
