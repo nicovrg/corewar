@@ -6,7 +6,7 @@
 /*   By: takoumys <takoumys@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/27 18:21:24 by amamy             #+#    #+#             */
-/*   Updated: 2020/03/01 02:30:55 by takoumys         ###   ########.fr       */
+/*   Updated: 2020/03/01 14:52:50 by takoumys         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ t_token	*parse_token_register(t_data *data, t_code_line *codeline, t_token *para
 		if (registr->reg_nb < 1 || registr->reg_nb > 16)
 			error_syntax_token(param, INVALID_REGISTER, 0);
 		codeline->instruction_size = codeline->instruction_size + 1;
-		ft_printf("register %d\n", registr->reg_nb);
+			param->values->registr = registr;
 		return (param);
 	}
 	return (NULL);
@@ -52,6 +52,7 @@ t_token	*parse_token_indirect(t_data *data, t_code_line *codeline, t_token *para
 		}
 		indirect->value = ft_atoi(&codeline->line[param->position]);
 		codeline->instruction_size = codeline->instruction_size + 2;
+			param->values->indirect = indirect;
 		return (param);
 	}
 	return (NULL);
@@ -60,7 +61,7 @@ t_token	*parse_token_indirect(t_data *data, t_code_line *codeline, t_token *para
 
 t_token	*parse_token_direct(t_data *data, t_code_line *codeline, t_token *param, int *state)
 {
-	t_indirect *direct;
+	t_direct *direct;
 	if (param->type == TOKEN_TYPE_DIRECT)
 	{
 		if (!(direct = ft_memalloc(sizeof(t_direct)))\
@@ -75,6 +76,7 @@ t_token	*parse_token_direct(t_data *data, t_code_line *codeline, t_token *param,
 			codeline->instruction_size = codeline->instruction_size + 2;
 		else
 			codeline->instruction_size = codeline->instruction_size + 4;
+		param->values->direct = direct;
 		return (param);
 	}
 	return (NULL);
@@ -103,8 +105,6 @@ t_token	*parse_token_label_call(t_data *data, t_code_line *codeline, t_token *pa
 {
 	t_label_call *label_call;
 
-	ft_printf("%s\n", "parse_token_label_call");
-	ft_printf("token_type : |%d|\n", param->type);
 	if (param->type == TOKEN_TYPE_LABEL_CALL)
 	{
 		label_call = param->values->label_call;
@@ -112,7 +112,6 @@ t_token	*parse_token_label_call(t_data *data, t_code_line *codeline, t_token *pa
 			label_call->lexeme = ft_strndup(&param->code_line->line[param->position + 1], param->length - 1);
 		else
 			label_call->lexeme = ft_strndup(&param->code_line->line[param->position + 2], param->length - 2);
-		ft_printf("label_call->lexeme : |%s|\n", label_call->lexeme);
 		if ( data->op_tab[codeline->op_code].direct_size)
 			codeline->instruction_size = codeline->instruction_size + 2;
 		else

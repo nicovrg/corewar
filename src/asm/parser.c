@@ -6,7 +6,7 @@
 /*   By: takoumys <takoumys@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/19 02:56:10 by amamy             #+#    #+#             */
-/*   Updated: 2020/03/01 02:26:08 by takoumys         ###   ########.fr       */
+/*   Updated: 2020/03/01 14:58:32 by takoumys         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,31 +26,21 @@ int	invalid_syntax(t_data *data, t_code_line *code_line)
 static void update_instruction_size_and_address(t_data *data, t_code_line *code_line, int current_byte[1])
 {
 	if (data->op_tab[code_line->op_code].encoding_byte)
-	{
-		ft_printf("%s\n", "ENCODING");
 		code_line->instruction_size = (code_line->instruction_size + 2);
-	}
 	else
-	{
-		ft_printf("%s\n", "PAS ENCODING");
 		code_line->instruction_size++;
-	}
 	code_line->mem_address = current_byte[0];
 }
 
 static int	parse_line(t_data *data, t_code_line *code_line, int inst_position, int current_byte[1])
 {
-	ft_printf("=========\nLINE : |%s|\n", code_line->line);
 	check_instruction_validity(data, code_line, inst_position);
 	update_instruction_size_and_address(data, code_line, current_byte);
 	if (!code_line->errors)
 		parse_instruction(data, code_line, inst_position);
 	else
 		invalid_syntax(data, code_line);
-	ft_printf("instruction size : |%d|\n", code_line->instruction_size);
 	*current_byte = *current_byte +code_line->instruction_size;
-	ft_printf("address : |%d|\n", code_line->mem_address);
-	ft_printf("=========\n\n");
 	return (1);
 }
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_label_declarations.c                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amamy <amamy@student.42.fr>                +#+  +:+       +#+        */
+/*   By: takoumys <takoumys@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/27 11:44:02 by amamy             #+#    #+#             */
-/*   Updated: 2020/02/27 15:46:48 by amamy            ###   ########.fr       */
+/*   Updated: 2020/03/01 14:59:46 by takoumys         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,6 @@ int		parse_label_declarations(t_data *data, t_code_line *code_line)
 	current_line = code_line;
 	while (current_line)
 	{
-		ft_printf("Line : |%s|\n", current_line->line);
 		if (is_label_declaration(current_line))
 		{
 			if (!(label_text = get_label_text(current_line)))

@@ -6,7 +6,7 @@
 /*   By: takoumys <takoumys@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/28 13:18:15 by amamy             #+#    #+#             */
-/*   Updated: 2020/03/01 02:09:36 by takoumys         ###   ########.fr       */
+/*   Updated: 2020/03/01 14:58:59 by takoumys         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,14 +57,11 @@ int	parse_instruction(t_data *data, t_code_line *code_line, int inst_position)
 	while (current_param < data->op_tab[code_line->op_code].param_nb)
 	{
 		token_parse_state = PARSE_TOKEN_REGISTER;
-		ft_printf("inst param number : %d\n", data->op_tab[code_line->op_code].param_nb);
-		ft_printf("token->Number : |%d|\n", code_line->tokens[(inst_position + (1 + current_param * 2))]->token_nb);
 		while (!is_param_parsed_or_error(inst_token, current_param) && token_parse_state < PARSE_TOKEN_STATES_NUMBER - 1)
 		{
 			inst_token->values->instruction->args[current_param] = g_parse_parameters_func_array[token_parse_state](data, code_line, code_line->tokens[inst_position + (1 + current_param * 2)], &token_parse_state);
 			token_parse_state++;
 		}
-		ft_putendl("===========");
 		current_param++;
 	}
 	return (1);	

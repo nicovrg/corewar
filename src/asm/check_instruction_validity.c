@@ -50,12 +50,7 @@ static int	check_parameter_validity(t_data *data, t_token *param, int param_nb)
 	}
 	 if (param->type != TOKEN_TYPE_REGISTER && param->type != TOKEN_TYPE_INDIRECT \
 	&& param->type != TOKEN_TYPE_DIRECT && param->type != TOKEN_TYPE_LABEL_CALL && param->type != TOKEN_TYPE_UNKNOWN)
-	{
-		ft_printf("lexeme : |%s|\n", &param->code_line->line[param->position]);
-		ft_printf("type : %d\n", param->type);
-		ft_printf("%s\n", "NOT_ARGUMENT_TYPE");
 		return (error_syntax_token(param, NOT_ARGUMENT_TYPE, 0));
-	}
 	return (1);
 }
 
