@@ -6,7 +6,7 @@
 /*   By: takoumys <takoumys@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/21 01:21:58 by nivergne          #+#    #+#             */
-/*   Updated: 2020/02/29 23:23:03 by takoumys         ###   ########.fr       */
+/*   Updated: 2020/03/01 02:14:29 by takoumys         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,12 @@ typedef enum			e_token_errors
 	NO_ERROR,
 	UNKNOWN_TOKEN,
 	MEMORY_ALLOCATION_ERROR,
+	BAD_OP_CODE,
 	INVALID_REGISTER,
-	BAD_PARAMETER,
+	WRONG_ARGUMENT_TYPE,
 	NOT_ARGUMENT_TYPE,
+	MISSING_SEPARATOR,
+	MISS_PLACED_SEPARATOR,
 	UNDECLARED_LABEL_CALL,
 	TOKEN_ERRORS_NUMBER,
 }						t_token_errors;
@@ -126,10 +129,10 @@ t_token					*(*g_parse_parameters_func_array[PARSE_TOKEN_STATES_NUMBER])(t_data 
 /* is_label_declaration.c */
 int						is_label_declaration(t_code_line *code_line);
 
-/* is_valid_instruction.c */
-int						is_valid_instruction(t_data *data, t_code_line *code_line, int current_byte);
+/* check_instruction_validity.c */
+int						check_instruction_validity(t_data *data, t_code_line *code_line, int current_byte);
 /* parse_instruction.c */
-int						parse_instruction(t_data *data, t_code_line *code_line, int inst_position, int current_byte[1]);
+int						parse_instruction(t_data *data, t_code_line *code_line, int inst_position);
 
 /* label_functions.c*/
 int						is_only_label(t_code_line *code_line);
@@ -168,6 +171,7 @@ int						error_msg(char *error_msg, int i);
 int						asm_usage(int i);
 int						error_while_gnl(char **line, char *error_msg);
 int						error_syntax_token(t_token *token, int	error_syntax_token, int error_code);
+int						error_code_line(t_code_line *line, int error_syntax_token, int error_code);
 
 /* helper_debug.c */
 int						print_data(t_data **data);

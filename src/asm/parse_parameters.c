@@ -6,7 +6,7 @@
 /*   By: takoumys <takoumys@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/27 18:21:24 by amamy             #+#    #+#             */
-/*   Updated: 2020/02/29 13:57:12 by takoumys         ###   ########.fr       */
+/*   Updated: 2020/03/01 02:30:55 by takoumys         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,16 +24,12 @@ t_token	*parse_token_register(t_data *data, t_code_line *codeline, t_token *para
 		if (!(registr = ft_memalloc(sizeof(t_registr)))\
 		|| !(param->values = ft_memalloc(sizeof(t_type*))))
 		{
-			param->error = MEMORY_ALLOCATION_ERROR,
 			(*state) = ERROR_PARSE_TOKEN;
 			return (NULL);
 		}
 		registr->reg_nb = ft_atoi(&codeline->line[param->position + 1]);
 		if (registr->reg_nb < 1 || registr->reg_nb > 16)
-		{
-			ft_printf("%s\n", "inv reg");
-			param->error = INVALID_REGISTER;
-		}
+			error_syntax_token(param, INVALID_REGISTER, 0);
 		codeline->instruction_size = codeline->instruction_size + 1;
 		ft_printf("register %d\n", registr->reg_nb);
 		return (param);
@@ -81,7 +77,6 @@ t_token	*parse_token_direct(t_data *data, t_code_line *codeline, t_token *param,
 			codeline->instruction_size = codeline->instruction_size + 4;
 		return (param);
 	}
-	(void)data;
 	return (NULL);
 }
 
@@ -125,13 +120,8 @@ t_token	*parse_token_label_call(t_data *data, t_code_line *codeline, t_token *pa
 		set_label_call_target(data, param);
 		return (param);
 	}
-	(void)data;
 	return (NULL);
-	(void)codeline;
-	(void)param;
 	(void)state;
-	(void)data;
-	return (NULL);
 }
 
 t_token	*(*g_parse_parameters_func_array[PARSE_TOKEN_STATES_NUMBER])(t_data *,t_code_line *, t_token *, int *) = {

@@ -6,7 +6,7 @@
 /*   By: takoumys <takoumys@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/08 02:29:58 by amamy             #+#    #+#             */
-/*   Updated: 2020/02/29 23:06:54 by takoumys         ###   ########.fr       */
+/*   Updated: 2020/03/01 01:57:53 by takoumys         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@ static void	free_error_table(char *error_table[TOKEN_ERRORS_NUMBER])
 		i++;
 	}
 }
+
+// static void		read_notes()
 
 /*
 ** ==================== read_errors_in_line ====================
@@ -56,9 +58,12 @@ static void		loading_error_table(char **error_table)
 	error_table[NO_ERROR] = NULL;
 	error_table[UNKNOWN_TOKEN] = ft_strdup("Unknow token");
 	error_table[MEMORY_ALLOCATION_ERROR] = ft_strdup("Could not allocate memory");
+	error_table[BAD_OP_CODE] = ft_strdup("Unrecognized instruction");
 	error_table[INVALID_REGISTER] = ft_strdup("Invalid register number, only exist r1 to r16");
-	error_table[BAD_PARAMETER] = ft_strdup("This instruction does tkae this type of parameter");
+	error_table[WRONG_ARGUMENT_TYPE] = ft_strdup("This instruction does not take this type of parameter");
 	error_table[NOT_ARGUMENT_TYPE] = ft_strdup("This is not a valid argument for any instruction");
+	error_table[MISSING_SEPARATOR] = ft_strdup("Parameter given to instruction must be separated with a coma ','.");
+	error_table[MISS_PLACED_SEPARATOR] = ft_strdup("Coma ',' are only used to separate instruction arguments");
 	error_table[UNDECLARED_LABEL_CALL] = ft_strdup("Use of undeclared label");
 }
 
@@ -83,7 +88,8 @@ void			error_mode(t_code_line **c_line)
 		{
 			ft_printf("\n%s\n", "=========");
 			ft_printf("line %d : ", tmp->nb_line);
-			ft_printf("%s\n\n", tmp->line);
+			ft_printf("|%s|\n\n", tmp->line);
+			ft_printf("line error : %d\n", tmp->errors);
 			if (tmp->errors == LINE_ERROR_LEXICAL)
 				ft_printf("Lexical error(s) :\n");
 			else if (tmp->errors == LINE_ERROR_SYNTAX)
