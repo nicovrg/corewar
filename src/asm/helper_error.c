@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   helper_error.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: takoumys <takoumys@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amamy <amamy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/07 15:32:54 by qgirard           #+#    #+#             */
-/*   Updated: 2020/03/01 01:54:19 by takoumys         ###   ########.fr       */
+/*   Updated: 2020/03/01 18:45:12 by amamy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,17 +19,10 @@ static void	report_error(t_token *token)
 	t_code_line *line;
 
 	line = token->code_line;
-		ft_printf("%s\n", "============== Laaaa");
 	if (token->error && line->errors == LINE_ERROR_LEXICAL)
-	{
-		ft_printf("%s\n", "zzzzzzzzzzzzzzzzzzzzzLaaaa");
 		line->errors = line->errors + LINE_ERROR_SYNTAX;
-	}
 	else if(token->error)
-	{
-		ft_printf("%s\n", "Liiii*******************************");
 		line->errors = LINE_ERROR_SYNTAX;
-	}
 }
 
 int		error_code_line(t_code_line *line, int error_syntax_token, int error_code)

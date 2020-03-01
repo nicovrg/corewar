@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   asm.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: takoumys <takoumys@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amamy <amamy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/21 01:21:58 by nivergne          #+#    #+#             */
-/*   Updated: 2020/03/01 02:14:29 by takoumys         ###   ########.fr       */
+/*   Updated: 2020/03/01 18:52:53 by amamy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ typedef enum			e_token_errors
 	NOT_ARGUMENT_TYPE,
 	MISSING_SEPARATOR,
 	MISS_PLACED_SEPARATOR,
+	LABEL_REDEFINITION,
 	UNDECLARED_LABEL_CALL,
 	TOKEN_ERRORS_NUMBER,
 }						t_token_errors;
@@ -205,7 +206,7 @@ int						is_str_whitespace_or_comment(char *str);
 int						free_data(t_data **data);
 int						free_code_line(t_code_line **t_code_line);
 void					free_token(t_token *token);
-int						free_token_list(t_token **token);
+int						free_token_list(t_token *token);
 int						free_all(t_data **data, t_code_line **code_line);
 
 /* helper_free_token_values.c */

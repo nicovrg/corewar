@@ -6,7 +6,7 @@
 /*   By: amamy <amamy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/08 04:21:46 by amamy             #+#    #+#             */
-/*   Updated: 2020/02/21 08:42:00 by amamy            ###   ########.fr       */
+/*   Updated: 2020/03/01 18:52:06 by amamy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,10 +64,10 @@ int						is_label_call(t_token *token)
 {
 	t_label_call	*label;
 
-	if (!(token->values = ft_memalloc(sizeof(t_type*))))
-		return (0);
 	if (is_direct_label_call(token))
 	{
+		if (!(token->values = ft_memalloc(sizeof(t_type*))))
+			return (0);
 		if (!(label = ft_memalloc(sizeof(t_label_call))))
 			return (0);
 		token->type = TOKEN_TYPE_LABEL_CALL;
@@ -76,6 +76,8 @@ int						is_label_call(t_token *token)
 	}
 	else if (is_indirect_label_call(token))
 	{
+		if (!(token->values = ft_memalloc(sizeof(t_type*))))
+			return (0);
 		if (!(label = ft_memalloc(sizeof(t_label_call))))
 			return (0);
 		token->type = TOKEN_TYPE_LABEL_CALL;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_label_declarations.c                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: takoumys <takoumys@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amamy <amamy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/27 11:44:02 by amamy             #+#    #+#             */
-/*   Updated: 2020/03/01 14:59:46 by takoumys         ###   ########.fr       */
+/*   Updated: 2020/03/01 18:51:15 by amamy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,9 +48,9 @@ static int	create_and_add_label(t_data *data, t_code_line *code_line, char *labe
 
 
 	if (!(new_label = ft_memalloc(sizeof(t_label))))
-		return (-1);
+		return (0);
 	if (!(code_line->token->values = ft_memalloc(sizeof(t_type))))
-		return (-1);
+		return (0);
 	new_label->lexeme = label;
 	new_label->target = fetch_label_target(code_line);
 	code_line->token->values ->label = new_label;
@@ -66,13 +66,13 @@ static int	create_and_add_label(t_data *data, t_code_line *code_line, char *labe
 	return (1);
 }
 
-static int	check_redefinition(t_label *label_list, char *label)
+static int	check_redefinition(t_code_line *line, t_label *label_list, char *label)
 {
 	while (label_list)
 	{
 
 		if (!ft_strcmp(label_list->lexeme, label))
-			return(0);
+			return (error_syntax_token(line->token, LABEL_REDEFINITION, 1));
 		label_list = label_list->next;
 	}
 	return (1);
@@ -89,11 +89,10 @@ int		parse_label_declarations(t_data *data, t_code_line *code_line)
 		if (is_label_declaration(current_line))
 		{
 			if (!(label_text = get_label_text(current_line)))
-				return (-1);
-			if (!check_redefinition(data->label_list, label_text))
 				return (0);
+			check_redefinition(current_line, data->label_list, label_text);
 			if (!(create_and_add_label(data, current_line, label_text)))
-				return (-1);
+				return (0);
 		}
 		current_line = current_line->next;
 	}

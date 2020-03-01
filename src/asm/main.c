@@ -3,16 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: takoumys <takoumys@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amamy <amamy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/05 14:21:47 by qgirard           #+#    #+#             */
-/*   Updated: 2020/02/29 14:13:38 by takoumys         ###   ########.fr       */
+/*   Updated: 2020/03/01 18:50:27 by amamy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
 #include "op.h"
 #include "libft.h"
+#include "ft_printf.h"
 
 t_op    op_tab[17] =
 {

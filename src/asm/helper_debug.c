@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   helper_debug.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: takoumys <takoumys@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amamy <amamy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/07 15:32:54 by qgirard           #+#    #+#             */
-/*   Updated: 2020/03/01 14:56:33 by takoumys         ###   ########.fr       */
+/*   Updated: 2020/03/01 18:49:34 by amamy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,6 +144,7 @@ static char	*get_arg_type_str(t_token *arg)
 int		print_tokens(t_code_line **current_code_line)
 {
 	int			i;
+	char		*tmp;
 	t_token		*current_token;
 	
 	i = 0;
@@ -157,7 +158,8 @@ int		print_tokens(t_code_line **current_code_line)
 		print_token(current_token->length, current_token->code_line->line + current_token->position);
 		ft_printf("|\n");
 		ft_printf("\t\t\tToken number :\t\t\t\t|%d|\n", current_token->token_nb);
-		ft_printf("\t\t\ttype =\t\t\t\t\t|%s|\n", get_arg_type_str(current_token));
+		tmp = get_arg_type_str(current_token);
+		ft_printf("\t\t\ttype =\t\t\t\t\t|%s|\n", tmp);
 		if (is_parameter(current_token))
 			ft_printf("\t\t\tvalue =\t\t\t\t\t|%d|\n", get_token_value(current_token));
 		ft_printf("\t\t\tposition =\t\t\t\t|%d|\n", current_token->position);
@@ -168,6 +170,7 @@ int		print_tokens(t_code_line **current_code_line)
 		ft_printf("\n");
 		current_token = current_token->next;
 		i++;
+		ft_strdel(&tmp);
 	}
 	return (1);
 }
