@@ -6,7 +6,7 @@
 /*   By: amamy <amamy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/25 15:55:58 by amamy             #+#    #+#             */
-/*   Updated: 2020/02/26 16:37:34 by amamy            ###   ########.fr       */
+/*   Updated: 2020/03/03 22:37:44 by amamy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,6 @@ void		write_instruction(t_data *data, t_code_line *code_line, int fd)
 	ft_printf("token apres : %d\n", code_line->token->type);
 	while (current_token)
 	{
-		ft_printf("%d\n", );
 		while (current_state <= TRANSLATE_REGISTER)
 		{
 			g_instruction_translation_func_array[current_state](data, current_token, fd);
