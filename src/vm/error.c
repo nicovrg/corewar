@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   vm_error.c                                         :+:      :+:    :+:   */
+/*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: amamy <amamy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/05 17:21:52 by qgirard           #+#    #+#             */
-/*   Updated: 2020/02/11 01:20:26 by amamy            ###   ########.fr       */
+/*   Updated: 2020/02/11 01:17:56 by amamy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,10 @@ int		error_header(int *fd)
 ** print an error message and return NULL.
 */
 
-void	*error_msg_null(ERR_MALLOC, &state);char *error_msg)
+void	*error_msg_null(char *error_msg, t_header_state *state)
 {
+		if (state)
+		state[0] = 0;
 	ft_putendl(error_msg);
 	return (NULL);
 }
@@ -42,7 +44,7 @@ void	*error_msg_null(ERR_MALLOC, &state);char *error_msg)
 int		error_msg(char *error_msg, int i, t_header_state *state)
 {
 	if (state)
-		state[0] = error;
+		state[0] = 0;
 	ft_putendl(error_msg);
 	return (i);
 }
@@ -66,4 +68,11 @@ int		vm_error_champion(char *champion, int var, int size)
 		ft_putendl(" bytes > 682 bytes)");
 	}
 	return (0);
+}
+
+int     inst_error(t_instruction **instruction, t_corewar *arena)
+{
+	(void)instruction;
+	(void)arena;
+    return (1);
 }
