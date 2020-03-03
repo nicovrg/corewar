@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    src.mk                                             :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: amamy <amamy@student.42.fr>                +#+  +:+       +#+         #
+#    By: nivergne <nivergne@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/09/22 23:46:29 by nivergne          #+#    #+#              #
-#    Updated: 2020/03/03 22:34:30 by amamy            ###   ########.fr        #
+#    Updated: 2020/03/03 22:54:39 by nivergne         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,10 +26,14 @@ SRC_ASM =			main.c\
 					helper_error.c\
 					label_functions.c\
 					create_output_file.c\
+					parse_instruction.c\
+					parse_parameters.c\
 					get_header_info_one.c\
 					get_header_info_two.c\
+					check_instruction_validity.c\
 					helper_free_token_values.c\
 					write_instruction_section.c\
+					parse_label_declarations.c\
 					determine_token_type_and_length.c\
 					token_type_determination_function_one.c\
 					token_type_determination_function_two.c\

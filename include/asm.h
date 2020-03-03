@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   asm.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amamy <amamy@student.42.fr>                +#+  +:+       +#+        */
+/*   By: nivergne <nivergne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/21 01:21:58 by nivergne          #+#    #+#             */
-/*   Updated: 2020/03/03 22:35:21 by amamy            ###   ########.fr       */
+/*   Updated: 2020/03/03 23:10:05 by nivergne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,22 @@
 
 # define ERR_LEXER_NODE_CREATE "error in lexer - could not create new node"
 
+# define TO_PROCESS 100
+
 typedef enum			e_token_errors
 {
 	NO_ERROR,
 	UNKNOWN_TOKEN,
+	MEMORY_ALLOCATION_ERROR,
+	BAD_OP_CODE,
+	INVALID_REGISTER,
+	WRONG_ARGUMENT_TYPE,
+	NOT_ARGUMENT_TYPE,
+	MISSING_SEPARATOR,
+	MISS_PLACED_SEPARATOR,
+	LABEL_REDEFINITION,
+	UNDECLARED_LABEL_CALL,
+	TOKEN_ERRORS_NUMBER,
 }						t_token_errors;
 
 typedef enum			e_line_errors
@@ -35,8 +47,18 @@ typedef enum			e_line_errors
 	LINE_ERROR_LEXICAL,
 	LINE_ERROR_SYNTAX,
 	LINE_ERROR_BOTH,
-	
 }						t_line_errors;
+
+typedef enum			e_parse_token_args
+{
+	PARSE_TOKEN_REGISTER,
+	PARSE_TOKEN_INDIRECT,
+	PARSE_TOKEN_DIRECT,
+	PARSE_TOKEN_LABEL_CALL,
+	ERROR_PARSE_TOKEN,
+	PARSE_TOKEN_STATES_NUMBER,
+	
+}						t_parse_token__args;
 
 typedef enum			e_translator_states
 {
@@ -46,22 +68,22 @@ typedef enum			e_translator_states
 	TRANSLATE_INDIRECT,					// 3
 	TRANSLATE_REGISTER,					// 4
 	TRANSLATE_STATES_NUMBER,			// 5
-}						t_translator_states;
+}						t_translator_states;	
 
 typedef enum			e_token_type
 {
-	TOKEN_TYPE_UNDEFINED,					// 0
-	TOKEN_TYPE_SEPARATOR,					// 1
-	TOKEN_TYPE_LABEL,						// 2
-	TOKEN_TYPE_INSTRUCTION,					// 3
-	TOKEN_TYPE_DIRECT,						// 4
-	TOKEN_TYPE_REGISTER,					// 5
-	TOKEN_TYPE_INDIRECT,					// 6
-	TOKEN_TYPE_LABEL_CALL,					// 7
-	TOKEN_TYPE_UNKNOWN,						// 8
-	LABEL_CALL_TYPE_DIRECT,					// 9
-	LABEL_CALL_TYPE_INDIRECT,				// 10
-	NB_TOKEN_TYPE,							// 11
+	TOKEN_TYPE_UNDEFINED,		// 0
+	TOKEN_TYPE_SEPARATOR,		// 1
+	TOKEN_TYPE_LABEL,			// 2
+	TOKEN_TYPE_INSTRUCTION,		// 3
+	TOKEN_TYPE_DIRECT,			// 4
+	TOKEN_TYPE_REGISTER,		// 5
+	TOKEN_TYPE_INDIRECT,		// 6
+	TOKEN_TYPE_LABEL_CALL,		// 7
+	TOKEN_TYPE_UNKNOWN,			// 8
+	LABEL_CALL_TYPE_DIRECT,		// 9
+	LABEL_CALL_TYPE_INDIRECT,	// 10
+	NB_TOKEN_TYPE,				// 11
 }						t_token_type;
 
 typedef	 struct			s_data
@@ -94,11 +116,12 @@ typedef struct			s_token
 
 typedef struct			s_code_line
 {
-	char				*label;
+	char			*label;
 	int					errors;
 	int					op_code;
 	int					nb_line;
 	int					nb_token;
+	int					mem_address;
 	int					instruction_size;
 	char				*line;
 	struct s_token		*token; 
@@ -111,7 +134,26 @@ typedef struct			s_code_line
 /* lexer.c */
 int						lexer(int fd, t_data **data, t_code_line **code_line);
 
-	//  get_tokens_from_current_line.c */
+/* parser.c */
+int						parser(t_data **data, t_code_line **code_line);
+int						parse_label_declarations(t_data *data, t_code_line *code_line);
+
+t_token					*(*g_parse_parameters_func_array[PARSE_TOKEN_STATES_NUMBER])(t_data *, t_code_line *, t_token *, int *);
+/* is_label_declaration.c */
+int						is_label_declaration(t_code_line *code_line);
+
+/* check_instruction_validity.c */
+int						check_instruction_validity(t_data *data, t_code_line *code_line, int current_byte);
+/* parse_instruction.c */
+int						parse_instruction(t_data *data, t_code_line *code_line, int inst_position);
+
+/* label_functions.c*/
+int						is_only_label(t_code_line *code_line);
+int						is_valid_label(t_code_line *code_line);
+void					labels_calls_computing(t_data *data, t_code_line *code_line);
+int						check_label_call_type(t_token *label_call, int is_this_type);
+
+/* get_tokens_from_current_line.c */
 int						get_tokens_from_current_line(t_code_line **c_line, char *line);
 
 	//  determine_token_type_and_length.c */
@@ -160,12 +202,15 @@ void					write_instruction(t_data *data, t_code_line *code_line, int fd);
 int						error_msg(char *error_msg, int i);
 int						asm_usage(int i);
 int						error_while_gnl(char **line, char *error_msg);
+int						error_syntax_token(t_token *token, int	error_syntax_token, int error_code);
+int						error_code_line(t_code_line *line, int error_syntax_token, int error_code);
 
 /* helper_debug.c */
 int						print_data(t_data **data);
 int						print_code_lines(t_data **data, t_code_line **lexer);
 int						print_tokens(t_code_line **lexer);
 int						print_token(int length, char *str);
+void					print_labels(t_data *data);
 
 /* get_header_info_one.c */
 int						is_whitespace(char c);
@@ -192,7 +237,7 @@ int						is_str_whitespace_or_comment(char *str);
 int						free_data(t_data **data);
 int						free_code_line(t_code_line **t_code_line);
 void					free_token(t_token *token);
-int						free_token_list(t_token **token);
+int						free_token_list(t_token *token);
 int						free_all(t_data **data, t_code_line **code_line);
 
 /* helper_free_token_values.c */

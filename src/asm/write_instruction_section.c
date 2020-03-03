@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   write_instruction_section.c                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amamy <amamy@student.42.fr>                +#+  +:+       +#+        */
+/*   By: nivergne <nivergne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/25 15:55:58 by amamy             #+#    #+#             */
-/*   Updated: 2020/03/03 22:37:44 by amamy            ###   ########.fr       */
+/*   Updated: 2020/03/03 23:10:46 by nivergne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,11 +61,11 @@ static void	write_encoding_byte(t_data *data, t_token *token, int fd)
 	{
 		while (i < 3)
 		{
-			if (token->values->instruction->parameter[i]->type == TOKEN_TYPE_DIRECT)
+			if (token->values->instruction->args[i]->type == TOKEN_TYPE_DIRECT)
 				binary[0] = binary[0] + (char)((DIR_CODE << byte));
-			else if (token->values->instruction->parameter[i]->type == TOKEN_TYPE_INDIRECT)
+			else if (token->values->instruction->args[i]->type == TOKEN_TYPE_INDIRECT)
 				binary[0] = binary[0] + (char)((IND_CODE << byte));
-			else if (token->values->instruction->parameter[i]->type == TOKEN_TYPE_REGISTER)
+			else if (token->values->instruction->args[i]->type == TOKEN_TYPE_REGISTER)
 				binary[0] = binary[0] + (char)((REG_CODE << byte));
 			i++;
 			byte = byte - 2;
