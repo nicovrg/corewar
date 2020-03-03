@@ -6,7 +6,7 @@
 /*   By: amamy <amamy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/01 18:48:46 by amamy             #+#    #+#             */
-/*   Updated: 2020/03/01 18:49:01 by amamy            ###   ########.fr       */
+/*   Updated: 2020/03/03 14:13:48 by amamy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ static int	check_parameter_validity(t_data *data, t_token *param, int param_nb)
 	char	*tmp;
 
 	if (!(tmp = (ft_itoa(data->op_tab[param->code_line->op_code].param_types))))
-		return (0);	
+		return (error_code_line(param->code_line, MEMORY_ALLOCATION_ERROR, 0));;
 	param_allowed = (int)tmp[param_nb] - '0';
 	if (param->type == TOKEN_TYPE_REGISTER)
 		if (param_allowed != 1 && param_allowed != 3 && param_allowed != 5 && param_allowed != 7)

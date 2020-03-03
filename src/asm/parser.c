@@ -6,7 +6,7 @@
 /*   By: amamy <amamy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/19 02:56:10 by amamy             #+#    #+#             */
-/*   Updated: 2020/03/01 18:51:55 by amamy            ###   ########.fr       */
+/*   Updated: 2020/03/03 14:11:55 by amamy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,10 +34,15 @@ static void update_instruction_size_and_address(t_data *data, t_code_line *code_
 
 static int	parse_line(t_data *data, t_code_line *code_line, int inst_position, int current_byte[1])
 {
-	check_instruction_validity(data, code_line, inst_position);
+
+	if (!check_instruction_validity(data, code_line, inst_position))
+		return (error_code_line(code_line, MEMORY_ALLOCATION_ERROR, 0));
 	update_instruction_size_and_address(data, code_line, current_byte);
 	if (!code_line->errors)
-		parse_instruction(data, code_line, inst_position);
+	{
+		if (!parse_instruction(data, code_line, inst_position))
+			return (error_code_line(code_line, MEMORY_ALLOCATION_ERROR, 0));
+	}	
 	else
 		invalid_syntax(data, code_line);
 	*current_byte = *current_byte +code_line->instruction_size;
@@ -70,7 +75,7 @@ int	parser(t_data **data, t_code_line **code_line)
 		else
 			inst_token_position = 0;
 		if (!(parse_line(*data, current_line, inst_token_position, &current_byte)))
-			return (-1);
+			return (0);
 		if (current_line->errors)
 			(*data)->errors = 1;
 		if (current_line)
