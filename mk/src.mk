@@ -6,7 +6,7 @@
 #    By: amamy <amamy@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/09/22 23:46:29 by nivergne          #+#    #+#              #
-#    Updated: 2020/02/25 15:57:43 by amamy            ###   ########.fr        #
+#    Updated: 2020/03/03 22:34:30 by amamy            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,11 +36,25 @@ SRC_ASM =			main.c\
 					token_type_determination_function_three.c\
 					get_tokens_from_current_line.c\
 
-SRC_VM =			vm_main.c\
-					vm_error.c\
-					vm_checks.c\
-					vm_add_champions.c
-
+SRC_VM =			main.c\
+					init.c\
+					error.c\
+					champions_list.c\
+					parsing_checks.c\
+					vm_free.c\
+					helper_lib.c\
+					nb_players.c\
+					instruction_1.c\
+					instruction_2.c\
+					instruction_3.c\
+					instruction_4.c\
+					header_check.c\
+					vm_execution.c\
+					add_champions.c\
+					parse_instruction.c\
+					process_parse_arguments.c\
+					parse_instruction_functions.c\
+					parsing_check_instructions_size.c
 
 SRC_ASM := $(addprefix $(SRC_ASM_PATH), $(SRC_ASM))
 SRC_ASM := $(addprefix $(SRC_PATH), $(SRC_ASM))
