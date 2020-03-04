@@ -6,7 +6,7 @@
 /*   By: amamy <amamy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/21 01:21:58 by nivergne          #+#    #+#             */
-/*   Updated: 2020/03/03 22:27:17 by amamy            ###   ########.fr       */
+/*   Updated: 2020/03/04 23:48:39 by amamy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,7 +126,7 @@ int						lexer(int fd, t_data **data, t_code_line **code_line);
 int						parser(t_data **data, t_code_line **code_line);
 int						parse_label_declarations(t_data *data, t_code_line *code_line);
 
-t_token					*(*g_parse_parameters_func_array[PARSE_TOKEN_STATES_NUMBER])(t_data *, t_code_line *, t_token *, int *);
+t_token					*(*g_parse_parameters_func_array[PARSE_TOKEN_STATES_NUMBER])(t_data *, t_code_line *, t_token *);
 /* is_label_declaration.c */
 int						is_label_declaration(t_code_line *code_line);
 

@@ -6,7 +6,7 @@
 /*   By: amamy <amamy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/28 13:18:15 by amamy             #+#    #+#             */
-/*   Updated: 2020/03/03 22:24:10 by amamy            ###   ########.fr       */
+/*   Updated: 2020/03/04 23:49:22 by amamy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,14 +30,9 @@ static int	allocation_instruction(t_code_line *code_line, t_instruction **inst, 
 
 static int	is_param_parsed_or_error(t_token *token, int current_param)
 {
-	if (token->error)
+	if (token->code_line->errors || token->error)
 	{
-		if (token->code_line->errors == MEMORY_ALLOCATION_ERROR \
-		|| token->error == MEMORY_ALLOCATION_ERROR)
-			{
-				// free
-				exit (0); // NEED TO FREE ALL HERE
-			}
+
 		token->code_line->errors = LINE_ERROR_SYNTAX;
 		return (1);
 	}
@@ -58,15 +53,19 @@ int	parse_instruction(t_data *data, t_code_line *code_line, int inst_position)
 	inst_token = code_line->tokens[inst_position];
 	if (!(allocation_instruction(code_line, &inst, &inst_token)))
 		return (0);
-	while (current_param < data->op_tab[code_line->op_code].param_nb)
+	while (current_param < data->op_tab[code_line->op_code].param_nb \
+	|| code_line->errors == MEMORY_ALLOCATION_ERROR)
 	{
 		token_parse_state = PARSE_TOKEN_REGISTER;
-		while (!is_param_parsed_or_error(inst_token, current_param) && token_parse_state < PARSE_TOKEN_STATES_NUMBER - 1)
+		while (!is_param_parsed_or_error(inst_token, current_param) \
+		&& token_parse_state < PARSE_TOKEN_STATES_NUMBER - 1)
 		{
-			inst_token->values->instruction->args[current_param] = g_parse_parameters_func_array[token_parse_state](data, code_line, code_line->tokens[inst_position + (1 + current_param * 2)], &token_parse_state);
+			inst_token->values->instruction->args[current_param] = g_parse_parameters_func_array[token_parse_state](data, code_line, code_line->tokens[inst_position + (1 + current_param * 2)]);
 			token_parse_state++;
 		}
 		current_param++;
 	}
+	if (code_line->errors == MEMORY_ALLOCATION_ERROR)
+		return (0);
 	return (1);	
 }

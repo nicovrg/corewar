@@ -6,7 +6,7 @@
 /*   By: amamy <amamy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/01 18:48:46 by amamy             #+#    #+#             */
-/*   Updated: 2020/03/03 14:13:48 by amamy            ###   ########.fr       */
+/*   Updated: 2020/03/04 23:07:00 by amamy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,7 @@ int	check_instruction_validity(t_data *data, t_code_line *line, int inst_positio
 		params++;
 		if (params < data->op_tab[line->op_code].param_nb \
 		&& (!is_separator(line->tokens[inst_index + i + 1])))
-			error_syntax_token(line->tokens[inst_index + i + 1], MISSING_SEPARATOR, 1);
+			return (error_syntax_token(line->tokens[inst_index + i + 1], MISSING_SEPARATOR, 1));
 		i = i + 2;
 	}
 	return (1);	

@@ -6,7 +6,7 @@
 /*   By: amamy <amamy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/19 02:56:10 by amamy             #+#    #+#             */
-/*   Updated: 2020/03/03 14:11:55 by amamy            ###   ########.fr       */
+/*   Updated: 2020/03/04 23:08:53 by amamy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ static int	parse_line(t_data *data, t_code_line *code_line, int inst_position, i
 {
 
 	if (!check_instruction_validity(data, code_line, inst_position))
-		return (error_code_line(code_line, MEMORY_ALLOCATION_ERROR, 0));
+		return (0);
 	update_instruction_size_and_address(data, code_line, current_byte);
 	if (!code_line->errors)
 	{
