@@ -6,7 +6,7 @@
 /*   By: amamy <amamy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/08 02:29:58 by amamy             #+#    #+#             */
-/*   Updated: 2020/03/01 18:49:19 by amamy            ###   ########.fr       */
+/*   Updated: 2020/03/06 16:30:24 by amamy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ static void		loading_error_table(char **error_table)
 	error_table[MISSING_SEPARATOR] = ft_strdup("Parameter given to instruction must be separated with a coma ','");
 	error_table[MISS_PLACED_SEPARATOR] = ft_strdup("Coma ',' are only used to separate instruction arguments");
 	error_table[LABEL_REDEFINITION] = ft_strdup("LABEL_REDEFINITON : you cannot define same label twice");
+	error_table[TOKEN_AFTER_OP] = ft_strdup("TOKEN_AFTER_OP : Unecessary token found after operation");
 	error_table[UNDECLARED_LABEL_CALL] = ft_strdup("Use of undeclared label");
 }
 

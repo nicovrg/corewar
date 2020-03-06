@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   asm.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nivergne <nivergne@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amamy <amamy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/21 01:21:58 by nivergne          #+#    #+#             */
-/*   Updated: 2020/03/03 23:10:05 by nivergne         ###   ########.fr       */
+/*   Updated: 2020/03/06 23:39:08 by amamy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@
 typedef enum			e_token_errors
 {
 	NO_ERROR,
-	UNKNOWN_TOKEN,
 	MEMORY_ALLOCATION_ERROR,
+	UNKNOWN_TOKEN,
 	BAD_OP_CODE,
 	INVALID_REGISTER,
 	WRONG_ARGUMENT_TYPE,
@@ -38,6 +38,7 @@ typedef enum			e_token_errors
 	MISS_PLACED_SEPARATOR,
 	LABEL_REDEFINITION,
 	UNDECLARED_LABEL_CALL,
+	TOKEN_AFTER_OP,
 	TOKEN_ERRORS_NUMBER,
 }						t_token_errors;
 
@@ -98,7 +99,7 @@ typedef	 struct			s_data
 	char				*comment;
 	t_op				*op_tab;
 	struct s_label		*label_list;
-	struct s_label		*label_calls;
+	struct s_label_call	*label_calls;
 }						t_data;
 
 typedef struct			s_token
@@ -138,7 +139,11 @@ int						lexer(int fd, t_data **data, t_code_line **code_line);
 int						parser(t_data **data, t_code_line **code_line);
 int						parse_label_declarations(t_data *data, t_code_line *code_line);
 
-t_token					*(*g_parse_parameters_func_array[PARSE_TOKEN_STATES_NUMBER])(t_data *, t_code_line *, t_token *, int *);
+/* check_for_additional_errors.c */
+
+void					check_for_additional_errors(t_data *data, t_code_line *t_code_line);
+
+t_token					*(*g_parse_parameters_func_array[PARSE_TOKEN_STATES_NUMBER])(t_data *, t_code_line *, t_token *);
 /* is_label_declaration.c */
 int						is_label_declaration(t_code_line *code_line);
 
@@ -150,7 +155,6 @@ int						parse_instruction(t_data *data, t_code_line *code_line, int inst_positi
 /* label_functions.c*/
 int						is_only_label(t_code_line *code_line);
 int						is_valid_label(t_code_line *code_line);
-void					labels_calls_computing(t_data *data, t_code_line *code_line);
 int						check_label_call_type(t_token *label_call, int is_this_type);
 
 /* get_tokens_from_current_line.c */
@@ -211,6 +215,7 @@ int						print_code_lines(t_data **data, t_code_line **lexer);
 int						print_tokens(t_code_line **lexer);
 int						print_token(int length, char *str);
 void					print_labels(t_data *data);
+void					print_label_calls(t_data *data);
 
 /* get_header_info_one.c */
 int						is_whitespace(char c);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nivergne <nivergne@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amamy <amamy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/19 02:56:10 by amamy             #+#    #+#             */
-/*   Updated: 2020/03/03 22:52:08 by nivergne         ###   ########.fr       */
+/*   Updated: 2020/03/06 23:38:23 by amamy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,19 @@
 #include "tokens.h"
 #include "ft_printf.h"
 
-int	invalid_syntax(t_data *data, t_code_line *code_line)
+
+static void	labels_calls_computing(t_data *data)
 {
-	ft_putendl("INVALID_SYNTAX");
-	(void)code_line;
-	(void)data;
-	return (1);	
+	t_label_call	*current;
+
+	current = data->label_calls;
+	if (!current)
+		return ;
+	while (current)
+	{
+		current->value = current->target->mem_address - current->token->code_line->mem_address;
+		current = current->next;
+	}
 }
 
 static void update_instruction_size_and_address(t_data *data, t_code_line *code_line, int current_byte[1])
@@ -36,16 +43,17 @@ static int	parse_line(t_data *data, t_code_line *code_line, int inst_position, i
 {
 
 	if (!check_instruction_validity(data, code_line, inst_position))
-		return (error_code_line(code_line, MEMORY_ALLOCATION_ERROR, 0));
+		return (0);
 	update_instruction_size_and_address(data, code_line, current_byte);
 	if (!code_line->errors)
 	{
 		if (!parse_instruction(data, code_line, inst_position))
 			return (error_code_line(code_line, MEMORY_ALLOCATION_ERROR, 0));
 	}	
-	else
-		invalid_syntax(data, code_line);
+	check_for_additional_errors(data, code_line);
 	*current_byte = *current_byte +code_line->instruction_size;
+	if (code_line->errors)
+		data->errors = 1;
 	return (1);
 }
 
@@ -76,11 +84,9 @@ int	parser(t_data **data, t_code_line **code_line)
 			inst_token_position = 0;
 		if (!(parse_line(*data, current_line, inst_token_position, &current_byte)))
 			return (0);
-		if (current_line->errors)
-			(*data)->errors = 1;
 		if (current_line)
 		current_line = current_line->next;
 	}
-	labels_calls_computing(*data, *code_line);
+	labels_calls_computing(*data);
 	return (1);
 }
