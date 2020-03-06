@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   write_instruction_section.c                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nivergne <nivergne@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amamy <amamy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/25 15:55:58 by amamy             #+#    #+#             */
-/*   Updated: 2020/03/03 23:10:46 by nivergne         ###   ########.fr       */
+/*   Updated: 2020/03/07 00:29:27 by amamy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@ static void	write_direct(t_data *data, t_token *token, int fd)
 {
 	if (token->type != TOKEN_TYPE_DIRECT)	
 		return ;
-	ft_printf("%s\n", "write_direct");
-	ft_printf("token mem %d\n", token->mem_address);
+	// ft_printf("%s\n", "write_direct");
+	// ft_printf("token mem %d\n", token->mem_address);
 	if (data->op_tab[token->code_line->op_code].direct_size) // segfault here because token not allocated cause parser not coded
 		write_big_endian(fd, token->values->direct->value, 2);
 	else
@@ -32,7 +32,7 @@ static void	write_indirect(t_data *data, t_token *token, int fd)
 {
 	if (token->type != TOKEN_TYPE_INDIRECT)	
 		return ;
-	ft_printf("%s\n", "write_INdirect");
+	// ft_printf("%s\n", "write_INdirect");
 	write_big_endian(fd, token->values->indirect->value, 2);
 	(void)data;
 }
@@ -41,7 +41,7 @@ static void	write_register(t_data *data, t_token *token, int fd)
 {
 	if (token->type != TOKEN_TYPE_REGISTER)	
 		return ;
-	ft_printf("%s\n", "write_register");
+	// ft_printf("%s\n", "write_register");
 	write(fd, &token->values->registr->reg_nb, 1);
 	(void)data;
 }
@@ -109,9 +109,9 @@ void		write_instruction(t_data *data, t_code_line *code_line, int fd)
 	t_token	*current_token;
 
 	current_state = TRANSLATE_OPCODE;
-	ft_printf("token : %d\n", code_line->token->type);
+	// ft_printf("token : %d\n", code_line->token->type);
 	current_token = skip_label_declaration(code_line->token);
-	ft_printf("token apres : %d\n", code_line->token->type);
+	// ft_printf("token apres : %d\n", code_line->token->type);
 	while (current_token)
 	{
 		while (current_state <= TRANSLATE_REGISTER)

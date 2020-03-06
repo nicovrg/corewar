@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   helper_free_token_values.c                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nivergne <nivergne@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amamy <amamy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/21 09:09:43 by amamy             #+#    #+#             */
-/*   Updated: 2020/03/03 22:53:16 by nivergne         ###   ########.fr       */
+/*   Updated: 2020/03/07 00:13:19 by amamy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,6 @@ static void	free_label(t_token *token)
 
 static void	free_instruction(t_token *token)
 {
-	int i;
-
-	i = 0;
 	if (token->values)
 	ft_memdel((void*)&token->values->instruction->lexeme);
 	ft_memdel((void*)&token->values->instruction);

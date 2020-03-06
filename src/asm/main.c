@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nivergne <nivergne@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amamy <amamy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/05 14:21:47 by qgirard           #+#    #+#             */
-/*   Updated: 2020/03/03 22:52:22 by nivergne         ###   ########.fr       */
+/*   Updated: 2020/03/07 00:22:45 by amamy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,32 @@ t_op    op_tab[17] =
 // 	(void)lex;
 // 	return (1);
 // }
+
+static void		display_code(t_code_line *code_line)
+{
+	t_token *token;
+
+	ft_printf("\nLine:\tSize in Binairy:\tToken stream:\n\n");
+	while (code_line)
+	{
+		token = code_line->token;
+		ft_printf("%d:\t", code_line->nb_line);
+		ft_printf("[%d]\t\t\t", code_line->instruction_size);
+		while (token)
+		{
+			if (token->type != TOKEN_TYPE_SEPARATOR)
+			{
+				ft_putstr("<");
+				print_token(token->length, &code_line->line[token->position]);
+				ft_putstr("> ");
+			}
+			token = token->next;
+		}
+		ft_putstr("\n");
+		code_line = code_line->next;
+	}
+	ft_printf("\n<===============>\nWriting out .cor file.\n");
+}
 
 static int		check_args_and_open_files(int argc, char **argv, t_data **data)
 {
@@ -97,8 +123,12 @@ int				main(int argc, char **argv)
 		return (free_all(&data, &code_line));
 	if (data->errors)
 		error_mode(&code_line);
-	else if (!translator(&data, &code_line))
-		return (free_all(&data, &code_line));
+	else 
+	{
+		if (!translator(&data, &code_line))
+			return (free_all(&data, &code_line));
+		display_code(code_line);
+	}
 	// print_code_lines(&data, &code_line);
 	free_all(&data, &code_line);
 	return (0);

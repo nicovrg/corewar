@@ -6,7 +6,7 @@
 /*   By: amamy <amamy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/07 15:32:54 by qgirard           #+#    #+#             */
-/*   Updated: 2020/03/01 18:49:34 by amamy            ###   ########.fr       */
+/*   Updated: 2020/03/06 13:17:13 by amamy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -182,11 +182,32 @@ void	print_labels(t_data *data)
 
 	i = 0;
 	current_label = data->label_list;
+	ft_printf("\n======== PRINT LABEL ========\n\n");
 	while (current_label)
 	{
 		ft_printf("==== Label n : %d ====\n", i);
 		ft_printf("Lexeme -> |%s|\n", current_label->lexeme);
 		ft_printf("target : L%d : |%s|\n", current_label->target->nb_line, current_label->target->line);
+		current_label = current_label->next;
+		i++;
+	ft_printf("%s\n", "==== End ====\n");
+	}
+}
+
+void	print_label_calls(t_data *data)
+{
+	int				i;
+	t_label_call	*current_label;
+
+	i = 0;
+	current_label = data->label_calls;
+	ft_printf("\n======== PRINT LABEL CALLS ========\n\n");
+	while (current_label)
+	{
+		ft_printf("==== Label_call n : %d ====\n", i);
+		ft_printf("Line : %d\n", current_label->token->code_line->nb_line);
+		ft_printf("Lexeme -> |%s|\n", current_label->lexeme);
+		ft_printf("value : %d\n", current_label->value);
 		current_label = current_label->next;
 		i++;
 	ft_printf("%s\n", "==== End ====\n");
