@@ -6,7 +6,7 @@
 /*   By: amamy <amamy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/19 02:56:10 by amamy             #+#    #+#             */
-/*   Updated: 2020/03/04 23:08:53 by amamy            ###   ########.fr       */
+/*   Updated: 2020/03/06 13:17:22 by amamy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,21 @@
 #include "libft.h"
 #include "tokens.h"
 #include "ft_printf.h"
+
+
+static void	labels_calls_computing(t_data *data)
+{
+	t_label_call	*current;
+
+	current = data->label_calls;
+	if (!current)
+		return ;
+	while (current)
+	{
+		current->value = current->target->mem_address - current->token->code_line->mem_address;
+		current = current->next;
+	}
+}
 
 int	invalid_syntax(t_data *data, t_code_line *code_line)
 {
@@ -81,6 +96,6 @@ int	parser(t_data **data, t_code_line **code_line)
 		if (current_line)
 		current_line = current_line->next;
 	}
-	labels_calls_computing(*data, *code_line);
+	labels_calls_computing(*data);
 	return (1);
 }

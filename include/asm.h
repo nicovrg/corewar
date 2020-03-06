@@ -6,7 +6,7 @@
 /*   By: amamy <amamy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/21 01:21:58 by nivergne          #+#    #+#             */
-/*   Updated: 2020/03/04 23:48:39 by amamy            ###   ########.fr       */
+/*   Updated: 2020/03/06 13:16:38 by amamy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ typedef	 struct			s_data
 	char				*comment;
 	t_op				*op_tab;
 	struct s_label		*label_list;
-	struct s_label		*label_calls;
+	struct s_label_call	*label_calls;
 }						t_data;
 
 typedef struct			s_token
@@ -138,7 +138,6 @@ int						parse_instruction(t_data *data, t_code_line *code_line, int inst_positi
 /* label_functions.c*/
 int						is_only_label(t_code_line *code_line);
 int						is_valid_label(t_code_line *code_line);
-void					labels_calls_computing(t_data *data, t_code_line *code_line);
 int						check_label_call_type(t_token *label_call, int is_this_type);
 
 /* get_tokens_from_current_line.c */
@@ -180,6 +179,7 @@ int						print_code_lines(t_data **data, t_code_line **lexer);
 int						print_tokens(t_code_line **lexer);
 int						print_token(int length, char *str);
 void					print_labels(t_data *data);
+void					print_label_calls(t_data *data);
 
 /* get_header_info_one.c */
 int						is_whitespace(char c);

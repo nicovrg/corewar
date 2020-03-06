@@ -6,7 +6,7 @@
 /*   By: amamy <amamy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/27 18:21:24 by amamy             #+#    #+#             */
-/*   Updated: 2020/03/04 23:48:11 by amamy            ###   ########.fr       */
+/*   Updated: 2020/03/06 12:14:39 by amamy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,22 @@ t_token	*parse_token_direct(t_data *data, t_code_line *codeline, t_token *param)
 	return (NULL);
 }
 
+static void	add_label_call_to_queue(t_data *data, t_label_call *current)
+{
+	t_label_call *tmp;
+
+	if (!data->label_calls)
+		data->label_calls = current;
+	else
+	{
+		tmp = data->label_calls;
+		while (tmp->next)
+			tmp = tmp->next;
+		tmp->next = current;
+	}
+	
+}
+
 static void	set_label_call_target(t_data *data, t_token *label_call)
 {
 	t_label *declarations;
@@ -90,7 +106,9 @@ static void	set_label_call_target(t_data *data, t_token *label_call)
 		if (!ft_strcmp(declarations->lexeme, label_call->values->label_call->lexeme))
 		{
 			label_call->values->label_call->target = declarations->target;
-			label_call->values->label_call->value = declarations->target->mem_address;
+			label_call->values->label_call->token = label_call;
+			add_label_call_to_queue(data, label_call->values->label_call);
+			// label_call->values->label_call->value = declarations->target->mem_address;
 		}
 		declarations = declarations->next;
 	}
