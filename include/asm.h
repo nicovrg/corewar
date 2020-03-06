@@ -6,7 +6,7 @@
 /*   By: amamy <amamy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/21 01:21:58 by nivergne          #+#    #+#             */
-/*   Updated: 2020/03/06 15:08:33 by amamy            ###   ########.fr       */
+/*   Updated: 2020/03/06 16:28:50 by amamy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ typedef enum			e_token_errors
 	MISS_PLACED_SEPARATOR,
 	LABEL_REDEFINITION,
 	UNDECLARED_LABEL_CALL,
+	TOKEN_AFTER_OP,
 	TOKEN_ERRORS_NUMBER,
 }						t_token_errors;
 
