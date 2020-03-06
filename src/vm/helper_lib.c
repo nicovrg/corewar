@@ -6,7 +6,7 @@
 /*   By: amamy <amamy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/09 22:04:12 by amamy             #+#    #+#             */
-/*   Updated: 2020/02/10 01:50:26 by amamy            ###   ########.fr       */
+/*   Updated: 2020/03/07 00:14:17 by amamy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,9 +129,9 @@ int		ft_atoi_base(const char *str, int base)
 	while (str[i] >= '0' && str[i] <= '9')
 	{
 		result = result * base + str[i] - '0';
-		if (sign == 1 && result > INT64_MAX)
+		if (sign == 1 && result > __INT64_MAX__)
 			return (-1);
-		if (sign == -1 && result > (size_t)(INT64_MAX) + 1)
+		if (sign == -1 && result > (size_t)(__INT64_MAX__) + 1)
 			return (0);
 		i++;
 	}
