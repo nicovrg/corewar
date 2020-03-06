@@ -6,7 +6,7 @@
 /*   By: amamy <amamy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/19 02:56:10 by amamy             #+#    #+#             */
-/*   Updated: 2020/03/06 13:17:22 by amamy            ###   ########.fr       */
+/*   Updated: 2020/03/06 15:25:10 by amamy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,14 +30,6 @@ static void	labels_calls_computing(t_data *data)
 	}
 }
 
-int	invalid_syntax(t_data *data, t_code_line *code_line)
-{
-	ft_putendl("INVALID_SYNTAX");
-	(void)code_line;
-	(void)data;
-	return (1);	
-}
-
 static void update_instruction_size_and_address(t_data *data, t_code_line *code_line, int current_byte[1])
 {
 	if (data->op_tab[code_line->op_code].encoding_byte)
@@ -58,9 +50,10 @@ static int	parse_line(t_data *data, t_code_line *code_line, int inst_position, i
 		if (!parse_instruction(data, code_line, inst_position))
 			return (error_code_line(code_line, MEMORY_ALLOCATION_ERROR, 0));
 	}	
-	else
-		invalid_syntax(data, code_line);
+	check_for_additional_errors(data, code_line);
 	*current_byte = *current_byte +code_line->instruction_size;
+	if (code_line->errors)
+		data->errors = 1;
 	return (1);
 }
 
@@ -91,8 +84,6 @@ int	parser(t_data **data, t_code_line **code_line)
 			inst_token_position = 0;
 		if (!(parse_line(*data, current_line, inst_token_position, &current_byte)))
 			return (0);
-		if (current_line->errors)
-			(*data)->errors = 1;
 		if (current_line)
 		current_line = current_line->next;
 	}

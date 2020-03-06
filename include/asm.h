@@ -6,7 +6,7 @@
 /*   By: amamy <amamy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/21 01:21:58 by nivergne          #+#    #+#             */
-/*   Updated: 2020/03/06 13:16:38 by amamy            ###   ########.fr       */
+/*   Updated: 2020/03/06 15:08:33 by amamy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@
 typedef enum			e_token_errors
 {
 	NO_ERROR,
-	UNKNOWN_TOKEN,
 	MEMORY_ALLOCATION_ERROR,
+	UNKNOWN_TOKEN,
 	BAD_OP_CODE,
 	INVALID_REGISTER,
 	WRONG_ARGUMENT_TYPE,
@@ -125,6 +125,10 @@ int						lexer(int fd, t_data **data, t_code_line **code_line);
 /* parser.c */
 int						parser(t_data **data, t_code_line **code_line);
 int						parse_label_declarations(t_data *data, t_code_line *code_line);
+
+/* check_for_additional_errors.c */
+
+void					check_for_additional_errors(t_data *data, t_code_line *t_code_line);
 
 t_token					*(*g_parse_parameters_func_array[PARSE_TOKEN_STATES_NUMBER])(t_data *, t_code_line *, t_token *);
 /* is_label_declaration.c */
