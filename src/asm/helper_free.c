@@ -6,7 +6,7 @@
 /*   By: amamy <amamy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/04 05:36:34 by nicolasv          #+#    #+#             */
-/*   Updated: 2020/03/01 18:49:55 by amamy            ###   ########.fr       */
+/*   Updated: 2020/03/07 14:43:59 by amamy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,17 +21,6 @@ int		free_data(t_data **data)
 	ft_strdel(&(*data)->comment);
 	free((*data));
 	return (1);
-}
-
-void	free_token(t_token *token)
-{
-	int	type;
-
-	type = token->type;
-	if (!(type == TOKEN_TYPE_SEPARATOR))
-		g_token_free_values_func_array[type](token);
-	ft_memdel((void*)&token->values);
-	ft_memdel((void*)&token);
 }
 
 int		free_token_list(t_token *token)

@@ -6,7 +6,7 @@
 /*   By: amamy <amamy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/28 13:18:15 by amamy             #+#    #+#             */
-/*   Updated: 2020/03/04 23:49:22 by amamy            ###   ########.fr       */
+/*   Updated: 2020/03/07 14:36:05 by amamy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,19 +32,26 @@ static int	is_param_parsed_or_error(t_token *token, int current_param)
 {
 	if (token->code_line->errors || token->error)
 	{
-
 		token->code_line->errors = LINE_ERROR_SYNTAX;
 		return (1);
 	}
 	if (token->values->instruction->args[current_param] == NULL)
 		return (0);
-	return (1);	
+	return (1);
 }
 
-int	parse_instruction(t_data *data, t_code_line *code_line, int inst_position)
+static t_token	*(*g_parse_parameters_func_array[PARSE_TOKEN_STATES_NUMBER])(t_data *, t_code_line *, t_token *) = {
+	[PARSE_TOKEN_REGISTER] = parse_token_register,
+	[PARSE_TOKEN_INDIRECT] = parse_token_indirect,
+	[PARSE_TOKEN_DIRECT] = parse_token_direct,
+	[PARSE_TOKEN_LABEL_CALL] = parse_token_label_call,
+};
+
+
+int			parse_instruction(t_data *data, t_code_line *code_line, int inst_position)
 {
 	t_instruction	*inst;
-	t_token 		*inst_token;
+	t_token			*inst_token;
 	int				current_param;
 	int				token_parse_state;
 
@@ -67,5 +74,5 @@ int	parse_instruction(t_data *data, t_code_line *code_line, int inst_position)
 	}
 	if (code_line->errors == MEMORY_ALLOCATION_ERROR)
 		return (0);
-	return (1);	
+	return (1);
 }

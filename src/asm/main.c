@@ -6,7 +6,7 @@
 /*   By: amamy <amamy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/05 14:21:47 by qgirard           #+#    #+#             */
-/*   Updated: 2020/03/06 15:57:37 by amamy            ###   ########.fr       */
+/*   Updated: 2020/03/07 14:46:29 by amamy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include "libft.h"
 #include "ft_printf.h"
 
-t_op    op_tab[17] =
+static t_op	op_tab[17] =
 {
 	{"PADDING", 0, 0, 0, "PADDING", 0, 0},
 	{"live", 1, 400, 10, "alive", 0, 0},
@@ -42,8 +42,7 @@ t_op    op_tab[17] =
 	{"aff", 1, 100,  2, "aff", 1, 0},
 };
 
-
-int				translator(t_data **data, t_code_line **lex)
+static int				translator(t_data **data, t_code_line **lex)
 {
 	(void)data;
 	(void)lex;
@@ -125,7 +124,8 @@ int				main(int argc, char **argv)
 			return (free_all(&data, &code_line));
 		display_code(code_line);
 	}
-	// print_code_lines(&data, &code_line);
+	print_code_lines(&data, &code_line);
 	free_all(&data, &code_line);
 	return (0);
 }
+

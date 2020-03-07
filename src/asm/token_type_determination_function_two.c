@@ -6,7 +6,7 @@
 /*   By: amamy <amamy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/26 05:57:28 by amamy             #+#    #+#             */
-/*   Updated: 2020/02/08 21:38:56 by amamy            ###   ########.fr       */
+/*   Updated: 2020/03/07 14:26:57 by amamy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,17 @@
 #include "tokens.h"
 #include "libft.h"
 #include "ft_printf.h"
+
+static int (*g_token_type_determination_func_array[NB_TOKEN_TYPE])(t_token *) = {
+	[TOKEN_TYPE_SEPARATOR] = is_separator,
+	[TOKEN_TYPE_LABEL] = is_label,
+	[TOKEN_TYPE_INSTRUCTION] = is_instructions,
+	[TOKEN_TYPE_DIRECT] = is_direct,
+	[TOKEN_TYPE_REGISTER] = is_register,
+	[TOKEN_TYPE_INDIRECT] = is_indirect,
+	[TOKEN_TYPE_LABEL_CALL] = is_label_call,
+	[TOKEN_TYPE_UNKNOWN] = is_unknown,
+};
 
 int						is_instructions(t_token *token)
 {
