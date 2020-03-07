@@ -6,7 +6,7 @@
 /*   By: amamy <amamy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/19 02:56:10 by amamy             #+#    #+#             */
-/*   Updated: 2020/03/07 13:16:19 by amamy            ###   ########.fr       */
+/*   Updated: 2020/03/07 18:27:07 by amamy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,13 @@
 #include "libft.h"
 #include "tokens.h"
 #include "ft_printf.h"
+
+/*
+** ==================== labels_calls_computing ====================
+** Because labels alues can be calculated only at the last moment, we cannot
+** get them during the parsing.
+** This function goes through the list of label_call and assign their value.
+*/
 
 static void			labels_calls_computing(t_data *data)
 {
@@ -31,6 +38,12 @@ static void			labels_calls_computing(t_data *data)
 	}
 }
 
+/*
+** ==================== update_instruction_size_and_address ====================
+** Used in parse_line() to keep memory count : to assign the adress of the instruction
+** and the size of this instruction.
+*/
+
 static void			update_instruction_size_and_address(t_data *data, t_code_line *code_line, int current_byte[1])
 {
 	if (data->op_tab[code_line->op_code].encoding_byte)
@@ -39,6 +52,13 @@ static void			update_instruction_size_and_address(t_data *data, t_code_line *cod
 		code_line->instruction_size++;
 	code_line->mem_address = current_byte[0];
 }
+
+/*
+** ==================== parse_line ====================
+** This functions parses a line containing an instruction.
+** For this, it will verify that the syntax is valid, keep the count
+** of the codes size and check for additional error if error.
+*/
 
 static int			parse_line(t_data *data, t_code_line *code_line, int inst_position, int current_byte[1])
 {
@@ -57,12 +77,25 @@ static int			parse_line(t_data *data, t_code_line *code_line, int inst_position,
 	return (1);
 }
 
+/*
+** ==================== skip_label_only_lines ====================
+** Used in parser to skip lines containing only label declaration
+** in it as we only parse instructions.
+*/
+
 static t_code_line	*skip_label_only_lines(t_code_line *code_line)
 {
 	while (is_only_label(code_line))
 		code_line = code_line->next;
 	return (code_line);
 }
+
+/*
+** ==================== parser ====================
+** The role of the parser is to retrieve the informations 
+** related to the lexemes detected by lexer previously.
+** To achieve this we send lines with instruction in parse_line()
+*/
 
 int					parser(t_data **data, t_code_line **code_line)
 {

@@ -6,7 +6,7 @@
 /*   By: amamy <amamy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/28 13:18:15 by amamy             #+#    #+#             */
-/*   Updated: 2020/03/07 14:36:05 by amamy            ###   ########.fr       */
+/*   Updated: 2020/03/07 19:13:16 by amamy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,12 @@ static int	allocation_instruction(t_code_line *code_line, t_instruction **inst, 
 	return (1);
 }
 
+/*
+** ==================== is_param_parsed_or_error ====================
+** If an error has been raised or if the current is parsed, this function
+** will inidicate it.
+*/
+
 static int	is_param_parsed_or_error(t_token *token, int current_param)
 {
 	if (token->code_line->errors || token->error)
@@ -47,6 +53,11 @@ static t_token	*(*g_parse_parameters_func_array[PARSE_TOKEN_STATES_NUMBER])(t_da
 	[PARSE_TOKEN_LABEL_CALL] = parse_token_label_call,
 };
 
+/*
+** ==================== parse_instruction ====================
+** Receives a t_code_line (a line of code) and organizes the 
+** memory allocation and the parsing of parameter.
+*/
 
 int			parse_instruction(t_data *data, t_code_line *code_line, int inst_position)
 {

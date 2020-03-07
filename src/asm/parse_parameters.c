@@ -6,7 +6,7 @@
 /*   By: amamy <amamy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/27 18:21:24 by amamy             #+#    #+#             */
-/*   Updated: 2020/03/07 14:20:25 by amamy            ###   ########.fr       */
+/*   Updated: 2020/03/07 19:50:15 by amamy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,11 @@
 #include "asm.h"
 #include "tokens.h"
 #include "ft_printf.h"
+
+/*
+** ==================== parse_token_register ====================
+** If the type of the lexeme Received is INDIRECT, give it values
+*/
 
 t_token	*parse_token_register(t_data *data, t_code_line *codeline, t_token *param)
 {
@@ -38,6 +43,11 @@ t_token	*parse_token_register(t_data *data, t_code_line *codeline, t_token *para
 	(void)data;
 }
 
+/*
+** ==================== parse_token_indirect ====================
+** If the type of the lexeme Received is INDIRECT, give it values
+*/
+
 t_token	*parse_token_indirect(t_data *data, t_code_line *codeline, t_token *param)
 {
 	t_indirect *indirect;
@@ -58,6 +68,11 @@ t_token	*parse_token_indirect(t_data *data, t_code_line *codeline, t_token *para
 	return (NULL);
 	(void)data;
 }
+
+/*
+** ==================== parse_token_direct ====================
+** If the type of the lexeme Received is DIRECT, give it values
+*/
 
 t_token	*parse_token_direct(t_data *data, t_code_line *codeline, t_token *param)
 {

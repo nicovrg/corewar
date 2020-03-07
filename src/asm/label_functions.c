@@ -6,7 +6,7 @@
 /*   By: amamy <amamy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/20 23:58:28 by amamy             #+#    #+#             */
-/*   Updated: 2020/03/07 13:06:51 by amamy            ###   ########.fr       */
+/*   Updated: 2020/03/07 18:59:20 by amamy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,12 @@
 #include "libft.h"
 #include "tokens.h"
 #include "ft_printf.h"
+
+/*
+** ==================== check_label_call_type ====================
+** As Label_call are the only token to have a subtype, this function allows
+** to check this tyoe easily.
+*/
 
 int		check_label_call_type(t_token *label_call, int is_this_type)
 {
@@ -26,6 +32,12 @@ int		check_label_call_type(t_token *label_call, int is_this_type)
 	return (0);
 }
 
+/*
+** ==================== is_label_declaration ====================
+** Check if the t_code_line received is has a label token as first token
+** and that there is nothing else n the line.
+*/
+
 int		is_only_label(t_code_line *code_line)
 {
 	if (!code_line)
@@ -35,6 +47,11 @@ int		is_only_label(t_code_line *code_line)
 		return (1);
 	return (0);
 }
+
+/*
+** ==================== is_label_declaration ====================
+** Check if the t_code_line received is has a label token as first token.
+*/
 
 int		is_label_declaration(t_code_line *code_line)
 {

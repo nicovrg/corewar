@@ -6,7 +6,7 @@
 /*   By: amamy <amamy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/07 14:20:38 by amamy             #+#    #+#             */
-/*   Updated: 2020/03/07 14:21:06 by amamy            ###   ########.fr       */
+/*   Updated: 2020/03/07 19:58:18 by amamy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,11 @@ static void	add_label_call_to_queue(t_data *data, t_label_call *current)
 	}
 }
 
+/*
+** ==================== set_label_call_target ====================
+** Handles the assignment of values part and the allocation.
+*/
+
 static void	set_label_call_target(t_data *data, t_token *label_call)
 {
 	t_label *declarations;
@@ -42,13 +47,17 @@ static void	set_label_call_target(t_data *data, t_token *label_call)
 			label_call->values->label_call->target = declarations->target;
 			label_call->values->label_call->token = label_call;
 			add_label_call_to_queue(data, label_call->values->label_call);
-			// label_call->values->label_call->value = declarations->target->mem_address;
 		}
 		declarations = declarations->next;
 	}
 	if (!label_call->values->label_call->target)
 		label_call->error = UNDECLARED_LABEL_CALL;
 }
+
+/*
+** ==================== parse_token_label_call ====================
+** If the type of the lexeme Received is LABEL_CALL, give its values.
+*/
 
 t_token	*parse_token_label_call(t_data *data, t_code_line *codeline, t_token *param)
 {

@@ -6,7 +6,7 @@
 /*   By: amamy <amamy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/27 11:44:02 by amamy             #+#    #+#             */
-/*   Updated: 2020/03/07 13:18:00 by amamy            ###   ########.fr       */
+/*   Updated: 2020/03/07 18:47:34 by amamy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,11 @@ static char			*get_label_text(t_code_line *code_line)
 	return (label);
 }
 
+/*
+** ==================== fetch_label_target ====================
+** Fetch the next line containing an instruction.
+*/
+
 static t_code_line	*fetch_label_target(t_code_line *code_line)
 {
 	t_code_line *tmp;
@@ -40,6 +45,11 @@ static t_code_line	*fetch_label_target(t_code_line *code_line)
 	else
 		return (code_line);
 }
+
+/*
+** ==================== create_and_add_label ====================
+** Initiate label declaration :  memory allocation + lexeme assignment + target line.
+*/
 
 static int			create_and_add_label(t_data *data, t_code_line *code_line, char *label)
 {
@@ -65,6 +75,12 @@ static int			create_and_add_label(t_data *data, t_code_line *code_line, char *la
 	return (1);
 }
 
+/*
+** ==================== check_redefinition ====================
+** Used to check if the label declaration passed in argument does
+** not have the same lexeme as one used before.
+*/
+
 static int			check_redefinition(t_code_line *line, t_label *label_list, char *label)
 {
 	while (label_list)
@@ -75,6 +91,13 @@ static int			check_redefinition(t_code_line *line, t_label *label_list, char *la
 	}
 	return (1);
 }
+
+/*
+** ==================== parse_label_declarations ====================
+** Goes through all the lines get the label declarations to initiate and
+** list them.
+** Initiate means memory allocation + lexeme assignment + target line.
+*/
 
 int					parse_label_declarations(t_data *data, t_code_line *code_line)
 {

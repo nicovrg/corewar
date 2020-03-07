@@ -6,7 +6,7 @@
 /*   By: amamy <amamy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/05 14:21:47 by qgirard           #+#    #+#             */
-/*   Updated: 2020/03/07 14:46:29 by amamy            ###   ########.fr       */
+/*   Updated: 2020/03/07 17:28:14 by amamy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,7 +124,7 @@ int				main(int argc, char **argv)
 			return (free_all(&data, &code_line));
 		display_code(code_line);
 	}
-	print_code_lines(&data, &code_line);
+	// print_code_lines(&data, &code_line);
 	free_all(&data, &code_line);
 	return (0);
 }
