@@ -6,7 +6,7 @@
 /*   By: amamy <amamy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/21 01:21:58 by nivergne          #+#    #+#             */
-/*   Updated: 2020/03/06 16:28:50 by amamy            ###   ########.fr       */
+/*   Updated: 2020/03/07 01:04:02 by amamy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,7 @@ typedef	 struct			s_data
 	int					name_line;
 	int					index_line;
 	int					comment_line;
+	int					instruction_section_size;
 	char				*name;
 	char				*comment;
 	t_op				*op_tab;
