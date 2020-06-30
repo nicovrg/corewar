@@ -6,7 +6,11 @@
 /*   By: nivergne <nivergne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/04 05:36:34 by nicolasv          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2020/03/03 22:53:49 by nivergne         ###   ########.fr       */
+=======
+/*   Updated: 2020/03/07 14:43:59 by amamy            ###   ########.fr       */
+>>>>>>> dc09d2502534d322ed60adfc9059ac93e8456b3f
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,17 +26,6 @@ int		free_data(t_data **data)
 	ft_strdel(&(*data)->file_name);
 	free((*data));
 	return (1);
-}
-
-void	free_token(t_token *token)
-{
-	int	type;
-
-	type = token->type;
-	if (!(type == TOKEN_TYPE_SEPARATOR))
-		g_token_free_values_func_array[type](token);
-	ft_memdel((void*)&token->values);
-	ft_memdel((void*)&token);
 }
 
 int		free_token_list(t_token *token)

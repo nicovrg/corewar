@@ -6,7 +6,7 @@
 /*   By: amamy <amamy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/21 01:21:58 by nivergne          #+#    #+#             */
-/*   Updated: 2020/03/07 01:06:11 by amamy            ###   ########.fr       */
+/*   Updated: 2020/06/30 18:08:28 by amamy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,12 +138,15 @@ int						lexer(int fd, t_data **data, t_code_line **code_line);
 /* parser.c */
 int						parser(t_data **data, t_code_line **code_line);
 int						parse_label_declarations(t_data *data, t_code_line *code_line);
-
+t_token					*parse_token_label_call(t_data *data, t_code_line *codeline, t_token *param);
+t_token					*parse_token_register(t_data *data, t_code_line *codeline, t_token *param);
+t_token					*parse_token_indirect(t_data *data, t_code_line *codeline, t_token *param);
+t_token					*parse_token_direct(t_data *data, t_code_line *codeline, t_token *param);
 /* check_for_additional_errors.c */
 
 void					check_for_additional_errors(t_data *data, t_code_line *t_code_line);
 
-t_token					*(*g_parse_parameters_func_array[PARSE_TOKEN_STATES_NUMBER])(t_data *, t_code_line *, t_token *);
+// t_token					*(*g_parse_parameters_func_array[PARSE_TOKEN_STATES_NUMBER])(t_data *, t_code_line *, t_token *);
 /* is_label_declaration.c */
 int						is_label_declaration(t_code_line *code_line);
 
@@ -162,7 +165,7 @@ int						get_tokens_from_current_line(t_code_line **c_line, char *line);
 
 	//  determine_token_type_and_length.c */
 void					determine_token_type_and_length(t_token *token);
-int						(*g_token_type_determination_func_array[NB_TOKEN_TYPE])(t_token *);
+// int						(*g_token_type_determination_func_array[NB_TOKEN_TYPE])(t_token *);
 
 	//  determine_token_type_one.c */
 int						is_label_char(char c);
@@ -238,11 +241,10 @@ int						is_str_whitespace_or_comment(char *str);
 /* helper_free.c */
 int						free_data(t_data **data);
 int						free_code_line(t_code_line **t_code_line);
-void					free_token(t_token *token);
 int						free_token_list(t_token *token);
 int						free_all(t_data **data, t_code_line **code_line);
 
 /* helper_free_token_values.c */
-void 		(*g_token_free_values_func_array[NB_TOKEN_TYPE])(t_token *);
+void					free_token(t_token *token);
 
 #endif

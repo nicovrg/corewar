@@ -6,7 +6,11 @@
 /*   By: amamy <amamy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/21 09:09:43 by amamy             #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2020/03/07 00:13:19 by amamy            ###   ########.fr       */
+=======
+/*   Updated: 2020/03/07 14:44:42 by amamy            ###   ########.fr       */
+>>>>>>> dc09d2502534d322ed60adfc9059ac93e8456b3f
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +34,12 @@ static void	free_instruction(t_token *token)
 	ft_memdel((void*)&token->values->instruction);
 	(void)token;
 }
+static void	free_unknown(t_token *token)
+{
+	if (token->values)
+		ft_memdel((void*)&token->values->unknown->lexeme);
+	ft_memdel((void*)&token->values->unknown);
+}
 
 static void	free_parameter(t_token *param)
 {
@@ -39,29 +49,28 @@ static void	free_parameter(t_token *param)
 		ft_memdel((void*)&param->values->indirect);
 	if (param->type == TOKEN_TYPE_REGISTER)
 		ft_memdel((void*)&param->values->registr);
+	if (param->type == TOKEN_TYPE_LABEL_CALL && param->values)
+		ft_memdel((void*)&param->values->label_call->lexeme);
+	ft_memdel((void*)&param->values->label_call);
 
 }
 
-static void	free_label_call(t_token *token)
+void	free_token(t_token *token)
 {
-	if (token->values)
-		ft_memdel((void*)&token->values->label_call->lexeme);
-	ft_memdel((void*)&token->values->label_call);
-}
+	int	type;
 
-static void	free_unknown(t_token *token)
-{
-	if (token->values)
-		ft_memdel((void*)&token->values->unknown->lexeme);
-	ft_memdel((void*)&token->values->unknown);
+	type = token->type;
+	if (!(type == TOKEN_TYPE_SEPARATOR))
+	{
+		if (type == TOKEN_TYPE_LABEL)
+			free_label(token);
+		else if (type == TOKEN_TYPE_INSTRUCTION)
+			free_instruction(token);
+		else if (type == TOKEN_TYPE_UNKNOWN)
+			free_unknown(token);
+		else if (type >= TOKEN_TYPE_DIRECT && type <= TOKEN_TYPE_LABEL_CALL)
+			free_parameter(token);
+	}
+	ft_memdel((void*)&token->values);
+	ft_memdel((void*)&token);
 }
-
-void 		(*g_token_free_values_func_array[NB_TOKEN_TYPE])(t_token *) = {
-	[TOKEN_TYPE_LABEL] = free_label,
-	[TOKEN_TYPE_INSTRUCTION] = free_instruction,
-	[TOKEN_TYPE_DIRECT] = free_parameter,
-	[TOKEN_TYPE_REGISTER] = free_parameter,
-	[TOKEN_TYPE_INDIRECT] = free_parameter,
-	[TOKEN_TYPE_LABEL_CALL] = free_label_call,
-	[TOKEN_TYPE_UNKNOWN] = free_unknown,
-};

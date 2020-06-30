@@ -6,7 +6,7 @@
 /*   By: amamy <amamy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/27 11:44:02 by amamy             #+#    #+#             */
-/*   Updated: 2020/03/01 18:51:15 by amamy            ###   ########.fr       */
+/*   Updated: 2020/03/07 18:47:34 by amamy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include "tokens.h"
 #include "ft_printf.h"
 
-static char	*get_label_text(t_code_line *code_line)
+static char			*get_label_text(t_code_line *code_line)
 {
 	char *label;
 
@@ -23,6 +23,11 @@ static char	*get_label_text(t_code_line *code_line)
 		return (NULL);
 	return (label);
 }
+
+/*
+** ==================== fetch_label_target ====================
+** Fetch the next line containing an instruction.
+*/
 
 static t_code_line	*fetch_label_target(t_code_line *code_line)
 {
@@ -41,11 +46,15 @@ static t_code_line	*fetch_label_target(t_code_line *code_line)
 		return (code_line);
 }
 
-static int	create_and_add_label(t_data *data, t_code_line *code_line, char *label)
+/*
+** ==================== create_and_add_label ====================
+** Initiate label declaration :  memory allocation + lexeme assignment + target line.
+*/
+
+static int			create_and_add_label(t_data *data, t_code_line *code_line, char *label)
 {
 	t_label *new_label;
 	t_label *current_label;
-
 
 	if (!(new_label = ft_memalloc(sizeof(t_label))))
 		return (0);
@@ -66,11 +75,16 @@ static int	create_and_add_label(t_data *data, t_code_line *code_line, char *labe
 	return (1);
 }
 
-static int	check_redefinition(t_code_line *line, t_label *label_list, char *label)
+/*
+** ==================== check_redefinition ====================
+** Used to check if the label declaration passed in argument does
+** not have the same lexeme as one used before.
+*/
+
+static int			check_redefinition(t_code_line *line, t_label *label_list, char *label)
 {
 	while (label_list)
 	{
-
 		if (!ft_strcmp(label_list->lexeme, label))
 			return (error_syntax_token(line->token, LABEL_REDEFINITION, 1));
 		label_list = label_list->next;
@@ -78,7 +92,14 @@ static int	check_redefinition(t_code_line *line, t_label *label_list, char *labe
 	return (1);
 }
 
-int		parse_label_declarations(t_data *data, t_code_line *code_line)
+/*
+** ==================== parse_label_declarations ====================
+** Goes through all the lines get the label declarations to initiate and
+** list them.
+** Initiate means memory allocation + lexeme assignment + target line.
+*/
+
+int					parse_label_declarations(t_data *data, t_code_line *code_line)
 {
 	char		*label_text;
 	t_code_line	*current_line;
