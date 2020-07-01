@@ -6,11 +6,7 @@
 /*   By: amamy <amamy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/05 14:21:47 by qgirard           #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2020/03/07 00:32:48 by amamy            ###   ########.fr       */
-=======
-/*   Updated: 2020/03/07 17:28:14 by amamy            ###   ########.fr       */
->>>>>>> dc09d2502534d322ed60adfc9059ac93e8456b3f
+/*   Updated: 2020/06/30 19:28:28 by amamy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +42,6 @@ static t_op	op_tab[17] =
 	{"aff", 1, 100,  2, "aff", 1, 0},
 };
 
-<<<<<<< HEAD
 
 // int				translator(t_data **data, t_code_line **lex)
 // {
@@ -54,14 +49,6 @@ static t_op	op_tab[17] =
 // 	(void)lex;
 // 	return (1);
 // }
-=======
-static int				translator(t_data **data, t_code_line **lex)
-{
-	(void)data;
-	(void)lex;
-	return (1);
-}
->>>>>>> dc09d2502534d322ed60adfc9059ac93e8456b3f
 
 static void		display_code(t_code_line *code_line)
 {

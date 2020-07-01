@@ -6,7 +6,7 @@
 /*   By: amamy <amamy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/28 13:18:15 by amamy             #+#    #+#             */
-/*   Updated: 2020/03/07 19:13:16 by amamy            ###   ########.fr       */
+/*   Updated: 2020/07/01 15:05:43 by amamy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ int			parse_instruction(t_data *data, t_code_line *code_line, int inst_position)
 	{
 		token_parse_state = PARSE_TOKEN_REGISTER;
 		while (!is_param_parsed_or_error(inst_token, current_param) \
-		&& token_parse_state < PARSE_TOKEN_STATES_NUMBER - 1)
+		&& token_parse_state < PARSE_TOKEN_STATES_NUMBER)
 		{
 			inst_token->values->instruction->args[current_param] = g_parse_parameters_func_array[token_parse_state](data, code_line, code_line->tokens[inst_position + (1 + current_param * 2)]);
 			token_parse_state++;
