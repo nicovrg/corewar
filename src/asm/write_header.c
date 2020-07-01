@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   write_name.c                                       :+:      :+:    :+:   */
+/*   write_header.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: amamy <amamy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/25 13:08:47 by amamy             #+#    #+#             */
-/*   Updated: 2020/02/25 15:42:44 by amamy            ###   ########.fr       */
+/*   Updated: 2020/07/01 16:58:13 by amamy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ static void	write_name(t_data *data, int fd)
 static void	write_instruction_section_size(t_data *data, int fd)
 {
 	unsigned char instruction_size_binary[4];
-
+	
 	instruction_size_binary[0] = data->instruction_section_size >> 24;
 	instruction_size_binary[1] = data->instruction_section_size >> 16;
 	instruction_size_binary[2] = data->instruction_section_size >> 8;
@@ -66,7 +66,7 @@ void		write_header(t_data *data, int fd)
 {
 	write_magic_number(fd);
 	write_name(data, fd);
-	data->instruction_section_size = 46; // to be removed when parser ok
+	// data->instruction_section_size = 46; // to be removed when parser ok
 	write_instruction_section_size(data, fd);
 	write_comment(data, fd);
 }
