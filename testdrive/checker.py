@@ -1,5 +1,6 @@
 import filecmp
 import os
+import subprocess
 
 TRED =  '\033[31m' # Red Text
 TGREEN =  '\033[32m' # Green Text
@@ -59,6 +60,21 @@ class Test:
 			print(TGREEN + '||||| <' + self.file + '> SUCCESS |||||' + ENDC)
 		else:
 			print(TRED + '||||| <' + self.file + '> FAILED |||||' + ENDC)
+			hexa_own = subprocess.check_output('xxd ' + self.out_own_path + self.cor_file, shell=True, universal_newlines=True)
+			hexa_model = subprocess.check_output('xxd ' + self.out_model_path + self.cor_file, shell=True, universal_newlines=True)
+			hexa_own_lst = list(hexa_own.split('\n'))
+			hexa_model_lst = list(hexa_model.split('\n'))
+			line_nb = min(len(hexa_model_lst), len(hexa_own_lst))
+			i = 0
+			while i < line_nb:
+				if hexa_own_lst[i] != hexa_model_lst[i]:
+					print("Own   :" + hexa_own_lst[i])
+					print("Model :" + hexa_model_lst[i])
+					print ("Diff at line " + str(i + 1) + " (" + hexa_own_lst[i][:9] + ")")
+					break
+				i = i + 1
+
+			
 	
 	def clean_outputs(self):
 		cmd = 'rm ' + self.out_own_path + '*'
