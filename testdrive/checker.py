@@ -60,10 +60,19 @@ class Test:
 			print(TGREEN + '||||| <' + self.file + '> SUCCESS |||||' + ENDC)
 		else:
 			print(TRED + '||||| <' + self.file + '> FAILED |||||' + ENDC)
-			hexa = subprocess.check_output('xxd ' + self.out_own_path + self.cor_file, shell=True, universal_newlines=True)
-			hexa_lst = list(hexa.split('\n'))
-			for line in hexa_lst:
-				print(line)
+			hexa_own = subprocess.check_output('xxd ' + self.out_own_path + self.cor_file, shell=True, universal_newlines=True)
+			hexa_model = subprocess.check_output('xxd ' + self.out_model_path + self.cor_file, shell=True, universal_newlines=True)
+			hexa_own_lst = list(hexa_own.split('\n'))
+			hexa_model_lst = list(hexa_model.split('\n'))
+			line_nb = min(len(hexa_model_lst), len(hexa_own_lst))
+			i = 0
+			while i < line_nb:
+				if hexa_own_lst[i] != hexa_model_lst[i]:
+					print("Own   :" + hexa_own_lst[i])
+					print("Model :" + hexa_model_lst[i])
+					print ("Diff at line " + str(i + 1) + " (" + hexa_own_lst[i][:9] + ")")
+					break
+				i = i + 1
 
 			
 	
