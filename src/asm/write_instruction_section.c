@@ -6,7 +6,7 @@
 /*   By: amamy <amamy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/25 15:55:58 by amamy             #+#    #+#             */
-/*   Updated: 2020/07/01 15:05:15 by amamy            ###   ########.fr       */
+/*   Updated: 2020/07/02 00:02:04 by amamy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,21 @@
 #include "libft.h"
 #include "ft_printf.h"
 
+
+static void	write_label_call(t_data *data, t_token *token, int fd)
+{
+	if (token->type != TOKEN_TYPE_LABEL_CALL)	
+		return ;
+	if (token->values->label_call->type == LABEL_CALL_TYPE_DIRECT)
+	{
+		if (data->op_tab[token->code_line->op_code].direct_size) // segfault here because token not allocated cause parser not coded
+			write_big_endian(fd, token->values->label_call->value, 2);
+		else
+			write_big_endian(fd, token->values->label_call->value, 4);\
+	}
+	else if (token->values->label_call->type == LABEL_CALL_TYPE_INDIRECT)
+		write_big_endian(fd, token->values->label_call->value, 2);
+}
 
 static void	write_direct(t_data *data, t_token *token, int fd)
 {
@@ -92,6 +107,7 @@ void (*g_instruction_translation_func_array[TRANSLATE_STATES_NUMBER])(t_data *, 
 	[TRANSLATE_ENCODING_BYTE] = write_encoding_byte,
 	[TRANSLATE_DIRECT] = write_direct,
 	[TRANSLATE_INDIRECT] = write_indirect,
+	[TRANSLATE_LABEL_CALL] = write_label_call,
 	[TRANSLATE_REGISTER] = write_register,
 };
 

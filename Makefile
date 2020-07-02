@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: nicolasv <nicolasv@student.42.fr>          +#+  +:+       +#+         #
+#    By: amamy <amamy@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/18 19:23:29 by nivergne          #+#    #+#              #
-#    Updated: 2020/02/12 20:02:41 by nicolasv         ###   ########.fr        #
+#    Updated: 2020/07/02 16:44:52 by amamy            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,20 +32,20 @@ $(ASM): $(OBJ_ASM) | makelib
 
 $(VM): $(OBJ_VM) | makelib
 	@echo "$(BOLD)$(GREEN)VM			$(BLUE)compile$(GREEN)		[OK]$(END)"
-	@$(CC) $(INC_PATH) $(OBJ_VM) -L libft -lft -o $(VM)
-	
+	@$(CC) $(INC_PATH) $(OBJ_VM) -L libft -lft -o $(VM) 
+
 makelib:
-	@$(MAKE) -C libft
+	@$(MAKE) --no-print-directory -C libft
 
 $(OBJ_PATH)%.o: $(SRC_PATH)%.c $(INC_FILES)
 	@mkdir -p obj
 	@mkdir -p $(dir $@)
-	@if [[ "$(findstring asm,$(basename $@))" = "asm" ]]; then\
+	@if [ "$(findstring asm,$(basename $@))" = "asm" ]; then\
 		echo "$(BOLD)$(CYAN)asm		$(BLUE)$(patsubst obj/%, %, $(basename $@))		$(GREEN)[OK]$(END)";\
 		printf "$(UP_LINE)";\
 		printf "$(ERASE_LINE)";\
     fi;
-	@if [[ "$(findstring vm,$(basename $@))" = "vm" ]]; then\
+	@if [ "$(findstring vm,$(basename $@))" = "vm" ]; then\
 		echo "$(BOLD)$(CYAN)vm		$(BLUE)$(patsubst obj/%, %, $(basename $@))		$(GREEN)[OK]$(END)";\
 		printf "$(UP_LINE)";\
 		printf "$(ERASE_LINE)";\

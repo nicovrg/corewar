@@ -3,40 +3,40 @@
 #                                                         :::      ::::::::    #
 #    colors.mk                                          :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: nicolasv <nicolasv@student.42.fr>          +#+  +:+       +#+         #
+#    By: amamy <amamy@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/09/22 23:45:41 by nivergne          #+#    #+#              #
-#    Updated: 2019/10/20 01:05:59 by nicolasv         ###   ########.fr        #
+#    Updated: 2020/07/02 15:30:24 by amamy            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-#special capacities
-UP_LINE					=					\x1b[A
-ERASE_LINE				=				 	\x1b[2K
-END						=					\x1b[0m
-BOLD					=					\x1b[1m
-UNDER					=					\x1b[4m
-REV						=					\x1b[7m
+	#special capacities
+UP_LINE					=					\033[A
+ERASE_LINE				=				 	\033[2K
+END						=					\033[0m
+BOLD					=					\033[1m
+UNDER					=					\033[4m
+REV						=					\033[7m
 
 #colors
-RED						=					\x1b[31m
-GREEN					=					\x1b[32m
-BLUE					=					\x1b[34m
-YELLOW					=					\x1b[33m
-CYAN					=					\x1b[36m
-GREY					=					\x1b[40m
-WHITE					=					\x1b[37m
-PINK					=					\x1b[38;2;152;0;255m
-PURPLE					=					\x1b[38;2;114;0;255m
-DARK_PURPLE				=					\x1b[38;2;65;0;255m
-DARK_PINK				=					\x1b[38;2;86;0;255m
+RED						=					\033[31m
+GREEN					=					\033[32m
+BLUE					=					\033[34m
+YELLOW					=					\033[33m
+CYAN					=					\033[36m
+GREY					=					\033[40m
+WHITE					=					\033[37m
+PINK					=					\033[38;2;152;0;255m
+PURPLE					=					\033[38;2;114;0;255m
+DARK_PURPLE				=					\033[38;2;65;0;255m
+DARK_PINK				=					\033[38;2;86;0;255m
 
 #background colors
-BACK_RED				=					\x1b[41m
-BACK_GREEN				=					\x1b[42m
-BACK_BLUE				=					\x1b[44m
-BACK_YELLOW				=					\x1b[43m
-BACK_CYAN				=					\x1b[46m
-BACK_PURPLE				=					\x1b[45m
-BACK_GREY				=					\x1b[40m
-BACK_WHITE				=					\x1b[47m
+BACK_RED				=					\033[41m
+BACK_GREEN				=					\033[42m
+BACK_BLUE				=					\033[44m
+BACK_YELLOW				=					\033[43m
+BACK_CYAN				=					\033[46m
+BACK_PURPLE				=					\033[45m
+BACK_GREY				=					\033[40m
+BACK_WHITE				=					\033[47m

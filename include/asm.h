@@ -6,7 +6,7 @@
 /*   By: amamy <amamy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/21 01:21:58 by nivergne          #+#    #+#             */
-/*   Updated: 2020/06/30 18:08:28 by amamy            ###   ########.fr       */
+/*   Updated: 2020/07/02 00:01:42 by amamy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,8 +67,9 @@ typedef enum			e_translator_states
 	TRANSLATE_ENCODING_BYTE,			// 1
 	TRANSLATE_DIRECT,					// 2
 	TRANSLATE_INDIRECT,					// 3
-	TRANSLATE_REGISTER,					// 4
-	TRANSLATE_STATES_NUMBER,			// 5
+	TRANSLATE_LABEL_CALL,				// 4
+	TRANSLATE_REGISTER,					// 5
+	TRANSLATE_STATES_NUMBER,			// 6
 }						t_translator_states;	
 
 typedef enum			e_token_type

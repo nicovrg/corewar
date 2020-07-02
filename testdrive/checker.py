@@ -1,5 +1,6 @@
 import filecmp
 import os
+import subprocess
 
 TRED =  '\033[31m' # Red Text
 TGREEN =  '\033[32m' # Green Text
@@ -59,6 +60,12 @@ class Test:
 			print(TGREEN + '||||| <' + self.file + '> SUCCESS |||||' + ENDC)
 		else:
 			print(TRED + '||||| <' + self.file + '> FAILED |||||' + ENDC)
+			hexa = subprocess.check_output('xxd ' + self.out_own_path + self.cor_file, shell=True, universal_newlines=True)
+			hexa_lst = list(hexa.split('\n'))
+			for line in hexa_lst:
+				print(line)
+
+			
 	
 	def clean_outputs(self):
 		cmd = 'rm ' + self.out_own_path + '*'
