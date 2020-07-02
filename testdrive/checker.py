@@ -2,10 +2,13 @@ import filecmp
 import os
 import subprocess
 
+TGREY = '\033[30m'  # Grey Text
 TRED =  '\033[31m' # Red Text
 TGREEN =  '\033[32m' # Green Text
 TYELLOW =  '\033[33m' # Yellow Text
+BPURPLE = '\033[45m' # Purple Background
 ENDC = '\033[m' # reset to the defaults
+
 
 files = os.listdir('./src')
 path_asm_own = './asm_own'
@@ -25,7 +28,7 @@ class Test:
 		self.diff = bool
 
 	def run_test(self):
-		print('<===== Test Source file : ' + file + ' =====>')
+		print(BPURPLE + TGREY + '<===== Test Source file : ' + ENDC + BPURPLE + file + ENDC + BPURPLE + TGREY + ' =====>' + ENDC + '\n')
 		if self.run_bins() == 0:
 			self.cmp_outputs()
 		print("<==============================>\n\n")
@@ -36,7 +39,7 @@ class Test:
 		cmd = self.path_asm_own + ' src/' + self.file + ' > /dev/null'
 		os.system(cmd)
 		if os.path.isfile('src/' + self.cor_file):
-			print('\t\tYour .cor is here')
+			print('\town .cor is here')
 			os.system('mv ' + self.src_cor_file + ' '+ self.out_own_path)
 		else:
 			file_missing = 1
@@ -46,7 +49,8 @@ class Test:
 		cmd = path_asm_model + ' src/' + file
 		os.system(cmd)
 		if os.path.isfile('src/' + '/' + self.cor_file):
-			print('\t42 .cor is here')
+			print('\033[A\033[2K')
+			print('\t\033[Amodel .cor is here\n')
 			os.system('mv ' + self.src_cor_file + ' '+ self.out_model_path)
 		else:
 			file_missing = 2
@@ -83,7 +87,7 @@ class Test:
 		os.system(cmd)
 		# print(cmd)
 
-
+os.system('clear')
 test_lst = []
 for file in files:
 	tmp_test = Test(file, path_asm_own, path_asm_model, out_own_path, out_model_path)
