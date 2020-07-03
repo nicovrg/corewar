@@ -6,7 +6,7 @@
 /*   By: amamy <amamy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/10/04 11:33:27 by zaz               #+#    #+#             */
-/*   Updated: 2020/06/30 18:08:10 by amamy            ###   ########.fr       */
+/*   Updated: 2020/07/04 00:15:33 by amamy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
 
 #define REG_CODE				1
 #define DIR_CODE				2
-#define IND_CODE				4
+#define IND_CODE				3
 
 #define MAX_ARGS_NUMBER			4
 #define MAX_PLAYERS				4
