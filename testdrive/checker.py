@@ -1,5 +1,6 @@
-import filecmp
 import os
+import sys
+import filecmp
 import subprocess
 
 TGREY = '\033[30m'  # Grey Text
@@ -9,8 +10,16 @@ TYELLOW =  '\033[33m' # Yellow Text
 BPURPLE = '\033[45m' # Purple Background
 ENDC = '\033[m' # reset to the defaults
 
+os.system('clear')
+args = sys.argv
+files = []
+if len(args) > 1:
+	args.pop(0)
+	for arg in args:
+		files = files + [arg + '.s']
+else:
+	files = os.listdir('./src')
 
-files = os.listdir('./src')
 path_asm_own = './asm_own'
 path_asm_model = './asm_model'
 out_own_path = 'output/own/'
@@ -77,22 +86,19 @@ class Test:
 					print ("Diff at line " + str(i + 1) + " (" + hexa_own_lst[i][:9] + ")")
 					break
 				i = i + 1
-
-			
 	
 	def clean_outputs(self):
-		cmd = 'rm ' + self.out_own_path + '*'
-		os.system(cmd)
-		cmd = 'rm ' + self.out_model_path + '*'
+		cmd = 'rm ' + self.out_own_path + '*' + '&&' + 'rm ' + self.out_model_path + '*'
 		os.system(cmd)
 		# print(cmd)
 
-os.system('clear')
 test_lst = []
+
 for file in files:
 	tmp_test = Test(file, path_asm_own, path_asm_model, out_own_path, out_model_path)
 	test_lst.append(tmp_test)
 	tmp_test.run_test()
+
 # tmp_test.clean_outputs()
 
 	
