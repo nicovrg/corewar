@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_tokens_from_current_line.c                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amamy <amamy@student.42.fr>                +#+  +:+       +#+        */
+/*   By: nico <nico@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/23 04:42:59 by nivergne          #+#    #+#             */
-/*   Updated: 2020/02/21 05:49:16 by amamy            ###   ########.fr       */
+/*   Updated: 2020/07/03 18:11:08 by nico             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ static t_token	*create_token(t_code_line **current_line, int position, int token
 	new->token_nb = token_nb;
 	new->code_line = (*current_line);
 	determine_token_type_and_length(new);
+	new->token_name = ft_strndup(&((*current_line)->line)[position], new->length);
 	new->next = NULL;
 	return (new);
 }

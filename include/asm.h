@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   asm.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amamy <amamy@student.42.fr>                +#+  +:+       +#+        */
+/*   By: nico <nico@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/21 01:21:58 by nivergne          #+#    #+#             */
-/*   Updated: 2020/07/02 00:01:42 by amamy            ###   ########.fr       */
+/*   Updated: 2020/07/03 17:01:56 by nico             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,9 +111,10 @@ typedef struct			s_token
 	int					position;
 	int					token_nb;
 	int					mem_address;
+	char				*token_name;
 	struct s_code_line	*code_line; 
 	union u_type		*values;
-	struct s_token		*next;  
+	struct s_token		*next;
 }						t_token;
 
 typedef struct			s_code_line

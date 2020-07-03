@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   write_instruction_section.c                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amamy <amamy@student.42.fr>                +#+  +:+       +#+        */
+/*   By: nico <nico@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/25 15:55:58 by amamy             #+#    #+#             */
-/*   Updated: 2020/07/02 00:02:04 by amamy            ###   ########.fr       */
+/*   Updated: 2020/07/03 19:13:54 by nico             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,8 +63,8 @@ static void	write_register(t_data *data, t_token *token, int fd)
 
 static void	write_encoding_byte(t_data *data, t_token *token, int fd)
 {
-	int	i;
-	int	byte;
+	int		i;
+	int		byte;
 	char	binary[1];
 
 	i = 0;
@@ -76,16 +76,17 @@ static void	write_encoding_byte(t_data *data, t_token *token, int fd)
 	{
 		while (i < 3 && token->values->instruction->args[i])
 		{
-			if (token->values->instruction->args[i]->type == TOKEN_TYPE_DIRECT)
+			if (token->values->instruction->args[i]->type == TOKEN_TYPE_DIRECT || check_label_call_type(token->values->instruction->args[i], LABEL_CALL_TYPE_DIRECT))
 				binary[0] = binary[0] + (char)((DIR_CODE << byte));
-			else if (token->values->instruction->args[i]->type == TOKEN_TYPE_INDIRECT)
+			else if (token->values->instruction->args[i]->type == TOKEN_TYPE_INDIRECT  || check_label_call_type(token->values->instruction->args[i], LABEL_CALL_TYPE_INDIRECT))
 				binary[0] = binary[0] + (char)((IND_CODE << byte));
 			else if (token->values->instruction->args[i]->type == TOKEN_TYPE_REGISTER)
 				binary[0] = binary[0] + (char)((REG_CODE << byte));
-			i++;
 			byte = byte - 2;
+			i++;
 		}
 	}
+	ft_printf("%p", binary);
 	write(fd, binary, 1);
 }
 
@@ -96,7 +97,7 @@ static void	write_opcode(t_data *data, t_token *token, int fd)
 
 	if (token->type != TOKEN_TYPE_INSTRUCTION)	
 		return ;
-	op_code = (token->values->instruction->type );
+	op_code = (token->values->instruction->type);
 	binary[0] = (char)op_code;
 	write(fd, binary, 1);
 	(void)data;
@@ -128,9 +129,14 @@ void		write_instruction(t_data *data, t_code_line *code_line, int fd)
 	// ft_printf("token : %d\n", code_line->token->type);
 	current_token = skip_label_declaration(code_line->token);
 	// ft_printf("token apres : %d\n", code_line->token->type);
+
+	// ft_printf("\nline = %s\n\n", current_token->code_line->line);
+	// ft_printf("token name = %s\t\t\t", current_token->token_name);
+	// ft_printf("token type = %d\t\t\t", current_token->type);
+	// ft_printf("token number = %d\t\t\t", current_token->token_nb);
+	// ft_printf("token position = %d\n", current_token->position);
 	while (current_token)
 	{
-		
 		while (current_state <= TRANSLATE_REGISTER)
 		{
 			g_instruction_translation_func_array[current_state](data, current_token, fd);
