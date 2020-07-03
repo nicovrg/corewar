@@ -6,7 +6,7 @@
 /*   By: amamy <amamy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/27 11:44:02 by amamy             #+#    #+#             */
-/*   Updated: 2020/03/07 18:47:34 by amamy            ###   ########.fr       */
+/*   Updated: 2020/07/03 23:10:49 by amamy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ static int			create_and_add_label(t_data *data, t_code_line *code_line, char *la
 		return (0);
 	new_label->lexeme = label;
 	new_label->target = fetch_label_target(code_line);
-	code_line->token->values ->label = new_label;
+	code_line->token->values->label = new_label;
 	if (!data->label_list)
 		data->label_list = new_label;
 	else
