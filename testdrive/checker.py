@@ -7,7 +7,9 @@ TGREY = '\033[30m'  # Grey Text
 TRED =  '\033[31m' # Red Text
 TGREEN =  '\033[32m' # Green Text
 TYELLOW =  '\033[33m' # Yellow Text
-BPURPLE = '\033[45m' # Purple Background
+BPURPLE = '\033[44m' # Purple Background
+BGREEN = '\033[42m' # GREEN Background
+BRED = '\033[41m' # RED Background
 ENDC = '\033[m' # reset to the defaults
 
 os.system('clear')
@@ -40,7 +42,6 @@ class Test:
 		print(BPURPLE + TGREY + '<===== Test Source file : ' + ENDC + BPURPLE + file + ENDC + BPURPLE + TGREY + ' =====>' + ENDC + '\n')
 		if self.run_bins() == 0:
 			self.cmp_outputs()
-		print("<==============================>\n\n")
 		
 	def run_bins(self):
 		file_missing = 0
@@ -52,7 +53,8 @@ class Test:
 			os.system('mv ' + self.src_cor_file + ' '+ self.out_own_path)
 		else:
 			file_missing = 1
-			print(TYELLOW + 'No OUTPUTS for your ASM buddy' + ENDC)
+			self.file_missing = 1
+			print('\t' + TYELLOW + 'No OUTPUTS for your ASM buddy' + ENDC + '\n')
 		
 		print('\n\tCompiling with 42 asm ...')
 		cmd = path_asm_model + ' src/' + file
@@ -63,16 +65,18 @@ class Test:
 			os.system('mv ' + self.src_cor_file + ' '+ self.out_model_path)
 		else:
 			file_missing = 2
-			print(TYELLOW + 'No OUTPUTS for 42 ASM' + ENDC)
+			print('\t' + TYELLOW + 'No OUTPUTS for 42 ASM' + ENDC + '\n')
+			print('\t' + BGREEN + TGREY + '<===== SUCCESS =====>' + ENDC + '\n')
+		
 		return file_missing
 
 	
 	def cmp_outputs(self):
 		diff = filecmp.cmp(self.out_own_path + self.cor_file, self.out_model_path + self.cor_file)
 		if diff is True:
-			print(TGREEN + '||||| <' + self.file + '> SUCCESS |||||' + ENDC)
+			print('\t' + BGREEN + TGREY + '<===== SUCCESS =====>' + ENDC + '\n')
 		else:
-			print(TRED + '||||| <' + self.file + '> FAILED |||||' + ENDC)
+			print('\t' + BRED + TGREY + '<===== FAIL =====>' + ENDC + '\n')
 			hexa_own = subprocess.check_output('xxd ' + self.out_own_path + self.cor_file, shell=True, universal_newlines=True)
 			hexa_model = subprocess.check_output('xxd ' + self.out_model_path + self.cor_file, shell=True, universal_newlines=True)
 			hexa_own_lst = list(hexa_own.split('\n'))
@@ -83,7 +87,7 @@ class Test:
 				if hexa_own_lst[i] != hexa_model_lst[i]:
 					print("Own   :" + hexa_own_lst[i])
 					print("Model :" + hexa_model_lst[i])
-					print ("Diff at line " + str(i + 1) + " (" + hexa_own_lst[i][:9] + ")")
+					print ("Diff at line " + str(i + 1) + " (" + hexa_own_lst[i][:9] + ")" + '\n')
 					break
 				i = i + 1
 	
