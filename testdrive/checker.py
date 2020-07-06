@@ -8,6 +8,7 @@ TRED =  '\033[31m' # Red Text
 TGREEN =  '\033[32m' # Green Text
 TYELLOW =  '\033[33m' # Yellow Text
 BPURPLE = '\033[44m' # Purple Background
+BYELLOW = '\033[43m' # Yellow Background
 BGREEN = '\033[42m' # GREEN Background
 BRED = '\033[41m' # RED Background
 ENDC = '\033[m' # reset to the defaults
@@ -52,7 +53,7 @@ class Test:
 			print('\town .cor is here')
 			os.system('mv ' + self.src_cor_file + ' '+ self.out_own_path)
 		else:
-			file_missing = 1
+			file_missing = file_missing + 1
 			self.file_missing = 1
 			print('\t' + TYELLOW + 'No OUTPUTS for your ASM buddy' + ENDC + '\n')
 		
@@ -64,9 +65,14 @@ class Test:
 			print('\t\033[Amodel .cor is here\n')
 			os.system('mv ' + self.src_cor_file + ' '+ self.out_model_path)
 		else:
-			file_missing = 2
+			file_missing = file_missing + 2
 			print('\t' + TYELLOW + 'No OUTPUTS for 42 ASM' + ENDC + '\n')
-			print('\t' + BGREEN + TGREY + '<===== SUCCESS =====>' + ENDC + '\n')
+			
+		if file_missing == 3:
+			print('\t' + BGREEN + TGREY + '<===== BOTH MISSING =====>' + ENDC + '\n')
+		elif file_missing != 0 and file_missing != 3:
+			print('\t' + BYELLOW + TGREY + '<===== FAIL =====>' + ENDC + '\n')
+
 		
 		return file_missing
 
