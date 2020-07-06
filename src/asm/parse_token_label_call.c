@@ -6,7 +6,7 @@
 /*   By: amamy <amamy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/07 14:20:38 by amamy             #+#    #+#             */
-/*   Updated: 2020/03/07 19:58:18 by amamy            ###   ########.fr       */
+/*   Updated: 2020/07/06 14:49:21 by amamy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ static void	set_label_call_target(t_data *data, t_token *label_call)
 ** If the type of the lexeme Received is LABEL_CALL, give its values.
 */
 
+
 t_token	*parse_token_label_call(t_data *data, t_code_line *codeline, t_token *param)
 {
 	t_label_call *label_call;
@@ -77,7 +78,8 @@ t_token	*parse_token_label_call(t_data *data, t_code_line *codeline, t_token *pa
 			codeline->errors = MEMORY_ALLOCATION_ERROR;
 			return (NULL);
 		}
-		if (data->op_tab[codeline->op_code].direct_size)
+		if (check_label_call_type(param, LABEL_CALL_TYPE_INDIRECT) \
+		|| data->op_tab[codeline->op_code].direct_size)
 			codeline->instruction_size = codeline->instruction_size + 2;
 		else
 			codeline->instruction_size = codeline->instruction_size + 4;
