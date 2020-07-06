@@ -71,7 +71,7 @@ class Test:
 		if file_missing == 3:
 			print('\t' + BGREEN + TGREY + '<===== BOTH MISSING =====>' + ENDC + '\n')
 		elif file_missing != 0 and file_missing != 3:
-			print('\t' + BYELLOW + TGREY + '<===== FAIL =====>' + ENDC + '\n')
+			print('\t' + BYELLOW + TGREY + '<===== FAIL? =====>' + ENDC + '\n')
 
 		
 		return file_missing
