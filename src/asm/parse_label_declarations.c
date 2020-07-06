@@ -6,7 +6,7 @@
 /*   By: amamy <amamy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/27 11:44:02 by amamy             #+#    #+#             */
-/*   Updated: 2020/07/03 23:10:49 by amamy            ###   ########.fr       */
+/*   Updated: 2020/07/06 22:23:15 by amamy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ static t_code_line	*fetch_label_target(t_code_line *code_line)
 	{
 		if (code_line->next && code_line->next->nb_token > 1)
 			return (code_line->next);
-		while (is_only_label(tmp))
+		while (is_only_label(tmp) && tmp->next)
 			tmp = tmp->next;
 		return (tmp);
 	}

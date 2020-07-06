@@ -6,7 +6,7 @@
 /*   By: amamy <amamy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/25 15:55:58 by amamy             #+#    #+#             */
-/*   Updated: 2020/07/04 00:18:02 by amamy            ###   ########.fr       */
+/*   Updated: 2020/07/07 00:44:10 by amamy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ static void	write_encoding_byte(t_data *data, t_token *token, int fd)
 			i++;
 		}
 	}
-	ft_printf("%p", binary);
+	// ft_printf("%p", binary);
 	write(fd, binary, 1);
 }
 

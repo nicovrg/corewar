@@ -6,7 +6,7 @@
 /*   By: amamy <amamy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/19 02:56:10 by amamy             #+#    #+#             */
-/*   Updated: 2020/06/30 18:27:39 by amamy            ###   ########.fr       */
+/*   Updated: 2020/07/07 00:56:21 by amamy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,18 +22,28 @@
 ** This function goes through the list of label_call and assign their value.
 */
 
-static void			labels_calls_computing(t_data *data)
+static void			labels_calls_computing(t_data *data, t_code_line *last_instruction, int current_byte)
 {
 	t_label_call	*current;
 	int				line_mem_address;
 
 	current = data->label_calls;
+
+	(void)current_byte;
+	(void)last_instruction;
 	if (!current)
 		return ;
 	while (current)
-	{
+	{	
+		if (!(current->target->mem_address) && current->target->next == NULL)
+		{
+			current->target->mem_address = current_byte;
+		}
 		line_mem_address = current->token->code_line->mem_address;
-		current->value = current->target->mem_address - line_mem_address;
+		if (current->target)
+			current->value = current->target->mem_address - line_mem_address;
+		else
+			current->value = 0;
 		current = current->next;
 	}
 }
@@ -44,13 +54,12 @@ static void			labels_calls_computing(t_data *data)
 ** and the size of this instruction.
 */
 
-static void			update_instruction_size_and_address(t_data *data, t_code_line *code_line, int current_byte[1])
+static void			update_instruction_size(t_data *data, t_code_line *code_line)
 {
 	if (data->op_tab[code_line->op_code].encoding_byte)
 		code_line->instruction_size = (code_line->instruction_size + 2);
 	else
 		code_line->instruction_size++;
-	code_line->mem_address = current_byte[0];
 }
 
 /*
@@ -64,7 +73,7 @@ static int			parse_line(t_data *data, t_code_line *code_line, int inst_position,
 {
 	if (!check_instruction_validity(data, code_line, inst_position))
 		return (0);
-	update_instruction_size_and_address(data, code_line, current_byte);
+	update_instruction_size(data, code_line);
 	if (!code_line->errors)
 	{
 		if (!parse_instruction(data, code_line, inst_position))
@@ -85,7 +94,7 @@ static int			parse_line(t_data *data, t_code_line *code_line, int inst_position,
 
 static t_code_line	*skip_label_only_lines(t_code_line *code_line)
 {
-	while (is_only_label(code_line))
+	while (code_line && is_only_label(code_line))
 		code_line = code_line->next;
 	return (code_line);
 }
@@ -108,18 +117,19 @@ int					parser(t_data **data, t_code_line **code_line)
 	current_line = (*code_line);
 	if (!(parse_label_declarations(*data, *code_line)))
 		return (0);
-	while ((current_line = skip_label_only_lines(current_line)))
+	while (((current_line = skip_label_only_lines(current_line))))
 	{
 		if (current_line->token->type == TOKEN_TYPE_LABEL)
 			inst_token_position = 1;
 		else
 			inst_token_position = 0;
+		current_line->mem_address = current_byte;
 		if (!(parse_line(*data, current_line, inst_token_position, &current_byte)))
 			return (0);
 		if (current_line)
 			current_line = current_line->next;
 	}
-	labels_calls_computing(*data);
+	labels_calls_computing(*data, current_line, current_byte);
 	(*data)->instruction_section_size = current_byte;
 	return (1);
 }

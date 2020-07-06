@@ -6,7 +6,7 @@
 /*   By: amamy <amamy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/21 09:09:43 by amamy             #+#    #+#             */
-/*   Updated: 2020/06/30 18:30:25 by amamy            ###   ########.fr       */
+/*   Updated: 2020/07/07 00:51:34 by amamy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,7 @@ void	free_token(t_token *token)
 		else if (type >= TOKEN_TYPE_DIRECT && type <= TOKEN_TYPE_LABEL_CALL)
 			free_parameter(token);
 	}
+	ft_memdel((void*)&token->token_name);
 	ft_memdel((void*)&token->values);
 	ft_memdel((void*)&token);
 }

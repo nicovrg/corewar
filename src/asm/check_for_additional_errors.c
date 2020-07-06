@@ -6,7 +6,7 @@
 /*   By: amamy <amamy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/06 15:02:04 by amamy             #+#    #+#             */
-/*   Updated: 2020/03/06 16:59:45 by amamy            ###   ########.fr       */
+/*   Updated: 2020/07/07 00:45:28 by amamy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,6 @@ static void	check_if_crap_after_op(t_data *data, t_code_line *code_line)
 		i++;
 		token = token->next;
 	}
-	// ft_printf("line nb : %d\n", code_line->nb_line);
-	// 	ft_printf("size : %d\n", size);
 	if (token)
 	{
 		error_syntax_token(token, TOKEN_AFTER_OP, 1);

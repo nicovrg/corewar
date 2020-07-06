@@ -6,7 +6,7 @@
 /*   By: amamy <amamy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/20 23:58:28 by amamy             #+#    #+#             */
-/*   Updated: 2020/07/03 23:29:54 by amamy            ###   ########.fr       */
+/*   Updated: 2020/07/07 00:55:14 by amamy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,8 +55,6 @@ int		is_only_label(t_code_line *code_line)
 
 int		is_label_declaration(t_code_line *code_line)
 {
-	if ((!code_line->next) && !(code_line->tokens[1]))
-		return (0);
 	if (code_line->token->type == TOKEN_TYPE_LABEL)
 		return (1);
 	return (0);
