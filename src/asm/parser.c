@@ -6,7 +6,7 @@
 /*   By: amamy <amamy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/19 02:56:10 by amamy             #+#    #+#             */
-/*   Updated: 2020/07/07 00:56:21 by amamy            ###   ########.fr       */
+/*   Updated: 2020/07/08 00:59:03 by amamy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,22 +15,12 @@
 #include "tokens.h"
 #include "ft_printf.h"
 
-/*
-** ==================== labels_calls_computing ====================
-** Because labels alues can be calculated only at the last moment, we cannot
-** get them during the parsing.
-** This function goes through the list of label_call and assign their value.
-*/
-
-static void			labels_calls_computing(t_data *data, t_code_line *last_instruction, int current_byte)
+static void			labels_calls_computing(t_data *data, int current_byte)
 {
 	t_label_call	*current;
 	int				line_mem_address;
 
 	current = data->label_calls;
-
-	(void)current_byte;
-	(void)last_instruction;
 	if (!current)
 		return ;
 	while (current)
@@ -44,6 +34,7 @@ static void			labels_calls_computing(t_data *data, t_code_line *last_instruction
 			current->value = current->target->mem_address - line_mem_address;
 		else
 			current->value = 0;
+		
 		current = current->next;
 	}
 }
@@ -129,7 +120,7 @@ int					parser(t_data **data, t_code_line **code_line)
 		if (current_line)
 			current_line = current_line->next;
 	}
-	labels_calls_computing(*data, current_line, current_byte);
+	labels_calls_computing(*data, current_byte);
 	(*data)->instruction_section_size = current_byte;
 	return (1);
 }

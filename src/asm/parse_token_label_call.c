@@ -6,7 +6,7 @@
 /*   By: amamy <amamy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/07 14:20:38 by amamy             #+#    #+#             */
-/*   Updated: 2020/07/07 00:40:40 by amamy            ###   ########.fr       */
+/*   Updated: 2020/07/08 01:05:00 by amamy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,11 @@ static void	set_label_call_target(t_data *data, t_token *label_call)
 			add_label_call_to_queue(data, label_call->values->label_call);
 		}
 		declarations = declarations->next;
+	}
+	if (!label_call->values->label_call->target)
+	{
+		label_call->error = UNDECLARED_LABEL_CALL;
+		label_call->code_line->errors = LINE_ERROR_SYNTAX;
 	}
 }
 
