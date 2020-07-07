@@ -10,8 +10,15 @@ TYELLOW =  '\033[33m' # Yellow Text
 BPURPLE = '\033[44m' # Purple Background
 BYELLOW = '\033[43m' # Yellow Background
 BGREEN = '\033[42m' # GREEN Background
+BLIGTH_BLUE = '\033[104m' # GREEN Background
 BRED = '\033[41m' # RED Background
 ENDC = '\033[m' # reset to the defaults
+
+SUCCESS = 0
+BOTH_MISSING = 1
+BEHAVIORS_DIFFERS = 2
+FAILED = 3
+
 
 os.system('clear')
 args = sys.argv
@@ -120,12 +127,47 @@ class Run_Test:
 	def __init__(self, lst_files):
 		self.files = lst_files
 		self.lst_tests = []
+		self.files_nb = len(lst_files)
+		self.successes = 0
+		self.both_missing = 0
+		self.behaviors_diff = 0
+		self.failed = 0
+	
+	def run(self):
+		self.create_lst_tests()
+		self.run_tests()
+		self.count_results()
+		self.print_results()
 
+	def create_lst_tests(self):
 		for file in self.files:
 			self.tmp_test = Test(file, path_asm_own, path_asm_model, out_own_path, out_model_path)
 			self.lst_tests.append(self.tmp_test)
-			self.tmp_test.run_test()
-	
-	# def create_lst_tests:
 
+	def run_tests(self):
+		for test in self.lst_tests:
+			test.run_test()
+
+	def count_results(self):
+		current_res = 0
+		for test in self.lst_tests:
+			current_res = test.get_result()
+			if current_res is SUCCESS:
+				self.successes += 1
+			if current_res is BOTH_MISSING:
+				self.both_missing += 1
+			if current_res is BEHAVIORS_DIFFERS:
+				self.behaviors_diff += 1
+			if current_res is FAILED:
+				self.failed += 1
+
+	def print_results(self):
+		print(BLIGTH_BLUE + TGREY + '<===== SUMMARY =====>' + ENDC + '\n')
+		print("Total files :", self.files_nb)
+		print("Success :", self.successes)
+		print("Both missing :", self.both_missing)
+		print("Behaviors differs :", self.behaviors_diff)
+		print("Failed :", self.failed)
+		
 tests = Run_Test(files)
+tests.run()
