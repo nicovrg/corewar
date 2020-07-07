@@ -7,22 +7,32 @@ TGREY = '\033[30m'  # Grey Text
 TRED =  '\033[31m' # Red Text
 TGREEN =  '\033[32m' # Green Text
 TYELLOW =  '\033[33m' # Yellow Text
+TCYAN = '\033[36m' # Cyan Text
 BPURPLE = '\033[44m' # Purple Background
 BYELLOW = '\033[43m' # Yellow Background
 BGREEN = '\033[42m' # GREEN Background
-BLIGTH_BLUE = '\033[104m' # GREEN Background
+BLIGTH_BLUE = '\033[104m' # BLUE Background
+TMAGENTA = '\033[35m'
 BRED = '\033[41m' # RED Background
 ENDC = '\033[m' # reset to the defaults
+UP_LINE = '\033[A'
+ERASE_LINE = '\033[2K'
+BOLD = '\033[1m'
 
 SUCCESS = 0
 BOTH_MISSING = 1
 BEHAVIORS_DIFFERS = 2
 FAILED = 3
 
-
 os.system('clear')
 args = sys.argv
 files = []
+mode = ""
+
+if (len(args) > 1 and args[1] == "--oneline"):
+	args.pop(1)
+	mode = "--oneline"
+
 if len(args) > 1:
 	args.pop(0)
 	for arg in args:
@@ -47,9 +57,13 @@ class Test:
 		self.result = -1
 
 	def run_test(self):
-		print(BPURPLE + TGREY + '<===== Test Source file : ' + ENDC + BPURPLE + self.file + ENDC + BPURPLE + TGREY + ' =====>' + ENDC + '\n')
-		if self.run_bins() == 0:
-			self.cmp_outputs()
+		if (mode == "--oneline"):
+			print(BOLD + TCYAN + "Testing\t\t"  + self.file.ljust(20, ' ') + ENDC + '\t', end = '')
+			self.run_bins_oneline()
+		else:
+			print(BPURPLE + TGREY + '<===== Test Source file : ' + ENDC + BPURPLE + self.file + ENDC + BPURPLE + TGREY + ' =====>' + ENDC, end = '')
+			if self.run_bins_debug() == 0:
+				self.cmp_outputs()
 
 	def __check_or_create_folders(self):
 		if os.path.isdir("./output") is False:
@@ -58,8 +72,38 @@ class Test:
 			os.system("mkdir output/own")
 		if os.path.isdir("./output/model") is False:
 			os.system("mkdir output/model")
-		
-	def run_bins(self):
+	
+	def run_bins_oneline(self):
+		file_missing = 0
+		self.__check_or_create_folders()
+		os.system(self.path_asm_own + ' src/' + self.file + ' > /dev/null')
+		if os.path.isfile('src/' + self.cor_file):
+			os.system('mv ' + self.src_cor_file + ' ' + self.out_own_path)
+		else:
+			file_missing = file_missing + 1
+			self.file_missing = 1
+		os.system(path_asm_model + ' src/' + self.file + ' > /dev/null')
+		if os.path.isfile('src/' + '/' + self.cor_file):
+			os.system('mv ' + self.src_cor_file + ' '+ self.out_model_path)
+		else:
+			file_missing = file_missing + 2
+		if file_missing == 3:
+			print('\t' + BOLD + TGREEN + '[SUCCESS]'.ljust(12, ' ') + ENDC + TGREEN + '(both missing)' + ENDC)
+			self.result = 1
+		elif file_missing != 0 and file_missing != 3:
+			print('\t' + BOLD + TRED + '[FAIL]'.ljust(12, ' ') + ENDC + TRED + '(behavior differ)' + ENDC)
+			self.result = 2
+		if (file_missing == 0):
+			diff = filecmp.cmp(self.out_own_path + self.cor_file, self.out_model_path + self.cor_file)
+			if diff is True:
+				print('\t' + BOLD + TGREEN + '[SUCCESS]'.ljust(12, ' ') + ENDC + TGREEN + '(output match)' + ENDC)
+				self.result = 0
+			else:
+				print('\t' + BOLD + TRED + '[FAIL]'.ljust(12, ' ') + ENDC + TRED + '(output dont match)' + ENDC)
+		return file_missing
+
+
+	def run_bins_debug(self):
 		file_missing = 0
 		self.__check_or_create_folders()
 		print('\tCompiling with YOUR asm ...')
@@ -77,8 +121,8 @@ class Test:
 		cmd = path_asm_model + ' src/' + self.file
 		os.system(cmd)
 		if os.path.isfile('src/' + '/' + self.cor_file):
-			print('\033[A\033[2K')
-			print('\t\033[Amodel .cor is here\n')
+			print(UP_LINE + ERASE_LINE)
+			print('\t' + UP_LINE + 'model .cor is here\n')
 			os.system('mv ' + self.src_cor_file + ' '+ self.out_model_path)
 		else:
 			file_missing = file_missing + 2
@@ -90,8 +134,6 @@ class Test:
 		elif file_missing != 0 and file_missing != 3:
 			print('\t' + BYELLOW + TGREY + '<===== BEHAVIORS DIFFERS =====>' + ENDC + '\n')
 			self.result = 2
-
-		
 		return file_missing
 	
 	def cmp_outputs(self):
@@ -168,6 +210,6 @@ class Run_Test:
 		print("Both missing :", self.both_missing)
 		print("Behaviors differs :", self.behaviors_diff)
 		print("Failed :", self.failed)
-		
+
 tests = Run_Test(files)
 tests.run()
