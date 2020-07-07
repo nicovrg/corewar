@@ -6,7 +6,7 @@
 /*   By: amamy <amamy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/05 14:21:47 by qgirard           #+#    #+#             */
-/*   Updated: 2020/06/30 19:28:28 by amamy            ###   ########.fr       */
+/*   Updated: 2020/07/07 21:03:59 by amamy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,18 @@ static void		display_code(t_code_line *code_line)
 	ft_printf("\n<===============>\nWriting out .cor file.\n");
 }
 
+static int		is_invalid_filename(char *filename)
+{
+		int		dif;
+		int		index;
+
+		index = ft_strlen(filename) - 2;
+		dif = ft_strcmp(&filename[index], ".s");
+		if (dif)
+			return (1);
+		return (0);
+}
+
 static int		check_args_and_open_files(int argc, char **argv, t_data **data)
 {
 	int			fd;
@@ -85,8 +97,8 @@ static int		check_args_and_open_files(int argc, char **argv, t_data **data)
 		return (0);
 	if (argc != 2)
 		return (error_msg(ERR_MAIN_NB_PARAMETERS, 1));
-	if (argv[1] && ft_strchr(argv[1], '.') && ft_strcmp(ft_strchr(argv[1], '.'), ".s")) // 18/20/2020 : check if we need to do this check, I think we can compile everything
-		return (error_msg(ERR_MAIN_FILE_TYPE, 1));
+	if (argv[1] && is_invalid_filename(argv[1]))
+			return (error_msg(ERR_MAIN_FILE_TYPE, 1));
 	else if (!(argv[1] && (fd = open(argv[1], O_RDONLY)) == -1))
 		(*data)->file_name = ft_strdup(argv[1]);
 	else
