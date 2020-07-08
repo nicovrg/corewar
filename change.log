@@ -1,0 +1,5 @@
+Release Candidate 0.1.0
+
+- asm is fully fonctionnal, some adjustment ,might be needed though
+- critical bugs still present (ex : [seg1])
+- code now on test
