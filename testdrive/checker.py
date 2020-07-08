@@ -1,5 +1,5 @@
-import os
 import sys
+import os
 import filecmp
 import subprocess
 
@@ -55,94 +55,58 @@ class Test:
 		self.out_own_path = out_own_path
 		self.out_model_path = out_model_path
 		self.result = -1
+		self.file_missing = 0
 
 	def run_test(self):
-		if (mode == "--oneline"):
+		if (mode is ""):
+			print(BPURPLE + TGREY + '<===== Test Source file : ' + ENDC + BPURPLE + self.file + ENDC + BPURPLE + TGREY + ' =====>' + ENDC)
+		elif (mode == "--oneline"):
 			print(BOLD + TCYAN + "Testing\t\t"  + self.file.ljust(20, ' ') + ENDC + '\t', end = '')
-			self.run_bins_oneline()
-		else:
-			print(BPURPLE + TGREY + '<===== Test Source file : ' + ENDC + BPURPLE + self.file + ENDC + BPURPLE + TGREY + ' =====>' + ENDC, end = '')
-			if self.run_bins_debug() == 0:
-				self.cmp_outputs()
+		self.run_bins()
+		if self.file_missing == 0:
+			self.cmp_outputs()
 
-	def __check_or_create_folders(self):
-		if os.path.isdir("./output") is False:
-			os.system("mkdir output")
-		if os.path.isdir("./output/own") is False:
-			os.system("mkdir output/own")
-		if os.path.isdir("./output/model") is False:
-			os.system("mkdir output/model")
-	
-	def run_bins_oneline(self):
-		file_missing = 0
+	def run_bins(self):
 		self.__check_or_create_folders()
+		self.__debug_print('\tCompiling with YOUR asm ...')
 		os.system(self.path_asm_own + ' src/' + self.file + ' > /dev/null')
 		if os.path.isfile('src/' + self.cor_file):
-			os.system('mv ' + self.src_cor_file + ' ' + self.out_own_path)
-		else:
-			file_missing = file_missing + 1
-			self.file_missing = 1
-		os.system(path_asm_model + ' src/' + self.file + ' > /dev/null')
-		if os.path.isfile('src/' + '/' + self.cor_file):
-			os.system('mv ' + self.src_cor_file + ' '+ self.out_model_path)
-		else:
-			file_missing = file_missing + 2
-		if file_missing == 3:
-			print('\t' + BOLD + TGREEN + '[SUCCESS]'.ljust(12, ' ') + ENDC + TGREEN + '(both missing)' + ENDC)
-			self.result = 1
-		elif file_missing != 0 and file_missing != 3:
-			print('\t' + BOLD + TRED + '[FAIL]'.ljust(12, ' ') + ENDC + TRED + '(behavior differ)' + ENDC)
-			self.result = 2
-		if (file_missing == 0):
-			diff = filecmp.cmp(self.out_own_path + self.cor_file, self.out_model_path + self.cor_file)
-			if diff is True:
-				print('\t' + BOLD + TGREEN + '[SUCCESS]'.ljust(12, ' ') + ENDC + TGREEN + '(output match)' + ENDC)
-				self.result = 0
-			else:
-				print('\t' + BOLD + TRED + '[FAIL]'.ljust(12, ' ') + ENDC + TRED + '(output dont match)' + ENDC)
-		return file_missing
-
-
-	def run_bins_debug(self):
-		file_missing = 0
-		self.__check_or_create_folders()
-		print('\tCompiling with YOUR asm ...')
-		cmd = self.path_asm_own + ' src/' + self.file + ' > /dev/null'
-		os.system(cmd)
-		if os.path.isfile('src/' + self.cor_file):
-			print('\town .cor is here')
+			self.__debug_print('\town .cor is here')
 			os.system('mv ' + self.src_cor_file + ' '+ self.out_own_path)
 		else:
-			file_missing = file_missing + 1
-			self.file_missing = 1
-			print('\t' + TYELLOW + 'No OUTPUTS for your ASM buddy' + ENDC + '\n')
-		
-		print('\n\tCompiling with 42 asm ...')
-		cmd = path_asm_model + ' src/' + self.file
+			self.file_missing += 1
+			self.__debug_print('\t' + TYELLOW + 'No OUTPUTS for your ASM buddy' + ENDC + '\n')
+		self.__debug_print('\n\tCompiling with 42 asm ...')
+		if mode is "":
+			cmd = path_asm_model + ' src/' + self.file
+		elif mode is "--oneline":
+			cmd = path_asm_model + ' src/' + self.file + ' > /dev/null'
 		os.system(cmd)
 		if os.path.isfile('src/' + '/' + self.cor_file):
-			print(UP_LINE + ERASE_LINE)
-			print('\t' + UP_LINE + 'model .cor is here\n')
+			self.__debug_print(UP_LINE + ERASE_LINE)
+			self.__debug_print('\t' + UP_LINE + 'model .cor is here\n')
 			os.system('mv ' + self.src_cor_file + ' '+ self.out_model_path)
 		else:
-			file_missing = file_missing + 2
-			print('\t' + TYELLOW + 'No OUTPUTS for 42 ASM' + ENDC + '\n')
-			
-		if file_missing == 3:
-			print('\t' + BGREEN + TGREY + '<===== BOTH MISSING =====>' + ENDC + '\n')
+			self.file_missing += 2
+			self.__debug_print('\t' + TYELLOW + 'No OUTPUTS for 42 ASM' + ENDC + '\n')
+		if self.file_missing == 3:
+			self.__debug_print('\t' + BGREEN + TGREY + '<===== BOTH MISSING =====>' + ENDC + '\n')
+			self.__one_line_print('\t' + BOLD + TGREEN + '[SUCCESS]'.ljust(12, ' ') + ENDC + TGREEN + '(both missing)' + ENDC)
 			self.result = 1
-		elif file_missing != 0 and file_missing != 3:
-			print('\t' + BYELLOW + TGREY + '<===== BEHAVIORS DIFFERS =====>' + ENDC + '\n')
+		elif self.file_missing != 0 and self.file_missing != 3:
+			self.__debug_print('\t' + BYELLOW + TGREY + '<===== BEHAVIORS DIFFERS =====>' + ENDC + '\n')
+			self.__one_line_print('\t' + BOLD + TRED + '[FAIL]'.ljust(12, ' ') + ENDC + TRED + '(behavior differ)' + ENDC)
 			self.result = 2
-		return file_missing
-	
+		
 	def cmp_outputs(self):
 		diff = filecmp.cmp(self.out_own_path + self.cor_file, self.out_model_path + self.cor_file)
 		if diff is True:
-			print('\t' + BGREEN + TGREY + '<===== SUCCESS =====>' + ENDC + '\n')
+			self.__debug_print('\t' + BGREEN + TGREY + '<===== SUCCESS =====>' + ENDC + '\n')
+			self.__one_line_print('\t' + BOLD + TGREEN + '[SUCCESS]'.ljust(12, ' ') + ENDC + TGREEN + '(output match)' + ENDC)
 			self.result = 0
 		else:
-			print('\t' + BRED + TGREY + '<===== FAIL =====>' + ENDC + '\n')
+			self.__debug_print('\t' + BRED + TGREY + '<===== FAIL =====>' + ENDC + '\n')
+			self.__one_line_print('\t' + BOLD + TRED + '[FAIL]'.ljust(12, ' ') + ENDC + TRED + '(output dont match)' + ENDC)
 			self.result = 3
 			hexa_own = subprocess.check_output('xxd ' + self.out_own_path + self.cor_file, shell=True, universal_newlines=True)
 			hexa_model = subprocess.check_output('xxd ' + self.out_model_path + self.cor_file, shell=True, universal_newlines=True)
@@ -152,18 +116,35 @@ class Test:
 			i = 0
 			while i < line_nb:
 				if hexa_own_lst[i] != hexa_model_lst[i]:
-					print("Own   :" + hexa_own_lst[i])
-					print("Model :" + hexa_model_lst[i])
-					print ("Diff at line " + str(i + 1) + " (" + hexa_own_lst[i][:9] + ")" + '\n')
+					self.__debug_print("Own   :" + hexa_own_lst[i])
+					self.__debug_print("Model :" + hexa_model_lst[i])
+					self.__debug_print ("Diff at line " + str(i + 1) + " (" + hexa_own_lst[i][:9] + ")" + '\n')
 					break
 				i = i + 1
-	
-	def clean_outputs(self):
-		cmd = 'rm ' + self.out_own_path + '*' + '&&' + 'rm ' + self.out_model_path + '*'
-		os.system(cmd)
+
+	def __check_or_create_folders(self):
+		if os.path.isdir("./output") is False:
+			os.system("mkdir output")
+		if os.path.isdir("./output/own") is False:
+			os.system("mkdir output/own")
+		if os.path.isdir("./output/model") is False:
+			os.system("mkdir output/model")
+
+	def __debug_print(self, string):
+		if mode is "":
+			print(string)
+
+	def __one_line_print(self, string):
+		if mode is "--oneline":
+			print(string)
 
 	def get_result(self):
 		return self.result
+
+	def clean_outputs(self):
+		cmd = 'rm ' + self.out_own_path + '*' + '&&' + 'rm ' + self.out_model_path + '*'
+		os.system(cmd)
+	
 
 class Run_Test:	
 	def __init__(self, lst_files):
@@ -202,14 +183,15 @@ class Run_Test:
 				self.behaviors_diff += 1
 			if current_res is FAILED:
 				self.failed += 1
-
+	
 	def print_results(self):
-		print(BLIGTH_BLUE + TGREY + '<===== SUMMARY =====>' + ENDC + '\n')
+		print("\n" + BLIGTH_BLUE + TGREY + '<===== SUMMARY =====>' + ENDC + '\n')
 		print("Total files :", self.files_nb)
 		print("Success :", self.successes)
 		print("Both missing :", self.both_missing)
 		print("Behaviors differs :", self.behaviors_diff)
 		print("Failed :", self.failed)
+	
 
 tests = Run_Test(files)
 tests.run()
