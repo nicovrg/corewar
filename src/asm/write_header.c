@@ -44,6 +44,7 @@ static void	write_name(t_data *data, int fd)
 	char name_binary[128];
 	char padding_binary[4];
 
+	ft_printf("name : %s\n", data->name);
 	ft_bzero(&name_binary, 128);
 	ft_strcpy(name_binary, data->name);
 	write(fd, name_binary, 128);

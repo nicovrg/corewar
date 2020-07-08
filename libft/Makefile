@@ -26,7 +26,7 @@ SRC_LIBFT := $(addprefix $(PATH_LIB)/, $(SRC_LIBFT))
 OBJ_LIBFT := $(addprefix $(PATH_OBJ)/, $(OBJ_LIBFT))
 
 CC =						gcc
-CFLAGS =					-Wall -Wextra -Werror
+CFLAGS =					-Wall -Wextra -Werror -g3
 CPPFLAGS =					-MMD -MP -I $(PATH_INC)
 DEPS =						$(subst .o,.d,$(OBJ))
 

@@ -6,7 +6,7 @@
 /*   By: amamy <amamy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/23 04:24:28 by nivergne          #+#    #+#             */
-/*   Updated: 2020/02/08 22:11:52 by amamy            ###   ########.fr       */
+/*   Updated: 2020/07/08 23:33:45 by amamy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,10 +71,10 @@ int					lexer(int fd, t_data **data, t_code_line **c_line)
 		if (!(line && (!line[0] || is_str_whitespace_or_comment(line))))
 		{
 			if (!(new_c_line = create_code_line(line, index)))
-				return (error_msg(ERR_LEXER_NODE_CREATE, 0));
+				error_msg_close_fd(ERR_LEXER_NODE_CREATE, 0, fd);
 			chain_code_line(&current_c_line, new_c_line);
 			if (!get_tokens_from_current_line(&current_c_line, line))
-				return (error_msg("error in lexer", 0));
+				error_msg_close_fd("error in lexer", 0, fd);
 			if ((*current_c_line).errors && !(*data)->errors)
 				(*data)->errors = LINE_ERROR_LEXICAL;
 			if (!(*c_line))
@@ -83,5 +83,6 @@ int					lexer(int fd, t_data **data, t_code_line **c_line)
 		ft_strdel(&line);
 		index++;
 	}
+	close(fd);
 	return (1);
 }

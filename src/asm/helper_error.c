@@ -6,7 +6,7 @@
 /*   By: amamy <amamy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/07 15:32:54 by qgirard           #+#    #+#             */
-/*   Updated: 2020/03/01 18:45:12 by amamy            ###   ########.fr       */
+/*   Updated: 2020/07/08 23:31:58 by amamy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,10 @@ static void	report_error(t_token *token)
 
 int		error_code_line(t_code_line *line, int error_syntax_token, int error_code)
 {
-	ft_putendl("coucou");
-	line->errors = line->errors + error_syntax_token;
+	if (error_syntax_token == MEMORY_ALLOCATION_ERROR)
+		line->errors = error_syntax_token;
+	else
+		line->errors = line->errors + error_syntax_token;
 	return (error_code);
 }
 
@@ -40,6 +42,12 @@ int		error_syntax_token(t_token *token, int error_syntax_token, int error_code)
 		token->error = error_syntax_token;
 	report_error(token);
 	return (error_code);
+}
+
+int		error_msg_close_fd(char *error_txt, int error_code, int fd)
+{
+	close(fd);
+	return (error_msg(error_txt, error_code));
 }
 
 int		error_msg(char *error_msg, int error_code)

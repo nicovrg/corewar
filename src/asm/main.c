@@ -6,7 +6,7 @@
 /*   By: amamy <amamy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/05 14:21:47 by qgirard           #+#    #+#             */
-/*   Updated: 2020/07/07 21:03:59 by amamy            ###   ########.fr       */
+/*   Updated: 2020/07/08 22:50:58 by amamy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,7 +125,7 @@ int				main(int argc, char **argv)
 	data = NULL;
 	code_line = NULL;
 	if ((fd = check_args_and_open_files(argc, argv, &data)) == 1)
-		return (-1);
+		return (free_data(&data));
 	if (!header(fd, &data))
 		return (free_data(&data));
 	data->op_tab = op_tab;
@@ -141,7 +141,6 @@ int				main(int argc, char **argv)
 			return (free_all(&data, &code_line));
 		display_code(code_line);
 	}
-	// print_code_lines(&data, &code_line);
 	free_all(&data, &code_line);
 	return (0);
 }

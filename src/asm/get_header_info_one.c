@@ -6,7 +6,7 @@
 /*   By: amamy <amamy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 23:44:32 by amamy             #+#    #+#             */
-/*   Updated: 2020/02/25 12:32:01 by amamy            ###   ########.fr       */
+/*   Updated: 2020/07/08 23:56:32 by amamy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ int		little_parsing(char *line, t_data **data)
 			return (1);
 		}
 		else if (line[i] != '.')
-			return (error_msg("Unknown token in header", 0));
+			return (0);
 		i++;
 	}
 	return (1);
@@ -108,9 +108,11 @@ int		header(int fd, t_data **data)
 			i++;
 		if (line && (!is_comment_char(line[i]) || !ft_strcmp(line, "")))
 			if (!little_parsing(line, data))
-				return (error_msg("Fail in header", 0));
+				return(error_msg_close_fd("Header's syntax not recognised", 0, fd));
 		(*data)->index_line++;
 		ft_strdel(&line);
 	}
+	if ((*data)->index_line == 1 && line == 0)
+		return(error_msg_close_fd("Empty file", 0, fd));
 	return (1);
 }

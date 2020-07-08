@@ -6,7 +6,7 @@
 /*   By: amamy <amamy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/28 13:18:15 by amamy             #+#    #+#             */
-/*   Updated: 2020/07/01 15:05:43 by amamy            ###   ########.fr       */
+/*   Updated: 2020/07/08 22:22:09 by amamy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,8 @@ static int	is_param_parsed_or_error(t_token *token, int current_param)
 {
 	if (token->code_line->errors || token->error)
 	{
-		token->code_line->errors = LINE_ERROR_SYNTAX;
+		if (token->code_line->errors != MEMORY_ALLOCATION_ERROR)
+			token->code_line->errors = LINE_ERROR_SYNTAX;
 		return (1);
 	}
 	if (token->values->instruction->args[current_param] == NULL)
