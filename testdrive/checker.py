@@ -66,22 +66,6 @@ class Test:
 		if self.file_missing == 0:
 			self.cmp_outputs()
 
-	def __check_or_create_folders(self):
-		if os.path.isdir("./output") is False:
-			os.system("mkdir output")
-		if os.path.isdir("./output/own") is False:
-			os.system("mkdir output/own")
-		if os.path.isdir("./output/model") is False:
-			os.system("mkdir output/model")
-
-	def __debug_print(self, string):
-		if mode is "":
-			print(string)
-
-	def __one_line_print(self, string):
-		if mode is "--oneline":
-			print(string)
-
 	def run_bins(self):
 		self.__check_or_create_folders()
 		self.__debug_print('\tCompiling with YOUR asm ...')
@@ -137,13 +121,30 @@ class Test:
 					self.__debug_print ("Diff at line " + str(i + 1) + " (" + hexa_own_lst[i][:9] + ")" + '\n')
 					break
 				i = i + 1
-	
-	def clean_outputs(self):
-		cmd = 'rm ' + self.out_own_path + '*' + '&&' + 'rm ' + self.out_model_path + '*'
-		os.system(cmd)
+
+	def __check_or_create_folders(self):
+		if os.path.isdir("./output") is False:
+			os.system("mkdir output")
+		if os.path.isdir("./output/own") is False:
+			os.system("mkdir output/own")
+		if os.path.isdir("./output/model") is False:
+			os.system("mkdir output/model")
+
+	def __debug_print(self, string):
+		if mode is "":
+			print(string)
+
+	def __one_line_print(self, string):
+		if mode is "--oneline":
+			print(string)
 
 	def get_result(self):
 		return self.result
+
+	def clean_outputs(self):
+		cmd = 'rm ' + self.out_own_path + '*' + '&&' + 'rm ' + self.out_model_path + '*'
+		os.system(cmd)
+	
 
 class Run_Test:	
 	def __init__(self, lst_files):
@@ -166,10 +167,6 @@ class Run_Test:
 			self.tmp_test = Test(file, path_asm_own, path_asm_model, out_own_path, out_model_path)
 			self.lst_tests.append(self.tmp_test)
 
-	def run_tests(self):
-		for test in self.lst_tests:
-			test.run_test()
-
 	def count_results(self):
 		current_res = 0
 		for test in self.lst_tests:
@@ -182,7 +179,7 @@ class Run_Test:
 				self.behaviors_diff += 1
 			if current_res is FAILED:
 				self.failed += 1
-
+	
 	def print_results(self):
 		print("\n" + BLIGTH_BLUE + TGREY + '<===== SUMMARY =====>' + ENDC + '\n')
 		print("Total files :", self.files_nb)
@@ -190,6 +187,7 @@ class Run_Test:
 		print("Both missing :", self.both_missing)
 		print("Behaviors differs :", self.behaviors_diff)
 		print("Failed :", self.failed)
+	
 
 tests = Run_Test(files)
 tests.run()
