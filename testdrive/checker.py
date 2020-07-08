@@ -167,6 +167,10 @@ class Run_Test:
 			self.tmp_test = Test(file, path_asm_own, path_asm_model, out_own_path, out_model_path)
 			self.lst_tests.append(self.tmp_test)
 
+	def run_tests(self):
+		for test in self.lst_tests:
+			test.run_test()
+
 	def count_results(self):
 		current_res = 0
 		for test in self.lst_tests:
