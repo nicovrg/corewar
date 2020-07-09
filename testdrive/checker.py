@@ -28,6 +28,25 @@ os.system('clear')
 args = sys.argv
 files = []
 mode = ""
+src_mode = False
+src_folder = "f "
+oneline_mode = False
+
+def check_args(args):
+	print("\n\n")
+	print(src_folder)
+	for arg in enumerate(args):
+		print("current arg :", arg[1])
+		if arg[1] == "-f":
+			try:
+				if os.path.isdir(args[arg[0] + 1]):
+					src_mode = True
+					src_folder = args[arg[0] + 1]
+				else:
+					print("Wrong path")
+			except:
+				print("Not valid folder path")
+	print("folder : ", src_folder)
 
 if (len(args) > 1 and args[1] == "--oneline"):
 	args.pop(1)
@@ -58,7 +77,7 @@ class Test:
 		self.file_missing = 0
 
 	def run_test(self):
-		if (mode is ""):
+		if (mode == ""):
 			print(BPURPLE + TGREY + '<===== Test Source file : ' + ENDC + BPURPLE + self.file + ENDC + BPURPLE + TGREY + ' =====>' + ENDC)
 		elif (mode == "--oneline"):
 			print(BOLD + TCYAN + "Testing\t\t"  + self.file.ljust(20, ' ') + ENDC + '\t', end = '')
@@ -77,9 +96,9 @@ class Test:
 			self.file_missing += 1
 			self.__debug_print('\t' + TYELLOW + 'No OUTPUTS for your ASM buddy' + ENDC + '\n')
 		self.__debug_print('\n\tCompiling with 42 asm ...')
-		if mode is "":
+		if mode == "":
 			cmd = path_asm_model + ' src/' + self.file
-		elif mode is "--oneline":
+		elif mode == "--oneline":
 			cmd = path_asm_model + ' src/' + self.file + ' > /dev/null'
 		os.system(cmd)
 		if os.path.isfile('src/' + '/' + self.cor_file):
@@ -95,7 +114,7 @@ class Test:
 			self.result = 1
 		elif self.file_missing != 0 and self.file_missing != 3:
 			self.__debug_print('\t' + BYELLOW + TGREY + '<===== BEHAVIORS DIFFERS =====>' + ENDC + '\n')
-			self.__one_line_print('\t' + BOLD + TRED + '[FAIL]'.ljust(12, ' ') + ENDC + TRED + '(behavior differ)' + ENDC)
+			self.__one_line_print('\t' + BOLD + TRED + '[FAIL]'.ljust(12, ' ') + ENDC + TYELLOW + '(behavior differ)' + ENDC)
 			self.result = 2
 		
 	def cmp_outputs(self):
@@ -131,11 +150,11 @@ class Test:
 			os.system("mkdir output/model")
 
 	def __debug_print(self, string):
-		if mode is "":
+		if mode == "":
 			print(string)
 
 	def __one_line_print(self, string):
-		if mode is "--oneline":
+		if mode == "--oneline":
 			print(string)
 
 	def get_result(self):
@@ -195,3 +214,4 @@ class Run_Test:
 
 tests = Run_Test(files)
 tests.run()
+# check_args(args)

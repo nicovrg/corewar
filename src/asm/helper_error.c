@@ -6,7 +6,7 @@
 /*   By: amamy <amamy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/07 15:32:54 by qgirard           #+#    #+#             */
-/*   Updated: 2020/07/08 23:31:58 by amamy            ###   ########.fr       */
+/*   Updated: 2020/07/09 23:51:28 by amamy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static void	report_error(t_token *token)
 int		error_code_line(t_code_line *line, int error_syntax_token, int error_code)
 {
 	if (error_syntax_token == MEMORY_ALLOCATION_ERROR)
-		line->errors = error_syntax_token;
+		line->errors = MEMORY_ALLOCATION_ERROR;
 	else
 		line->errors = line->errors + error_syntax_token;
 	return (error_code);

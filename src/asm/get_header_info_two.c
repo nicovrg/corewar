@@ -6,7 +6,7 @@
 /*   By: amamy <amamy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 23:44:32 by amamy             #+#    #+#             */
-/*   Updated: 2020/02/08 20:30:14 by amamy            ###   ########.fr       */
+/*   Updated: 2020/07/09 23:51:28 by amamy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,9 +61,19 @@ int		get_string_child(t_data **data, char *str, int mode, int i)
 	else
 	{
 		if (mode == 1)
-			(*data)->name = ft_strndup(&str[i], j);
+		{
+			if (!((*data)->name = ft_strndup(&str[i], j)))
+				return (error_msg("Memory Allocation error", -1));
+			if (ft_strlen((*data)->name) > 127)
+				return (error_msg("Champion name too long (Max length 128)", -1));
+		}
 		else if (mode == 2)
-			(*data)->comment = ft_strndup(&str[i], j);
+		{
+			if (!((*data)->comment = ft_strndup(&str[i], j)))
+				return (error_msg("Memory Allocation error", -1));
+			if (ft_strlen((*data)->comment) > 2047)
+				return (error_msg("Champion name too long (Max length 2048)", -1));
+		}
 		return (1);
 	}
 }
