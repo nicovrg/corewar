@@ -15,6 +15,7 @@ BLIGTH_BLUE = '\033[104m' # BLUE Background
 TMAGENTA = '\033[35m'
 BRED = '\033[41m' # RED Background
 ENDC = '\033[m' # reset to the defaults
+
 UP_LINE = '\033[A'
 ERASE_LINE = '\033[2K'
 BOLD = '\033[1m'
@@ -31,6 +32,7 @@ mode = ""
 src_mode = False
 src_folder = "f "
 oneline_mode = False
+leaks_mode = False
 
 def check_args(args):
 	print("\n\n")
@@ -52,10 +54,14 @@ if (len(args) > 1 and args[1] == "--oneline"):
 	args.pop(1)
 	mode = "--oneline"
 
-if len(args) > 1:
-	args.pop(0)
+if (len(args) > 1 and "--leaks" in args):
+	leaks_mode = True
+
+if len(args) > 1 and "-f" in args:
 	for arg in args:
-		files = files + [arg + '.s']
+		if arg[-2:] == ".s":
+			files = [arg]
+			break
 else:
 	files = os.listdir('./src')
 
@@ -86,9 +92,12 @@ class Test:
 			self.cmp_outputs()
 
 	def run_bins(self):
+		print("\n\n WE RUN BINS\n\n")
 		self.__check_or_create_folders()
 		self.__debug_print('\tCompiling with YOUR asm ...')
 		os.system(self.path_asm_own + ' src/' + self.file + ' > /dev/null')
+		if leaks_mode:
+			subprocess.run(["/usr/bin/valgrind", self.path_asm_own , str("src/" + self.file)], stdout=subprocess.PIPE).stdout
 		if os.path.isfile('src/' + self.cor_file):
 			self.__debug_print('\town .cor is here')
 			os.system('mv ' + self.src_cor_file + ' '+ self.out_own_path)
