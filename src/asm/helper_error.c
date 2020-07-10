@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   helper_error.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amamy <amamy@student.42.fr>                +#+  +:+       +#+        */
+/*   By: nico <nico@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/07 15:32:54 by qgirard           #+#    #+#             */
-/*   Updated: 2020/07/09 23:51:28 by amamy            ###   ########.fr       */
+/*   Updated: 2020/07/10 22:50:43 by nico             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,22 @@ int		error_syntax_token(t_token *token, int error_syntax_token, int error_code)
 	return (error_code);
 }
 
+int		error_and_free_line(char **line)
+{
+	ft_strdel(line);
+	return (0);
+}
+
 int		error_msg_close_fd(char *error_txt, int error_code, int fd)
 {
+	close(fd);
+	return (error_msg(error_txt, error_code));
+}
+
+
+int		error_msg_close_fd_and_free_line(char *error_txt, char **line, int error_code, int fd)
+{
+	ft_strdel(line);
 	close(fd);
 	return (error_msg(error_txt, error_code));
 }

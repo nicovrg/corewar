@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   asm.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amamy <amamy@student.42.fr>                +#+  +:+       +#+        */
+/*   By: nico <nico@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/21 01:21:58 by nivergne          #+#    #+#             */
-/*   Updated: 2020/07/08 23:32:36 by amamy            ###   ########.fr       */
+/*   Updated: 2020/07/10 22:50:32 by nico             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -207,6 +207,8 @@ void					write_instruction(t_data *data, t_code_line *code_line, int fd);
 /* helper_error.c */
 int						error_msg(char *error_msg, int i);
 int						error_msg_close_fd(char *error_txt, int error_code, int fd);
+int						error_and_free_line(char **line);
+int						error_msg_close_fd_and_free_line(char *error_txt, char **line, int error_code, int fd);
 int						asm_usage(int i);
 int						error_while_gnl(char **line, char *error_msg);
 int						error_syntax_token(t_token *token, int	error_syntax_token, int error_code);

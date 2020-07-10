@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_header_info_one.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amamy <amamy@student.42.fr>                +#+  +:+       +#+        */
+/*   By: nico <nico@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 23:44:32 by amamy             #+#    #+#             */
-/*   Updated: 2020/07/09 23:51:29 by amamy            ###   ########.fr       */
+/*   Updated: 2020/07/10 22:48:31 by nico             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,12 +126,14 @@ int		header(int fd, t_data **data)
 		while (is_whitespace(line[i]))
 			i++;
 		if (line && (!is_comment_char(line[i]) || !ft_strcmp(line, "")))
+		{
 			if (!(ret = little_parsing(line, data)))
-				return(error_msg_close_fd("Header's syntax not recognised", 0, fd));
+				return(error_msg_close_fd_and_free_line("Header's syntax not recognised", &line, 0, fd));
+		}
 		if (ret == -1)
-			return (0);
+			return (error_and_free_line(&line));
 		(*data)->index_line++;
-		ft_strdel(&line);
+		ft_strdel(&line); 
 	}
 	if ((*data)->index_line == 1 && line == 0)
 		return(error_msg_close_fd("Empty file", 0, fd));
