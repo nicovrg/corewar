@@ -1,4 +1,9 @@
-obj
-vm_champs/
+.gitignore
 .vscode
-testdrive/src/test.s
+obj
+asm
+corewar
+vm_champs/
+testdrive/src/
+testdrive/output/
+testdrive/srcbis/
