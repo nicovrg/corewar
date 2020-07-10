@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amamy <amamy@student.42.fr>                +#+  +:+       +#+        */
+/*   By: nico <nico@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/19 02:56:10 by amamy             #+#    #+#             */
-/*   Updated: 2020/07/08 22:31:24 by amamy            ###   ########.fr       */
+/*   Updated: 2020/07/11 01:33:15 by nico             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,6 +107,8 @@ int					parser(t_data **data, t_code_line **code_line)
 	current_byte = 0;
 	inst_token_position = 0;
 	current_line = (*code_line);
+	if (current_line == NULL)
+		return (0);
 	if (!(parse_label_declarations(*data, *code_line)))
 		return (0);
 	while (((current_line = skip_label_only_lines(current_line))))

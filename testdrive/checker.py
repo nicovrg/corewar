@@ -86,13 +86,12 @@ class Test:
 		if (mode == ""):
 			print(BPURPLE + TGREY + '<===== Test Source file : ' + ENDC + BPURPLE + self.file + ENDC + BPURPLE + TGREY + ' =====>' + ENDC)
 		elif (mode == "--oneline"):
-			print(BOLD + TCYAN + "Testing\t\t"  + self.file.ljust(20, ' ') + ENDC + '\t', end = '')
+			print(BOLD + TCYAN + "Testing\t\t"  + self.file.ljust(40, ' ') + ENDC + '\t', end = '')
 		self.run_bins()
 		if self.file_missing == 0:
 			self.cmp_outputs()
 
 	def run_bins(self):
-		print("\n\n WE RUN BINS\n\n")
 		self.__check_or_create_folders()
 		self.__debug_print('\tCompiling with YOUR asm ...')
 		os.system(self.path_asm_own + ' src/' + self.file + ' > /dev/null')
